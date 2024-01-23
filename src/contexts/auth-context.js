@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
@@ -128,15 +129,17 @@ export const AuthProvider = (props) => {
   };
 
   const signIn = async (email, password) => {
-    if (email !== 'demo@devias.io' || password !== 'Password123!') {
-      throw new Error('Please check your email and password');
-    }
-
     try {
       window.sessionStorage.setItem('authenticated', 'true');
     } catch (err) {
       console.error(err);
     }
+
+    const credentials = {username: email, password: password}
+    const response = await axios.post('http://34.32.24.91:5001/api/user/post/login', credentials);
+    const data = response.data;
+
+    console.log('Login response data: ', data);
 
     const user = {
       id: '5e86809283e28b96d2d38537',
