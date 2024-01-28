@@ -135,23 +135,26 @@ export const AuthProvider = (props) => {
       console.error(err);
     }
 
-    const credentials = {username: email, password: password}
-    const response = await axios.post('http://34.32.24.91:5001/api/user/post/login', credentials);
-    const data = response.data;
+    const credentials = { username: email, password: password };
 
-    console.log('Login response data: ', data);
+    
+      const response = await axios.post('http://34.32.24.91:5001/api/user/post/login', credentials);
+      const data = response.data;
 
-    const user = {
-      id: '5e86809283e28b96d2d38537',
-      avatar: '/assets/avatars/avatar-anika-visser.png',
-      name: 'Anika Visser',
-      email: 'anika.visser@devias.io'
-    };
+      console.log('Login response data: ', data);
 
-    dispatch({
-      type: HANDLERS.SIGN_IN,
-      payload: user
-    });
+      const user = {
+        id: '5e86809283e28b96d2d38537',
+        avatar: '/assets/avatars/avatar-anika-visser.png',
+        name: 'Anika Visser',
+        email: 'anika.visser@devias.io'
+      };
+
+      dispatch({
+        type: HANDLERS.SIGN_IN,
+        payload: user
+      });
+    
   };
 
   const signUp = async (email, name, password) => {

@@ -39,8 +39,8 @@ const Page = () => {
         await auth.signIn(values.email, values.password);
         router.push('/');
       } catch (err) {
-        if (err.message.includes('Request failed with status code 400')) {
-          helpers.setErrors({ submit: "Feil brukernavn eller passord" });
+        if (err.response && err.response.data && err.response.data.Error) {
+          helpers.setErrors({ submit: err.response.data.Error });
         } else if (err.message.includes('Network Error')) {
           helpers.setErrors({ submit: "Ooops! Nettverk eller server feil" });
         } else {
