@@ -15,6 +15,8 @@ import {
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { CompanyCard } from 'src/sections/companies/company-card';
 import { CompaniesSearch } from 'src/sections/companies/companies-search';
+//Hele denne siden kan vel fjernes? ingen bruk for den.
+
 
 const companies = [
   {
@@ -170,5 +172,7 @@ Page.getLayout = (page) => (
     {page}
   </DashboardLayout>
 );
+
+
 
 export default Page;

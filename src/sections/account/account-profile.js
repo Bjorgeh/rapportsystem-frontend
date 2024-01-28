@@ -14,7 +14,7 @@ const user = {
   city: 'Los Angeles',
   country: 'USA',
   jobTitle: 'Senior Developer',
-  name: 'Anika Visser',
+  name: ' Visser',
   timezone: 'GTM-7'
 };
 
@@ -57,6 +57,10 @@ export const AccountProfile = () => (
       </Box>
     </CardContent>
     <Divider />
+    
+    {/*Kommentert ut for å fjerne muligheten for å laste opp bilde da dette ikke er ment å gå..*/}
+
+    {/*
     <CardActions>
       <Button
         fullWidth
@@ -65,5 +69,6 @@ export const AccountProfile = () => (
         Upload picture
       </Button>
     </CardActions>
+        */}
   </Card>
 );
