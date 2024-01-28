@@ -10,34 +10,26 @@ import {
   TextField,
   Unstable_Grid2 as Grid
 } from '@mui/material';
-
+//Flere deler av landet kan legges til.
 const states = [
   {
-    value: 'alabama',
-    label: 'Alabama'
+    value: 'Kongsberg',
+    label: 'Kongsberg'
   },
   {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  },
-  {
-    value: 'los-angeles',
-    label: 'Los Angeles'
+    value: 'Oslo',
+    label: 'Oslo'
   }
 ];
-
+//Dette peker på "account"-siden. I praksis er det profil-siden til brukeren.
 export const AccountProfileDetails = () => {
   const [values, setValues] = useState({
-    firstName: 'Anika',
-    lastName: 'Visser',
-    email: 'demo@devias.io',
-    phone: '',
-    state: 'los-angeles',
-    country: 'USA'
+    firstName: 'Ola',
+    lastName: 'Nordmann',
+    email: 'OlaNordmann@devias.io',
+    phone: '12345678',
+    state: 'Kongsberg',
+    country: 'Norge'
   });
 
   const handleChange = useCallback(
@@ -65,8 +57,8 @@ export const AccountProfileDetails = () => {
     >
       <Card>
         <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
+          subheader="Profilinfo"
+          title="Profil"
         />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
@@ -78,6 +70,7 @@ export const AccountProfileDetails = () => {
                 xs={12}
                 md={6}
               >
+                
                 <TextField
                   fullWidth
                   helperText="Please specify the first name"
@@ -86,7 +79,8 @@ export const AccountProfileDetails = () => {
                   onChange={handleChange}
                   required
                   value={values.firstName}
-                />
+                 />
+                 
               </Grid>
               <Grid
                 xs={12}
@@ -133,8 +127,8 @@ export const AccountProfileDetails = () => {
               >
                 <TextField
                   fullWidth
-                  label="Country"
-                  name="country"
+                  label="Land"
+                  name="Land"
                   onChange={handleChange}
                   required
                   value={values.country}
@@ -146,8 +140,8 @@ export const AccountProfileDetails = () => {
               >
                 <TextField
                   fullWidth
-                  label="Select State"
-                  name="state"
+                  label="Velg by"
+                  name="By"
                   onChange={handleChange}
                   required
                   select
@@ -170,7 +164,7 @@ export const AccountProfileDetails = () => {
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
           <Button variant="contained">
-            Save details
+            Lagre
           </Button>
         </CardActions>
       </Card>

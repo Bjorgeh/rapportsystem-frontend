@@ -12,7 +12,7 @@ import { CustomersSearch } from 'src/sections/customer/customers-search';
 import { applyPagination } from 'src/utils/apply-pagination';
 
 const now = new Date();
-
+//Dette er en liste over kunder. Denne kan fjernes.
 const data = [
   {
     id: '5e887ac47eed253091be10cb',
