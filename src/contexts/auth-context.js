@@ -138,7 +138,7 @@ export const AuthProvider = (props) => {
     const credentials = { username: email, password: password };
 
     
-      const response = await axios.post('http://34.32.24.91:5001/api/user/post/login', credentials);
+      const response = await axios.post('http://34.118.39.66:5001/api/user/post/login', credentials);
       const data = response.data;
 
       console.log('Login response data: ', data);
