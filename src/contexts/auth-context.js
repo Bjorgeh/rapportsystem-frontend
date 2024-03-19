@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+//import { access } from 'fs';
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
@@ -130,42 +131,65 @@ export const AuthProvider = (props) => {
 
   const signIn = async (email, password) => {
     try {
+      // Sett authenticated til true i sessionStorage
       window.sessionStorage.setItem('authenticated', 'true');
     } catch (err) {
       console.error(err);
     }
-
+  
     const credentials = { username: email, password: password };
-
-    
+  
+    try {
       const response = await axios.post('http://34.116.241.11:5001/api/user/post/login', credentials);
       const data = response.data;
-
+  
       console.log('Login response data: ', data);
-
-      const user = {
-        id: '5e86809283e28b96d2d38537',
-        avatar: '/assets/avatars/avatar-anika-visser.png',
-        name: 'Anika Visser',
-        email: 'anika.visser@devias.io'
-      };
-
+  
+      // Lagre brukerobjektet og tilgangstokenet i sessionStorage
+      window.sessionStorage.setItem('user', JSON.stringify(data.user));
+      window.sessionStorage.setItem('accessToken', data.access_token);
+  
+      // Bruk dispatch for å oppdatere tilstanden med brukerdataene
       dispatch({
         type: HANDLERS.SIGN_IN,
-        payload: user
+        payload: data.user
       });
-    
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
   };
-
   const signUp = async (email, name, password) => {
-    throw new Error('Sign up is not implemented');
+    try {
+      // Implementer logikken for å registrere brukeren her
+      // For eksempel, send en forespørsel til serveren for å opprette en ny brukerkonto
+      console.log('Sign up logic goes here...');
+    } catch (error) {
+      console.error('Error during sign up:', error);
+    }
   };
 
   const signOut = () => {
-    dispatch({
-      type: HANDLERS.SIGN_OUT
-    });
+    try {
+      // Implementer logikken for utlogging her
+      console.log('Signing out...');
+      // Fjern brukerinformasjon fra sessionStorage eller lignende hvis nødvendig
+    } catch (error) {
+      console.error('Error during sign out:', error);
+    }
   };
+  
+  AuthProvider.propTypes = {
+    children: PropTypes.node,
+    signUp: PropTypes.func,
+    signOut: PropTypes.func // Legg til signOut i prop types
+  };
+  
+  
+  AuthProvider.propTypes = {
+    children: PropTypes.node,
+    signUp: PropTypes.func // Oppdater prop types for å inkludere signUp-funksjonen
+  };
+  
 
   return (
     <AuthContext.Provider
