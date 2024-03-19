@@ -1,18 +1,18 @@
 import Head from 'next/head';
 import NextLink from 'next/link';
-import { useRouter } from 'next/router'; // Endret fra next/navigation til next/router
+import { useRouter } from 'next/router'; 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Link, Stack, TextField, Typography } from '@mui/material';
 import { useAuth } from 'src/hooks/use-auth';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { useEffect, useState } from 'react'; // Importer useEffect og useState
+import { useEffect, useState } from 'react'; 
 
 const Page = () => {
   const router = useRouter();
   const auth = useAuth();
-  const [user, setUser] = useState(null); // Lagrer brukerinformasjonen i state
+  const [user, setUser] = useState(null); 
 
   useEffect(() => {
     const userString = window.sessionStorage.getItem('user');
@@ -20,59 +20,51 @@ const Page = () => {
     setUser(parsedUser);
   }, []);
 
-  // Sjekk om brukeren er logget inn og om accountType er admin
   useEffect(() => {
     if (user && user.accountType !== 'admin') {
       router.push('/');
     }
   }, [user, router]);
 
-  const [tableNames, setTableNames] = useState([]); // Setter opp en state for tabellnavnene
+  const [tableNames, setTableNames] = useState([]); 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Hent token fra autentiseringskonteksten
         const accessToken = window.sessionStorage.getItem('accessToken');
     
-        // Send en GET forespørsel til API-endepunktet med Authorization header som inneholder bearer token
         const response = await fetch('http://34.116.241.11:5001/api/user/get/rapportInfo', {
           headers: {
-            Authorization: `Bearer ${accessToken}` // Legg til bearer token i Authorization-overskriften
+            Authorization: `Bearer ${accessToken}` 
           }
         });
     
-        // Sjekk om responsen er ok
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
     
-        // Konverter responsen til JSON-format
         const data = await response.json();
   
-        console.log('Data:', data);
-    
-        // Hent ut tabellnavnene fra responsen og legg dem i en liste
         const names = Object.keys(data.Table_descriptions.Tables);
     
-        // Sett tabellnavnene i state
         setTableNames(names);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    // Kjør fetchData-funksjonen for å hente data
     fetchData();
   }, []);
+
+  const [successMessage, setSuccessMessage] = useState(null); 
 
   const formik = useFormik({
     initialValues: {
       email: '',
       name: '',
       password: '',
-      selectedTable: '', // Sett initialverdi for selectedTable til et tomt streng
-      accountTypeSelectLabel: '' // Legg til initialverdi for accountTypeSelectLabel
+      selectedTable: '',
+      accountTypeSelectLabel: ''
     },
     validationSchema: Yup.object({
       email: Yup
@@ -90,7 +82,7 @@ const Page = () => {
         let apiUrl = '';
         let requestData = {};
   
-        const accessToken = window.sessionStorage.getItem('accessToken'); // Hent bearer token fra sessionStorage
+        const accessToken = window.sessionStorage.getItem('accessToken'); 
   
         if (values.accountTypeSelectLabel === 'leader') {
           apiUrl = 'http://34.116.241.11:5001/api/admin/post/createSubLeader';
@@ -103,7 +95,7 @@ const Page = () => {
           requestData = {
             email: values.email,
             password: values.password,
-            rapportName: values.selectedTable // Endre fra reportName til rapportName
+            rapportName: values.selectedTable 
           };
         }
   
@@ -111,7 +103,7 @@ const Page = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}` // Legg til bearer token i Authorization header
+            'Authorization': `Bearer ${accessToken}` 
           },
           body: JSON.stringify(requestData)
         });
@@ -120,7 +112,8 @@ const Page = () => {
           throw new Error('Failed to create sub user');
         }
   
-        // Handle success scenario, for eksempel vise en suksessmelding eller navigere til en annen side
+        setSuccessMessage('Sub user created successfully'); 
+        formik.resetForm(); // Tøm skjemaet
       } catch (error) {
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: error.message });
@@ -129,10 +122,8 @@ const Page = () => {
     }
   });
   
-  
-
   if (!user || user.accountType !== 'admin') {
-    return null; // Hvis brukeren ikke er logget inn eller ikke har admin-tilgang, returner null for å unngå at komponenten rendres
+    return null; 
   }
 
   return (
@@ -212,9 +203,9 @@ const Page = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 name="selectedTable"
-                disabled={formik.values.accountTypeSelectLabel === 'leader'} // Deaktiverer rapporttypefeltet når kontoen er en leder
+                disabled={formik.values.accountTypeSelectLabel === 'leader'} 
               >
-                {formik.values.accountTypeSelectLabel === 'leader' ? ( // Setter verdi til 'All' når kontoen er en leder
+                {formik.values.accountTypeSelectLabel === 'leader' ? ( 
                   <MenuItem value="All">All</MenuItem>
                 ) : (
                   tableNames.map((tableName) => (
@@ -256,6 +247,15 @@ const Page = () => {
                   variant="body2"
                 >
                   {formik.errors.submit}
+                </Typography>
+              )}
+              {successMessage && ( 
+                <Typography
+                  color="success"
+                  sx={{ mt: 3 }}
+                  variant="body2"
+                >
+                  {successMessage}
                 </Typography>
               )}
               <Button
