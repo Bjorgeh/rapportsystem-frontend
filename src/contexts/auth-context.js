@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useReducer, useRef } from 'react'
 import PropTypes from 'prop-types';
 import axios from 'axios';
 //import { access } from 'fs';
+import { API_BASE_URL } from 'src/config/apiConnection';
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
@@ -140,7 +141,7 @@ export const AuthProvider = (props) => {
     const credentials = { username: email, password: password };
   
     try {
-      const response = await axios.post('http://34.116.241.11:5001/api/user/post/login', credentials);
+      const response = await axios.post(API_BASE_URL+'api/user/post/login', credentials);
       const data = response.data;
   
       console.log('Login response data: ', data);
