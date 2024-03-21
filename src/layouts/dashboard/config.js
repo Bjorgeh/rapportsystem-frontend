@@ -64,8 +64,8 @@ export const items = [
     )
   },
   {
-    title: 'Register sub-user',
-    path: '/auth/newsubuser',
+    title: 'Admin Panel',
+    path: '/admin/adminpanel',
     icon: (
       <SvgIcon fontSize="small">
         <UserPlusIcon />

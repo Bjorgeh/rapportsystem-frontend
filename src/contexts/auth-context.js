@@ -131,17 +131,10 @@ export const AuthProvider = (props) => {
   };
 
   const signIn = async (email, password) => {
-    try {
-      // Sett authenticated til true i sessionStorage
-      window.sessionStorage.setItem('authenticated', 'true');
-    } catch (err) {
-      console.error(err);
-    }
-  
     const credentials = { username: email, password: password };
   
     try {
-      const response = await axios.post(API_BASE_URL+'api/user/post/login', credentials);
+      const response = await axios.post(API_BASE_URL + 'api/user/post/login', credentials);
       const data = response.data;
   
       console.log('Login response data: ', data);
@@ -149,6 +142,10 @@ export const AuthProvider = (props) => {
       // Lagre brukerobjektet og tilgangstokenet i sessionStorage
       window.sessionStorage.setItem('user', JSON.stringify(data.user));
       window.sessionStorage.setItem('accessToken', data.access_token);
+      window.sessionStorage.setItem('email', JSON.stringify(email));
+  
+      // Sett authenticated til true i sessionStorage etter vellykket innlogging
+      window.sessionStorage.setItem('authenticated', 'true');
   
       // Bruk dispatch for å oppdatere tilstanden med brukerdataene
       dispatch({
@@ -159,7 +156,8 @@ export const AuthProvider = (props) => {
       console.error('Error during login:', error);
     }
   };
-  const signUp = async (email, name, password) => {
+  
+  const signUp = async (email, password) => {
     try {
       // Implementer logikken for å registrere brukeren her
       // For eksempel, send en forespørsel til serveren for å opprette en ny brukerkonto
@@ -171,9 +169,12 @@ export const AuthProvider = (props) => {
 
   const signOut = () => {
     try {
-      // Implementer logikken for utlogging her
-      console.log('Signing out...');
-      // Fjern brukerinformasjon fra sessionStorage eller lignende hvis nødvendig
+      // Set authenticated to false in sessionStorage
+      window.sessionStorage.setItem('authenticated', 'false');
+      // Clear user data from sessionStorage
+      window.sessionStorage.removeItem('user');
+      window.sessionStorage.removeItem('accessToken');
+      window.sessionStorage.removeItem('email');
     } catch (error) {
       console.error('Error during sign out:', error);
     }
