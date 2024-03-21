@@ -14,10 +14,7 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 //import { table } from 'console';
-
-
-
-
+import { API_BASE_URL } from 'src/config/apiConnection';
 
 const now = new Date();
 
@@ -31,7 +28,7 @@ const Page = () => {
       try {
         const accessToken = window.sessionStorage.getItem('accessToken');
     
-        const response = await fetch('http://34.116.241.11:5001/api/user/get/rapportInfo', {
+        const response = await fetch(API_BASE_URL+'api/user/get/rapportInfo', {
           headers: {
             Authorization: `Bearer ${accessToken}` 
           }
@@ -46,7 +43,7 @@ const Page = () => {
         const names = Object.keys(data.Table_descriptions.Tables);
 
         setTableInfo(data.Table_descriptions.Tables);
-        console.log("hoppertau" + tableInfo);
+        //console.log("Rapport datatypes" + tableInfo);
         
         setTableNames(names);
       } catch (error) {

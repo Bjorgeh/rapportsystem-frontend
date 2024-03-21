@@ -8,6 +8,7 @@ import { useAuth } from 'src/hooks/use-auth';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useEffect, useState } from 'react'; 
+import { API_BASE_URL } from 'src/config/apiConnection';
 
 const Page = () => {
   const router = useRouter();
@@ -85,13 +86,13 @@ const Page = () => {
         const accessToken = window.sessionStorage.getItem('accessToken'); 
   
         if (values.accountTypeSelectLabel === 'leader') {
-          apiUrl = 'http://34.116.241.11:5001/api/admin/post/createSubLeader';
+          apiUrl = API_BASE_URL+'api/admin/post/createSubLeader';
           requestData = {
             email: values.email,
             password: values.password
           };
         } else if (values.accountTypeSelectLabel === 'operator') {
-          apiUrl = 'http://34.116.241.11:5001/api/admin/post/createSubOperator';
+          apiUrl = API_BASE_URL+'api/admin/post/createSubOperator';
           requestData = {
             email: values.email,
             password: values.password,
