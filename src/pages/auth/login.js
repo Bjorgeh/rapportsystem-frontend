@@ -37,7 +37,7 @@ const Page = () => {
     onSubmit: async (values, helpers) => {
       try {
         await auth.signIn(values.email, values.password);
-        router.push('/');
+        router.push('/'); // Redirect after successful login
       } catch (err) {
         if (err.response && err.response.data && err.response.data.Error) {
           helpers.setErrors({ submit: err.response.data.Error });

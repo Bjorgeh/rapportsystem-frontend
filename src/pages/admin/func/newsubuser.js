@@ -34,7 +34,7 @@ const Page = () => {
       try {
         const accessToken = window.sessionStorage.getItem('accessToken');
     
-        const response = await fetch('http://34.116.241.11:5001/api/user/get/rapportInfo', {
+        const response = await fetch(API_BASE_URL+'api/user/get/rapportInfo', {
           headers: {
             Authorization: `Bearer ${accessToken}` 
           }
@@ -158,21 +158,7 @@ const Page = () => {
               <Typography variant="h4">
                 Register sub user
               </Typography>
-              <Typography
-                color="text.secondary"
-                variant="body2"
-              >
-                Already have an account?
-                &nbsp;
-                <Link
-                  component={NextLink}
-                  href="/auth/login"
-                  underline="hover"
-                  variant="subtitle2"
-                >
-                  Log in
-                </Link>
-              </Typography>
+              
             </Stack>
             <form
               noValidate
