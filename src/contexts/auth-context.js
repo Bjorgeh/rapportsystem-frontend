@@ -175,6 +175,7 @@ export const AuthProvider = (props) => {
       window.sessionStorage.removeItem('user');
       window.sessionStorage.removeItem('accessToken');
       window.sessionStorage.removeItem('email');
+      window.sessionStorage.removeItem('authenticated');
     } catch (error) {
       console.error('Error during sign out:', error);
     }
