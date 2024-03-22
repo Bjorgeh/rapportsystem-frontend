@@ -28,7 +28,7 @@ const Page = () => {
       try {
         const accessToken = window.sessionStorage.getItem('accessToken');
     
-        const response = await fetch(API_BASE_URL+'api/user/get/rapportInfo', {
+        const response = await fetch(`${API_BASE_URL}api/user/get/rapportInfo`, {
           headers: {
             Authorization: `Bearer ${accessToken}` 
           }
