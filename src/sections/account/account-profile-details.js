@@ -10,26 +10,39 @@ import {
   TextField,
   Unstable_Grid2 as Grid
 } from '@mui/material';
-//Flere deler av landet kan legges til.
-const states = [
-  {
-    value: 'Kongsberg',
-    label: 'Kongsberg'
-  },
-  {
-    value: 'Oslo',
-    label: 'Oslo'
-  }
-];
+import { API_BASE_URL } from 'src/config/apiConnection';
+
+try {
+  const response = await axios.post(API_BASE_URL + 'api/user/get/user/info', credentials);
+  const data = response.data;
+
+  console.log('Login response data: ', data);
+
+  // Lagre brukerobjektet og tilgangstokenet i sessionStorage
+  window.sessionStorage.setItem('user', JSON.stringify(data.user));
+  window.sessionStorage.setItem('accessToken', data.access_token);
+  window.sessionStorage.setItem('email', JSON.stringify(email));
+
+  // Sett authenticated til true i sessionStorage etter vellykket innlogging
+  window.sessionStorage.setItem('authenticated', 'true');
+
+  // Bruk dispatch for å oppdatere tilstanden med brukerdataene
+  dispatch({
+    type: HANDLERS.SIGN_IN,
+    payload: data.user
+  });
+} catch (error) {
+  console.error('Error during login:', error);
+}
+
+
 //Dette peker på "account"-siden. I praksis er det profil-siden til brukeren.
 export const AccountProfileDetails = () => {
   const [values, setValues] = useState({
-    firstName: 'Ola',
-    lastName: 'Nordmann',
-    email: 'OlaNordmann@devias.io',
-    phone: '12345678',
-    state: 'Kongsberg',
-    country: 'Norge'
+    firstName: '',
+    lastName: '',
+    email: data.user_id,
+    type: ''
   });
 
   const handleChange = useCallback(
@@ -73,11 +86,8 @@ export const AccountProfileDetails = () => {
                 
                 <TextField
                   fullWidth
-                  helperText="Please specify the first name"
-                  label="First name"
-                  name="firstName"
-                  onChange={handleChange}
-                  required
+                  label="Bruker"
+                  name="Bruker"
                   value={values.firstName}
                  />
                  
@@ -101,72 +111,31 @@ export const AccountProfileDetails = () => {
               >
                 <TextField
                   fullWidth
-                  label="Email Address"
-                  name="email"
+                  label="Email"
+                  name="Email"
                   onChange={handleChange}
                   required
                   value={values.email}
                 />
               </Grid>
+
               <Grid
                 xs={12}
                 md={6}
               >
                 <TextField
                   fullWidth
-                  label="Phone Number"
-                  name="phone"
-                  onChange={handleChange}
-                  type="number"
-                  value={values.phone}
-                />
-              </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="Land"
-                  name="Land"
+                  label="Kontotype"
+                  name="Kontotype"
                   onChange={handleChange}
                   required
-                  value={values.country}
+                  value={values.type}
                 />
-              </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="Velg by"
-                  name="By"
-                  onChange={handleChange}
-                  required
-                  select
-                  SelectProps={{ native: true }}
-                  value={values.state}
-                >
-                  {states.map((option) => (
-                    <option
-                      key={option.value}
-                      value={option.value}
-                    >
-                      {option.label}
-                    </option>
-                  ))}
-                </TextField>
               </Grid>
             </Grid>
           </Box>
         </CardContent>
         <Divider />
-        <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained">
-            Lagre
-          </Button>
-        </CardActions>
       </Card>
     </form>
   );
