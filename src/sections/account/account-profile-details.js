@@ -44,12 +44,12 @@ const AccountProfileDetails = () => {
   }, []); // Empty dependency array means this effect runs only once after the component mounts
 
   return (
-    <form autoComplete="off" noValidate>
+    <Grid xs={12} md={6}>
       <Card>
         <CardHeader subheader="Profilinfo" title="Profil" />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
-            <Grid container spacing={3}>
+            
               <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
@@ -77,12 +77,12 @@ const AccountProfileDetails = () => {
                   disabled // Disable editing of accountType field
                 />
               </Grid>
-            </Grid>
+            
           </Box>
         </CardContent>
         <Divider />
       </Card>
-    </form>
+      </Grid>
   );
 };
 
