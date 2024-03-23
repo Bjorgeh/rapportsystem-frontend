@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation'; // Keep only one import for usePathname
 import PropTypes from 'prop-types';
 import ArrowTopRightOnSquareIcon from '@heroicons/react/24/solid/ArrowTopRightOnSquareIcon';
 import ChevronUpDownIcon from '@heroicons/react/24/solid/ChevronUpDownIcon';
@@ -15,13 +15,21 @@ import {
 } from '@mui/material';
 import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
-import { items } from './config';
+import { items, adminItems } from './config';
 import { SideNavItem } from './side-nav-item';
+import { useEffect, useState } from 'react'; // Import react related hooks separately
 
 export const SideNav = (props) => {
   const { open, onClose } = props;
   const pathname = usePathname();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const userString = window.sessionStorage.getItem('user');
+    const parsedUser = userString ? JSON.parse(userString) : null;
+    setUser(parsedUser);
+  }, []);
 
   const content = (
     <Scrollbar
@@ -106,21 +114,17 @@ export const SideNav = (props) => {
               m: 0
             }}
           >
-            {items.map((item) => {
-              const active = item.path ? (pathname === item.path) : false;
-
-              return (
-                <SideNavItem
-                  active={active}
-                  disabled={item.disabled}
-                  external={item.external}
-                  icon={item.icon}
-                  key={item.title}
-                  path={item.path}
-                  title={item.title}
-                />
-              );
-            })}
+            {(user && user.accountType === 'admin' ? adminItems : items).map((item, index) => (
+              <SideNavItem
+                key={index}
+                active={pathname === item.path}
+                disabled={item.disabled}
+                external={item.external}
+                icon={item.icon}
+                path={item.path}
+                title={item.title}
+              />
+            ))}
           </Stack>
         </Box>
         <Divider sx={{ borderColor: 'neutral.700' }} />

@@ -8,6 +8,7 @@ import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 import XCircleIcon from '@heroicons/react/24/solid/XCircleIcon';
 import { SvgIcon } from '@mui/material';
 
+//Dette er alle lenkene en vanlig bruker kan se i side-nav
 export const items = [
   {
     title: 'Overview',
@@ -64,15 +65,6 @@ export const items = [
     )
   },
   {
-    title: 'Admin Panel',
-    path: '/admin/adminpanel',
-    icon: (
-      <SvgIcon fontSize="small">
-        <UserPlusIcon />
-      </SvgIcon>
-    )
-  },
-  {
     title: 'Error',
     path: '/404',
     icon: (
@@ -81,4 +73,44 @@ export const items = [
       </SvgIcon>
     )
   }
+];
+
+// Dette er alle lenkene en admin kan se i side-nav
+export const adminItems = [
+  {
+    title: 'Overview',
+    path: '/',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Account',
+    path: '/account',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Settings',
+    path: '/settings',
+    icon: (
+      <SvgIcon fontSize="small">
+        <CogIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Admin Panel',
+    path: '/admin/adminpanel',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserPlusIcon />
+      </SvgIcon>
+    )
+  },
 ];

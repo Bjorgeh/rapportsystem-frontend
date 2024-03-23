@@ -91,20 +91,25 @@ const Page = () => {
       </Head>
       <Container maxWidth="xl">
         <Grid container spacing={3}>
+          {/* Buttons row */}
           <Grid item xs={12}>
-            <Button variant="contained" color="primary" size="large" onClick={redirectToPage_newsubuser}>
-              Add user
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Button variant="contained" color="secondary" size="large" onClick={redirectToPage_changesubpassword}>
-              Change users password
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Button variant="contained" color="primary" size="large" onClick={redirectToPage_deletesubuser}>
-              Delete users
-            </Button>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={4}>
+                <Button variant="contained" color="primary" size="large" onClick={redirectToPage_newsubuser}>
+                  Add user
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Button variant="contained" color="secondary" size="large" onClick={redirectToPage_changesubpassword}>
+                  Change users password
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Button variant="contained" color="primary" size="large" onClick={redirectToPage_deletesubuser}>
+                  Delete users
+                </Button>
+              </Grid>
+            </Grid>
           </Grid>
           {/* Sub users list */}
           <Grid item xs={12} sm={6} lg={3}>
@@ -137,7 +142,6 @@ const Page = () => {
     </>
   );
 };
-
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Page;
