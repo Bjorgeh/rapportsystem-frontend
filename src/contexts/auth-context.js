@@ -142,7 +142,9 @@ export const AuthProvider = (props) => {
       // Lagre brukerobjektet og tilgangstokenet i sessionStorage
       window.sessionStorage.setItem('user', JSON.stringify(data.user));
       window.sessionStorage.setItem('accessToken', data.access_token);
-      window.sessionStorage.setItem('email', JSON.stringify(email));
+      window.sessionStorage.setItem('email', JSON.stringify(data.email));
+      window.sessionStorage.setItem('user_id', JSON.stringify(data.user_id));
+      window.sessionStorage.setItem('accountType', JSON.stringify(data.accountType));
   
       // Sett authenticated til true i sessionStorage etter vellykket innlogging
       window.sessionStorage.setItem('authenticated', 'true');

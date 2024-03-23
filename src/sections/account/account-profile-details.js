@@ -1,173 +1,89 @@
-import { useCallback, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
-  Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   Divider,
   TextField,
-  Unstable_Grid2 as Grid
+  Grid,
 } from '@mui/material';
-//Flere deler av landet kan legges til.
-const states = [
-  {
-    value: 'Kongsberg',
-    label: 'Kongsberg'
-  },
-  {
-    value: 'Oslo',
-    label: 'Oslo'
-  }
-];
-//Dette peker på "account"-siden. I praksis er det profil-siden til brukeren.
-export const AccountProfileDetails = () => {
+import axios from 'axios';
+import { API_BASE_URL } from 'src/config/apiConnection';
+
+
+
+
+
+
+const AccountProfileDetails = () => {
   const [values, setValues] = useState({
-    firstName: 'Ola',
-    lastName: 'Nordmann',
-    email: 'OlaNordmann@devias.io',
-    phone: '12345678',
-    state: 'Kongsberg',
-    country: 'Norge'
+    user_id: '',
+    email: '',
+    accountType: '',
   });
 
-  const handleChange = useCallback(
-    (event) => {
-      setValues((prevState) => ({
-        ...prevState,
-        [event.target.name]: event.target.value
-      }));
-    },
-    []
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const accessToken = window.sessionStorage.getItem('accessToken');
+        console.log('Access token:', accessToken);
+        const response = await axios.get(API_BASE_URL + "api/user/get/user/info", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+        const { user_Id, email, accountType } = response.data;
+        setValues({ user_id: user_Id, email, accountType });
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
 
-  const handleSubmit = useCallback(
-    (event) => {
-      event.preventDefault();
-    },
-    []
-  );
+    fetchData();
+  }, []); // Empty dependency array means this effect runs only once after the component mounts
 
   return (
-    <form
-      autoComplete="off"
-      noValidate
-      onSubmit={handleSubmit}
-    >
+    <Grid xs={12} md={6}>
       <Card>
-        <CardHeader
-          subheader="Profilinfo"
-          title="Profil"
-        />
+        <CardHeader subheader="Profilinfo" title="Profil" />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
-            <Grid
-              container
-              spacing={3}
-            >
-              <Grid
-                xs={12}
-                md={6}
-              >
-                
+            
+              <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
-                  helperText="Please specify the first name"
-                  label="First name"
-                  name="firstName"
-                  onChange={handleChange}
-                  required
-                  value={values.firstName}
-                 />
-                 
-              </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="Last name"
-                  name="lastName"
-                  onChange={handleChange}
-                  required
-                  value={values.lastName}
+                  label="Id"
+                  name="user_id"
+                  value={values.user_id}
+                  disabled // Disable editing of user_id field
                 />
               </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
+              <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
-                  label="Email Address"
+                  label="Email"
                   name="email"
-                  onChange={handleChange}
-                  required
                   value={values.email}
+                  disabled // Disable editing of email field
                 />
               </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
+              <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
-                  label="Phone Number"
-                  name="phone"
-                  onChange={handleChange}
-                  type="number"
-                  value={values.phone}
+                  label="Kontotype"
+                  name="accountType"
+                  value={values.accountType}
+                  disabled // Disable editing of accountType field
                 />
               </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="Land"
-                  name="Land"
-                  onChange={handleChange}
-                  required
-                  value={values.country}
-                />
-              </Grid>
-              <Grid
-                xs={12}
-                md={6}
-              >
-                <TextField
-                  fullWidth
-                  label="Velg by"
-                  name="By"
-                  onChange={handleChange}
-                  required
-                  select
-                  SelectProps={{ native: true }}
-                  value={values.state}
-                >
-                  {states.map((option) => (
-                    <option
-                      key={option.value}
-                      value={option.value}
-                    >
-                      {option.label}
-                    </option>
-                  ))}
-                </TextField>
-              </Grid>
-            </Grid>
+            
           </Box>
         </CardContent>
         <Divider />
-        <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained">
-            Lagre
-          </Button>
-        </CardActions>
       </Card>
-    </form>
+      </Grid>
   );
 };
+
+export default AccountProfileDetails;
