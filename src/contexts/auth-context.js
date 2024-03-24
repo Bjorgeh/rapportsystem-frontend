@@ -137,12 +137,12 @@ export const AuthProvider = (props) => {
       const response = await axios.post(API_BASE_URL + 'api/user/post/login', credentials);
       const data = response.data;
   
-      console.log('Login response data: ', data);
+      //console.log('Login response data: ', data);
   
       // Lagre brukerobjektet og tilgangstokenet i sessionStorage
       window.sessionStorage.setItem('user', JSON.stringify(data.user));
       window.sessionStorage.setItem('accessToken', data.access_token);
-      window.sessionStorage.setItem('email', JSON.stringify(data.email));
+      window.sessionStorage.setItem('email', JSON.stringify(email));
       window.sessionStorage.setItem('user_id', JSON.stringify(data.user_id));
       window.sessionStorage.setItem('accountType', JSON.stringify(data.accountType));
   
