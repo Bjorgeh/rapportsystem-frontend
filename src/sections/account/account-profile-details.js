@@ -11,11 +11,6 @@ import {
 import axios from 'axios';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
-
-
-
-
-
 const AccountProfileDetails = () => {
   const [values, setValues] = useState({
     user_id: '',
@@ -27,7 +22,7 @@ const AccountProfileDetails = () => {
     const fetchData = async () => {
       try {
         const accessToken = window.sessionStorage.getItem('accessToken');
-        console.log('Access token:', accessToken);
+        //console.log('Access token:', accessToken); // commented out to hide access token from console
         const response = await axios.get(API_BASE_URL + "api/user/get/user/info", {
           headers: {
             Authorization: `Bearer ${accessToken}`
@@ -46,7 +41,7 @@ const AccountProfileDetails = () => {
   return (
     <Grid xs={12} md={6}>
       <Card>
-        <CardHeader subheader="Profilinfo" title="Profil" />
+        <CardHeader subheader="Info" title="Profile" />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
             
@@ -71,7 +66,7 @@ const AccountProfileDetails = () => {
               <Grid xs={12} md={6}>
                 <TextField
                   fullWidth
-                  label="Kontotype"
+                  label="Access Level"
                   name="accountType"
                   value={values.accountType}
                   disabled // Disable editing of accountType field
