@@ -11,11 +11,6 @@ import {
 import axios from 'axios';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
-
-
-
-
-
 const AccountProfileDetails = () => {
   const [values, setValues] = useState({
     user_id: '',
