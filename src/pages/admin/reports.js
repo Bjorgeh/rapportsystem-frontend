@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router'; 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Grid, Link, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Checkbox, Grid, Link, Stack, TextField, Typography } from '@mui/material';
 import { useAuth } from 'src/hooks/use-auth';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
@@ -120,15 +120,23 @@ const Page = () => {
         // Determine input type based on field data type
         if (fieldType.includes('int')) {
           inputType = 'number';
-        } else if (fieldType.includes('float') || fieldType.includes('decimal') || fieldType.includes('double')) {
+        } 
+        else if (fieldType.includes('float') || fieldType.includes('decimal') || fieldType.includes('double')) {
           inputType = 'number';
           // You may add step, min, max attributes for more precision control
-        } else if (fieldType.includes('date')) {
-          inputType = 'date';
-          
-        } else if (fieldType.includes('time')) {
+        } 
+        else if (fieldType.includes('date')) {
+          inputType = 'date';      
+        } 
+        else if (fieldType.includes('time')) {
           inputType = 'time';
         }
+        //Fjerner felt som fylles automatisk av backend
+        if (fieldName.includes('id') || fieldName.includes('date') || fieldName.includes('time') || fieldName.includes('sum_')){
+          return null;
+        }
+
+
   
         return (
           <Box key={index} sx={{ mt: 3 }}>
@@ -137,7 +145,6 @@ const Page = () => {
               id={fieldName}
               label={fieldName}
               type={inputType}
-              disabled={fieldName.includes('id') || fieldType.includes('date') || fieldType.includes('time') || fieldType.includes('sum')} // Disable editing of id fields
               // You can add additional attributes based on the input type if needed
             />
           </Box>
