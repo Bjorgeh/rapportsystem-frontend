@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import PropTypes from 'prop-types';
 import { Box, Divider, MenuItem, MenuList, Popover, Typography } from '@mui/material';
@@ -8,6 +8,17 @@ export const AccountPopover = (props) => {
   const { anchorEl, onClose, open } = props;
   const router = useRouter();
   const auth = useAuth();
+  
+  // Declare state for currentEmail
+  const [currentEmail, setCurrentEmail] = useState('Unknown');
+
+  useEffect(() => {
+    // Retrieve current email from sessionStorage
+    const storedEmail = window.sessionStorage.getItem('email');
+    const email = storedEmail ? JSON.parse(storedEmail) : 'Unknown';
+    // Update currentEmail state
+    setCurrentEmail(email);
+  }, []);
 
   const handleSignOut = useCallback(
     () => {
@@ -38,11 +49,12 @@ export const AccountPopover = (props) => {
         <Typography variant="overline">
           Account
         </Typography>
+        {/* Display currentEmail in Typography */}
         <Typography
           color="text.secondary"
           variant="body2"
         >
-          Anika Visser
+          {currentEmail} 
         </Typography>
       </Box>
       <Divider />
