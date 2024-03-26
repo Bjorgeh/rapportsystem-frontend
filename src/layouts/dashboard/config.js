@@ -78,7 +78,7 @@ export const items = [
 // Dette er alle lenkene en admin kan se i side-nav
 export const adminItems = [
   {
-    title: 'Overview',
+    title: 'Oversikt',
     path: '/',
     icon: (
       <SvgIcon fontSize="small">
@@ -87,7 +87,7 @@ export const adminItems = [
     )
   },
   {
-    title: 'Account',
+    title: 'Brukerkonto',
     path: '/account',
     icon: (
       <SvgIcon fontSize="small">
@@ -96,7 +96,7 @@ export const adminItems = [
     )
   },
   {
-    title: 'Settings',
+    title: 'Innstillinger',
     path: '/settings',
     icon: (
       <SvgIcon fontSize="small">
@@ -107,6 +107,15 @@ export const adminItems = [
   {
     title: 'Admin Panel',
     path: '/admin/adminpanel',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserPlusIcon />
+      </SvgIcon>
+    )
+  },
+  {
+  title: 'Rapporter',
+    path: '/admin/reports',
     icon: (
       <SvgIcon fontSize="small">
         <UserPlusIcon />
