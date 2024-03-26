@@ -65,42 +65,64 @@ const Page = () => {
 
   const formik = useFormik({
     initialValues: {
-        selectedTable: '',
-
+      selectedTable: '',
+      // Add initial values for other fields as needed
     },
     validationSchema: Yup.object({
-      selectedTable: Yup.string().required('Velg en rapporttype')
+      selectedTable: Yup.string().required('Velg en rapporttype'),
+      // Add validation schema for other fields as needed
     }),
     onSubmit: async (values, helpers) => {
       try {
-        let apiUrl = '';
-        let requestData = {};
+        const selectedReportFields = reportFields[values.selectedTable]; // Get fields for selected report
+        const requestData = {
+          table_name: values.selectedTable,
+          data: {},
+        };
   
-        const accessToken = window.sessionStorage.getItem('accessToken'); 
+        // Populate requestData with values from form based on selected report fields
+        Object.keys(selectedReportFields).forEach(fieldName => {
+          const fieldValue = formik.values[fieldName];
+          requestData.data[fieldName] = fieldValue;
+          console.log(`Field name: ${fieldName}, Field value: ${fieldValue}`); //Skriver ut data som sendes til backend
+        });
 
+        console.log(requestData)
+  
+        const apiUrl = `${API_BASE_URL}api/user/post/insertData`; // Construct API URL
+        const accessToken = window.sessionStorage.getItem('accessToken');
   
         const response = await fetch(apiUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}` 
+            Authorization: `Bearer ${accessToken}`,
           },
-          body: JSON.stringify(requestData)
+          body: JSON.stringify(requestData),
         });
   
         if (!response.ok) {
-          throw new Error('Failed to create sub user');
+          throw new Error('Failed to insert data');
         }
   
-        setSuccessMessage('Sub user created successfully'); 
-        formik.resetForm(); // Tøm skjemaet
+        const responseData = await response.json();
+        console.log(responseData)
+  
+        // Assuming response has a message with success status
+        if (responseData.Message && responseData.Message.Success) {
+          setSuccessMessage(responseData.Message.Success);
+          formik.resetForm(); // Tøm skjemaet
+        } else {
+          throw new Error('Failed to insert data');
+        }
       } catch (error) {
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: error.message });
         helpers.setSubmitting(false);
       }
-    }
+    },
   });
+  
   
   if (!user || user.accountType !== 'admin') {
     return null; 
@@ -136,8 +158,6 @@ const Page = () => {
           return null;
         }
 
-
-  
         return (
           <Box key={index} sx={{ mt: 3 }}>
             <TextField
@@ -221,9 +241,11 @@ const Page = () => {
                 sx={{ mt: 3 }}
                 type="submit"
                 variant="contained"
+                disabled={formik.isSubmitting} // Disable button while submitting
               >
-                Lagre
+                {formik.isSubmitting ? 'Sender...' : 'Lagre'} {/* Show loading text while submitting */}
               </Button>
+
             </form>
           </div>
         </Box>
