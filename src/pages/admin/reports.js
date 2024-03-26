@@ -9,7 +9,7 @@ import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useEffect, useState } from 'react'; 
 import { API_BASE_URL } from 'src/config/apiConnection';
-import { useIsDayDisabled } from '@mui/x-date-pickers/internals/hooks/validation/useDateValidation';
+
 
 
 const Page = () => {
@@ -75,10 +75,9 @@ const Page = () => {
       try {
         let apiUrl = '';
         let requestData = {};
-  
+        
         const accessToken = window.sessionStorage.getItem('accessToken'); 
-
-  
+        
         const response = await fetch(apiUrl, {
           method: 'POST',
           headers: {
@@ -87,24 +86,22 @@ const Page = () => {
           },
           body: JSON.stringify(requestData)
         });
-  
+        
         if (!response.ok) {
-          throw new Error('Failed to create sub user');
+          throw new Error('Rapport ble IKKE lagret');
         }
-  
-        setSuccessMessage('Sub user created successfully'); 
+        
+        setSuccessMessage(`${formik.values.selectedTable} rapport ble lagret`); 
         formik.resetForm(); // Tøm skjemaet
-      } catch (error) {
+            } catch (error) {
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: error.message });
         helpers.setSubmitting(false);
-      }
-    }
-  });
+            }
+          }
+        });
   
-  if (!user || user.accountType !== 'admin') {
-    return null; 
-  }
+
 
     // Function to render fields based on selected report
     const renderReportFields = () => {
@@ -137,7 +134,6 @@ const Page = () => {
         }
 
 
-  
         return (
           <Box key={index} sx={{ mt: 3 }}>
             <TextField
