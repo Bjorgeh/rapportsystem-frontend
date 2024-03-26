@@ -72,7 +72,16 @@ export const items = [
         <XCircleIcon />
       </SvgIcon>
     )
-  }
+  },
+  {
+    title: 'Rapporter',
+      path: '/reports',
+      icon: (
+        <SvgIcon fontSize="small">
+          <UserPlusIcon />
+        </SvgIcon>
+      )
+    },
 ];
 
 // Dette er alle lenkene en admin kan se i side-nav
@@ -115,7 +124,7 @@ export const adminItems = [
   },
   {
   title: 'Rapporter',
-    path: '/admin/reports',
+    path: '/reports',
     icon: (
       <SvgIcon fontSize="small">
         <UserPlusIcon />
