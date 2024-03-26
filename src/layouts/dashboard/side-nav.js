@@ -47,7 +47,8 @@ export const SideNav = (props) => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          height: '100%'
+          height: '100%',
+          width: '100%'
         }}
       >
         <Box sx={{ p: 3 }}>
@@ -62,7 +63,8 @@ export const SideNav = (props) => {
           >
             <Logo />
           </Box>
-          <Box
+          {/*Enable for extra menu in sidenav*/}
+          {/* <Box
             sx={{
               alignItems: 'center',
               backgroundColor: 'rgba(255, 255, 255, 0.04)',
@@ -94,7 +96,7 @@ export const SideNav = (props) => {
             >
               <ChevronUpDownIcon />
             </SvgIcon>
-          </Box>
+          </Box> */}
         </Box>
         <Divider sx={{ borderColor: 'neutral.700' }} />
         <Box
@@ -133,7 +135,25 @@ export const SideNav = (props) => {
             px: 2,
             py: 3
           }}
-        >
+        >Created by D03N | 2020-2024 | Programmering nettstudie | Fagskolen i Viken @ Kongsberg
+          <Button
+            color="primary"
+            component="a"
+            endIcon={(
+              <SvgIcon
+                fontSize="small"
+                sx={{ color: 'neutral.300' }}
+              >
+                <ArrowTopRightOnSquareIcon />
+              </SvgIcon>
+            )}
+            href="https://github.com/Bjorgeh/rapportsystem-frontend"
+            size="small"
+            target="_blank"
+            variant="text"
+          >
+            @GitHub Repo
+          </Button>
         </Box>
       </Box>
     </Scrollbar>
