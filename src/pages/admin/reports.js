@@ -79,19 +79,22 @@ const Page = () => {
           table_name: values.selectedTable,
           data: {},
         };
-  
+    
         // Populate requestData with values from form based on selected report fields
         Object.keys(selectedReportFields).forEach(fieldName => {
-          const fieldValue = formik.values[fieldName];
-          requestData.data[fieldName] = fieldValue;
-          console.log(`Field name: ${fieldName}, Field value: ${fieldValue}`); //Skriver ut data som sendes til backend
+          // Exclude unwanted fields
+          if (!fieldName.includes('id') && !fieldName.includes('date') && !fieldName.includes('time') && !fieldName.includes('sum_')) {
+            const fieldValue = formik.values[fieldName];
+            requestData.data[fieldName] = fieldValue;
+            console.log(`Field name: ${fieldName}, Field value: ${fieldValue}`); //Skriver ut data som sendes til backend
+          }
         });
-
-        console.log(requestData)
-  
+    
+        console.log(requestData);
+    
         const apiUrl = `${API_BASE_URL}api/user/post/insertData`; // Construct API URL
         const accessToken = window.sessionStorage.getItem('accessToken');
-  
+    
         const response = await fetch(apiUrl, {
           method: 'POST',
           headers: {
@@ -100,14 +103,14 @@ const Page = () => {
           },
           body: JSON.stringify(requestData),
         });
-  
+    
         if (!response.ok) {
           throw new Error('Failed to insert data');
         }
-  
+    
         const responseData = await response.json();
-        console.log(responseData)
-  
+        console.log(responseData);
+    
         // Assuming response has a message with success status
         if (responseData.Message && responseData.Message.Success) {
           setSuccessMessage(responseData.Message.Success);
@@ -132,32 +135,29 @@ const Page = () => {
     const renderReportFields = () => {
       const selectedReport = formik.values.selectedTable;
       const fields = reportFields[selectedReport];
-  
+    
       if (!fields) {
         return null;
       }
-  
+    
       return Object.entries(fields).map(([fieldName, fieldType], index) => {
         let inputType = 'text'; // Default input type
         // Determine input type based on field data type
         if (fieldType.includes('int')) {
           inputType = 'number';
-        } 
-        else if (fieldType.includes('float') || fieldType.includes('decimal') || fieldType.includes('double')) {
+        } else if (fieldType.includes('float') || fieldType.includes('decimal') || fieldType.includes('double')) {
           inputType = 'number';
           // You may add step, min, max attributes for more precision control
-        } 
-        else if (fieldType.includes('date')) {
-          inputType = 'date';      
-        } 
-        else if (fieldType.includes('time')) {
+        } else if (fieldType.includes('date')) {
+          inputType = 'date';
+        } else if (fieldType.includes('time')) {
           inputType = 'time';
         }
         //Fjerner felt som fylles automatisk av backend
         if (fieldName.includes('id') || fieldName.includes('date') || fieldName.includes('time') || fieldName.includes('sum_')){
           return null;
         }
-
+    
         return (
           <Box key={index} sx={{ mt: 3 }}>
             <TextField
@@ -165,12 +165,16 @@ const Page = () => {
               id={fieldName}
               label={fieldName}
               type={inputType}
-              // You can add additional attributes based on the input type if needed
+              value={formik.values[fieldName]} // Bind value to formik values
+              onChange={formik.handleChange} // Bind onChange to formik handleChange
+              onBlur={formik.handleBlur}
+              name={fieldName} // Set the name attribute to fieldName
             />
           </Box>
         );
       });
     };
+    
 
   return (
     <>
