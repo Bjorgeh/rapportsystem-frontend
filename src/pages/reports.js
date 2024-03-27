@@ -24,11 +24,6 @@ const Page = () => {
     setUser(parsedUser);
   }, []);
 
-  useEffect(() => {
-    if (user && user.accountType !== 'admin') {
-      router.push('/');
-    }
-  }, [user, router]);
 
   const [tableNames, setTableNames] = useState([]); 
 
@@ -127,9 +122,6 @@ const Page = () => {
   });
   
   
-  if (!user || user.accountType !== 'admin') {
-    return null; 
-  }
 
     // Function to render fields based on selected report
     const renderReportFields = () => {
