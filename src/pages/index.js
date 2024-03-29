@@ -217,7 +217,11 @@ const Page = () => {
                 },
                 {
                   name: 'Last year',
-                  data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13] // Eksempeldata for fjoråret
+                  data: [120, 11, 4, 6, 200, 9, 9, 10, 11, 120, 130, 13] // Eksempeldata for fjoråret
+                },
+                {
+                  name: 'test year',
+                  data: [12, 110, 4, 6, 20, 9, 9, 10, 116, 12, 13, 13] // Eksempeldata for fjoråret
                 }
               ]}
               sx={{ height: '100%' }}
