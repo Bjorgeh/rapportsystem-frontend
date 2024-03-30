@@ -7,6 +7,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { TableVirtuoso } from 'react-virtuoso';
+import { useEffect, useState } from 'react'; 
+
+const [reportFields, setReportFields] = useState({}); // Object to store report fields and titles
 
 const sample = [
   ['Frozen yoghurt', 159, 6.0, 24, 4.0],
