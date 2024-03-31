@@ -1,121 +1,96 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { TableVirtuoso } from 'react-virtuoso';
+import { API_BASE_URL } from 'src/config/apiConnection';
 import { useEffect, useState } from 'react'; 
 
-const [reportFields, setReportFields] = useState({}); // Object to store report fields and titles
+const YourComponent = () => {
+  const [data, setData] = useState(null);
+  const [rapportCount, setRapportCount] = useState('5');
 
-const sample = [
-  ['Frozen yoghurt', 159, 6.0, 24, 4.0],
-  ['Ice cream sandwich', 237, 9.0, 37, 4.3],
-  ['Eclair', 262, 16.0, 24, 6.0],
-  ['Cupcake', 305, 3.7, 67, 4.3],
-  ['Gingerbread', 356, 16.0, 49, 3.9],
-];
+  useEffect(() => {
+    fetchData();
+  }, [rapportCount]);
 
-function createData(id, dessert, calories, fat, carbs, protein) {
-  return { id, dessert, calories, fat, carbs, protein };
-}
+  const fetchData = async () => {
+    try {
+      const accessToken = window.sessionStorage.getItem('accessToken');
+      const requestData = {
+        table_name: 'BorreproveRapport',
+        rapport_count: rapportCount
+      };
+      console.log('Request data:', requestData);
+      const response = await fetch(API_BASE_URL + 'api/user/post/extractPreciseData', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`
+        },
+        body: JSON.stringify(requestData)
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch table data');
+      }
+      const responseData = await response.json();
+      setData(responseData.requested_data.BorreproveRapport.Data);
+      console.log(responseData);
+    } catch (error) {
+      console.error('Error fetching table data:', error);
+    }
+  };
 
-const columns = [
-  {
-    width: 100,
-    label: 'Dessert',
-    dataKey: 'dessert',
-  },
-  {
-    width: 100,
-    label: 'Calories\u00A0(g)',
-    dataKey: 'calories',
-    numeric: true,
-  },
-  {
-    width: 100,
-    label: 'Fat\u00A0(g)',
-    dataKey: 'fat',
-    numeric: true,
-  },
-  {
-    width: 100,
-    label: 'Carbs\u00A0(g)',
-    dataKey: 'carbs',
-    numeric: true,
-  },
-  {
-    width: 100,
-    label: 'Protein\u00A0(g)',
-    dataKey: 'protein',
-    numeric: true,
-  },
-];
+  const handleRapportCountChange = (event) => {
+    setRapportCount(event.target.value);
+  };
 
-const rows = Array.from({ length: 200 }, (_, index) => {
-  const randomSelection = sample[Math.floor(Math.random() * sample.length)];
-  return createData(index, ...randomSelection);
-});
-
-const VirtuosoTableComponents = {
-  Scroller: React.forwardRef((props, ref) => (
-    <TableContainer component={Paper} {...props} ref={ref} />
-  )),
-  Table: (props) => (
-    <Table {...props} sx={{ borderCollapse: 'separate', tableLayout: 'fixed' }} />
-  ),
-  TableHead,
-  TableRow: ({ item: _item, ...props }) => <TableRow {...props} />,
-  TableBody: React.forwardRef((props, ref) => <TableBody {...props} ref={ref} />),
+  return (
+    <div>
+      <h1>API Data</h1>
+      <label htmlFor="rapportCount">Select Rapport Count: </label>
+      <select id="rapportCount" value={rapportCount} onChange={handleRapportCountChange}>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+      </select>
+      {data ? (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Part Type</th>
+              <th>Stove</th>
+              <th>Catalog Number</th>
+              <th>Test Amount</th>
+              <th>Order Number</th>
+              <th>Approved</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Sign</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map(item => (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.part_type}</td>
+                <td>{item.stove}</td>
+                <td>{item.catalog_number}</td>
+                <td>{item.test_amount}</td>
+                <td>{item.ordrer_number}</td>
+                <td>{item.approved ? 'Yes' : 'No'}</td>
+                <td>{item.date}</td>
+                <td>{item.time}</td>
+                <td>{item.sign}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
 };
 
-function fixedHeaderContent() {
-  return (
-    <TableRow>
-      {columns.map((column) => (
-        <TableCell
-          key={column.dataKey}
-          variant="head"
-          align={column.numeric || false ? 'right' : 'left'}
-          style={{ width: column.width }}
-          sx={{
-            backgroundColor: 'background.paper',
-          }}
-        >
-          {column.label}
-        </TableCell>
-      ))}
-    </TableRow>
-  );
-}
-
-function rowContent(_index, row) {
-  return (
-    <React.Fragment>
-      {columns.map((column) => (
-        <TableCell
-          key={column.dataKey}
-          align={column.numeric || false ? 'right' : 'left'}
-        >
-          {row[column.dataKey]}
-        </TableCell>
-      ))}
-    </React.Fragment>
-  );
-}
-
-export default function ReactVirtualizedTable() {
-  return (
-    <Paper style={{ height: 400, width: '100%' }}>
-      <TableVirtuoso
-        data={rows}
-        components={VirtuosoTableComponents}
-        fixedHeaderContent={fixedHeaderContent}
-        itemContent={rowContent}
-      />
-    </Paper>
-  );
-}
+export default YourComponent;
