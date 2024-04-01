@@ -1,19 +1,14 @@
 import Head from 'next/head';
-import { subDays, subHours } from 'date-fns';
 import { Typography, FormControlLabel,TextField,Button, Stack, Box, Checkbox, Container, Unstable_Grid2 as Grid } from '@mui/material';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { OverviewBudget } from 'src/sections/overview/overview-budget';
-import { OverviewLatestOrders } from 'src/sections/overview/overview-latest-orders';
-import { OverviewLatestProducts } from 'src/sections/overview/overview-latest-products';
 import { OverviewSales } from 'src/sections/overview/overview-sales';
 import { OverviewTasksProgress } from 'src/sections/overview/overview-tasks-progress';
 import { OverviewTotalCustomers } from 'src/sections/overview/overview-total-customers';
 import { OverviewTotalProfit } from 'src/sections/overview/overview-total-profit';
-import { OverviewTraffic } from 'src/sections/overview/overview-traffic';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-//import { table } from 'console';
 import { API_BASE_URL } from 'src/config/apiConnection';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 
@@ -22,8 +17,6 @@ const now = new Date();
 
 const Page = () => {
   const [tableNames, setTableNames] = useState([]); 
-  const [tableInfo, setTableInfo] = useState([]); 
-  const [tableData, setTableData] = useState(null);
   const [reportFields, setReportFields] = useState({}); 
   const [dynamicChartData, setDynamicChartData] = useState([]);
 

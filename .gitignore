@@ -16,7 +16,10 @@ out
 # misc
 .DS_Store
 .eslintcache
+
 .idea
+/.vscode
+
 /.env
 /.env.local
 /.env.development.local
