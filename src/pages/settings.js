@@ -25,7 +25,6 @@ const Page = () => (
           </Typography>
           <RecentActivity />
           <SettingsPassword />
-          
         </Stack>
       </Container>
     </Box>
