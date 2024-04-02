@@ -16,14 +16,20 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 //import { table } from 'console';
 import { API_BASE_URL } from 'src/config/apiConnection';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { set } from 'nprogress';
+import { randomFill, randomInt } from 'crypto';
+import { ArraySchema } from 'yup';
+import { array } from 'prop-types';
 
 
 const now = new Date();
 
 const Page = () => {
+  const unselectableFields = ['id', 'date', 'time', 'sum_', 'model_number', 'catalog_number', 'comment', 'approved', 'sign', 'part_type', 'ordrer_number', 'signature'];
   const [tableNames, setTableNames] = useState([]); 
   const [tableInfo, setTableInfo] = useState([]); 
   const [tableData, setTableData] = useState(null);
+  const [selectableFields, setSelectableFields] = useState([]);
   const [reportFields, setReportFields] = useState({}); 
   const [dynamicChartData, setDynamicChartData] = useState([]);
 
@@ -36,71 +42,27 @@ const Page = () => {
   const handleSelectedOptionsChange = (event, newSelectedOptions) => {
     setSelectedOptions(newSelectedOptions); // Oppdater valgte verdier i rapport når knappene blir endret
   };
-
-
-  const renderReportFields = () => {
-    const selectedReport = formik.values.selectedTable;
-    const fields = reportFields[selectedReport];
-
-    if (!fields) {
-      return null;
-    }
-
-    // Anta at spørringsresultatene har både feltene og navnene
-    return Object.entries(fields).map(([fieldName, fieldInfo], index) => {
-      // Fjern felt som fylles automatisk av backend
-      if (fieldName.includes('id') || fieldName.includes('date') || fieldName.includes('time') || fieldName.includes('sum_')) {
-        return null;
-      }
-
-      // Returner et objekt med både fieldName og fieldLabel (navn)
-      return {
-        fieldName: fieldName,
-        fieldLabel: fieldInfo.label, // Anta at navnet hentes fra 'label' i spørringsresultatene
-      };
-    }).filter(Boolean); // Fjern eventuelle null-verdier
-  };
-  
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const accessToken = window.sessionStorage.getItem('accessToken');
-        const response = await fetch(`${API_BASE_URL}api/user/get/rapportInfo`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}` 
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-
-        const data = await response.json();
-        setTableInfo(data.Table_descriptions.Tables);
-        setTableNames(Object.keys(data.Table_descriptions.Tables));
-
-        // Set reportFields based on data
-        setReportFields(data.Table_descriptions.Tables);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
   
   const formik = useFormik({
     initialValues: {
-      selectedTable: '',
-      startDate: '',
-      endDate: '',
-      reportCount: '',
-      selectedOptions: [] // Initial value for selected options
+      selectedTable: 'SmelteRapport',
+      startDate: '2023-04-01',
+      endDate: '2024-04-01',
+      reportCount: '100',
+      selectedOptions: ['kg_returns', 'kg_carbon']
     },
     onSubmit: async (values) => {
       try {
         // Din eksisterende kode for å hente data
+        const requestBody = {
+          table_name: values.selectedTable
+        };
+        if (showInputs) {
+          requestBody.start_date = values.startDate;
+          requestBody.end_date = values.endDate;
+        } else {
+          requestBody.report_count = values.reportCount;
+        }
         const accessToken = window.sessionStorage.getItem('accessToken');
         const response = await fetch(`${API_BASE_URL}api/user/post/extractPreciseData`, {
           method: 'POST',
@@ -108,12 +70,7 @@ const Page = () => {
             Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            table_name: values.selectedTable, // Access selectedTable from values
-            date_start: values.startDate, // Access startDate from values
-            date_stop: values.endDate, // Access endDate from values
-            rapport_count: values.reportCount // Access reportCount from values
-          })
+          body: JSON.stringify(requestBody)
         });
     
         if (!response.ok) {
@@ -123,14 +80,26 @@ const Page = () => {
         const data = await response.json();
     
         // Oppdaterer dynamisk grafdata basert på responsen 
-        const newData = Object.keys(data.requested_data).map(key => {
-          if (data.requested_data[key] && data.requested_data[key].Data) {
-            return data.requested_data[key].Data.map(entry => entry.amt_formed);
-          } else {
-            return [];
+        const newData = values.selectedOptions.map((selectedOption) => {
+          const fieldValueArray = Object.keys(data.requested_data).flatMap(key => {
+            if (data.requested_data[key] && data.requested_data[key].Data) {
+              const dataEntries = data.requested_data[key].Data;
+              return dataEntries.flatMap(dataEntry => {
+                return Object.keys(dataEntry)
+                  .filter(fieldName => fieldName === selectedOption)
+                  .map(fieldName => dataEntry[fieldName]).filter(Boolean)
+                  .filter(fieldValue => fieldValue instanceof Number || !isNaN(fieldValue));
+              });
+            } else {
+              throw new Error('Missing ' + selectedOption + ' value: ' + key);
+            }
+          });
+          return {
+            name: selectedOption.split("_").map(s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).reduce((s1, s2) => s1 + ' ' + s2),
+            data: fieldValueArray
           }
-        });
-        setDynamicChartData(newData.flat()); 
+        }).filter(graph => graph && graph.data && graph.data.length > 0);
+        setDynamicChartData(newData);
     
         // Din eksisterende kode for å lagre data for visning
         setTableData(data);
@@ -140,7 +109,44 @@ const Page = () => {
     }
   });
 
-  
+        useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const accessToken = window.sessionStorage.getItem('accessToken');
+        const response = await fetch(`${API_BASE_URL}api/user/get/rapportInfo`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const data = await response.json();
+        const reportTables = data.Table_descriptions.Tables;
+        const tableNames = Object.keys(reportTables);
+        setTableInfo(reportTables);
+        setTableNames(tableNames);
+
+        setReportFields(reportTables);
+
+        const selectedTable = formik.values.selectedTable;
+        if (selectedTable === '' || (tableNames && !tableNames.includes(selectedTable))) {
+          formik.setFieldValue('selectedTable', tableNames[randomInt(0, tableNames.length-1)]);
+        }
+
+        const fieldNames = Object.keys(reportTables[selectedTable]).filter(Boolean);
+        const selectableFields = fieldNames.filter(fieldName => !unselectableFields.includes(fieldName));
+        if (fieldNames && fieldNames.length > 0) setSelectableFields(selectableFields);
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+    }, [formik.values.selectedTable]);
 
   return (
   <>
@@ -158,13 +164,13 @@ const Page = () => {
     >
       <Container maxWidth="xl">
         <Grid
-          container
-          spacing={3}
+            container
+            spacing={2}
         >
-          <Grid
-            xs={12}
-            sm={6}
-            lg={3}
+            <Grid
+              xs={12}
+              sm={6}
+              lg={3}
           >
             <OverviewBudget
               difference={12}
@@ -173,10 +179,10 @@ const Page = () => {
               value=""
             />
           </Grid>
-          <Grid
-            xs={12}
-            sm={6}
-            lg={3}
+            <Grid
+              xs={12}
+              sm={6}
+              lg={3}
           >
             <OverviewTotalCustomers
               difference={16}
@@ -185,42 +191,48 @@ const Page = () => {
               value=""
             />
           </Grid>
-          <Grid
-            xs={12}
-            sm={6}
-            lg={3}
+            <Grid
+              xs={12}
+              sm={6}
+              lg={3}
           >
             <OverviewTasksProgress
               sx={{ height: '100%' }}
               value={75.5}
             />
           </Grid>
-          <Grid
-            xs={12}
-            sm={6}
-            lg={3}
+            <Grid
+              xs={12}
+              sm={6}
+              lg={3}
           >
             <OverviewTotalProfit
               sx={{ height: '100%' }}
               value="$15k"
             />
           </Grid>
-          <Grid
-            xs={12}
-            lg={8}
+            <Grid
+              xs={12}
+              lg={8}
           >
             <OverviewSales
-              chartSeries={[
-                {
-                  name: 'Dynamic data',
-                  data: dynamicChartData
-                },
-                {
-                  name: 'Last year',
-                  data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13] // Eksempeldata for fjoråret
-                }
-              ]}
-              sx={{ height: '100%' }}
+                chartSeries={dynamicChartData && dynamicChartData.length > 0 ? dynamicChartData : []}
+                title={dynamicChartData && dynamicChartData.length > 0 ? formik.values.selectedTable + " graf" : "Ingen data valgt"}
+                categories={dynamicChartData && dynamicChartData.length > 0 ? dynamicChartData[0].data.map((e, i) => "Målepunkt " + i) : [
+                  'Jan',
+                  'Feb',
+                  'Mar',
+                  'Apr',
+                  'May',
+                  'Jun',
+                  'Jul',
+                  'Aug',
+                  'Sep',
+                  'Oct',
+                  'Nov',
+                  'Dec'
+                ]}
+                sx={{ height: '100%' }}
             />
 
           </Grid>
@@ -240,7 +252,9 @@ const Page = () => {
                 labelId="table-select-label"
                 id="table-select"
                 value={formik.values.selectedTable}
-                onChange={formik.handleChange}
+                    onChange={(event) => {
+                      formik.handleChange(event);
+                    }}
                 onBlur={formik.handleBlur}
                 name="selectedTable"
               >
@@ -318,14 +332,13 @@ const Page = () => {
             md={6}
             lg={4}
           >
-            <Stack spacing={1}>
+            <Stack spacing={1} width={200}>
                 <Typography variant="h6">
                   Verdier i rapport
                   <Grid container spacing={1}>
-                {renderReportFields() && renderReportFields().map(({ fieldName, fieldLabel }, index) => (
-                  <Grid item key={index}>
-                    <FormControlLabel
-                      label={fieldLabel}
+                      {selectableFields.map((fieldName, index) => (
+                  <Grid item key={index} width="100%">
+                          <FormControlLabel
                       labelPlacement="end" // Flytt etiketten til slutten av knappen
                       control={
                         <ToggleButtonGroup
@@ -333,10 +346,9 @@ const Page = () => {
                           onChange={(event, newSelectedOptions) => {
                             formik.setFieldValue('selectedOptions', newSelectedOptions); // Oppdaterer verdien når knappene blir endret
                           }}
-                          aria-label="selected options"
                         >
-                        <ToggleButton value={fieldName} aria-label={fieldLabel}>
-                          {fieldName}
+                        <ToggleButton value={fieldName}>
+                          {fieldName.replaceAll("_", ' ')}
                         </ToggleButton>
                       </ToggleButtonGroup>
                    }

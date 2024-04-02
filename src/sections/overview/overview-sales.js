@@ -24,7 +24,6 @@ const useChartOptions = () => {
         show: false
       }
     },
-    colors: [theme.palette.primary.main, alpha(theme.palette.primary.main, 0.25)],
     dataLabels: {
       enabled: false
     },
@@ -55,7 +54,6 @@ const useChartOptions = () => {
       }
     },
     stroke: {
-      colors: ['black'],
       show: true,
       width: 2
     },
@@ -71,25 +69,12 @@ const useChartOptions = () => {
         color: theme.palette.divider,
         show: true
       },
-      categories: [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-      ],
       labels: {
         offsetY: 5,
         style: {
           colors: theme.palette.text.secondary
-        }
+        },
+        show: false
       }
     },
     yaxis: {
@@ -98,14 +83,14 @@ const useChartOptions = () => {
         offsetX: -10,
         style: {
           colors: theme.palette.text.secondary
-        }
+        },
       }
     }
   };
 };
 
 export const OverviewSales = (props) => {
-  const { chartSeries, sx } = props;
+  const { chartSeries, title, categories, sx } = props;
   const chartOptions = useChartOptions();
 
   return (
@@ -124,12 +109,12 @@ export const OverviewSales = (props) => {
             Sync
           </Button>
         )}
-        title="Sales"
+        title={title}
       />
       <CardContent>
         <Chart
           height={350}
-          options={chartOptions}
+          options={{...chartOptions, xaxis: {...chartOptions.xaxis, categories: categories}}}
           series={chartSeries}
           type="line"
           width="100%"
