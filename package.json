@@ -2,10 +2,10 @@
   "name": "rapportsystem-frontend",
   "version": "1.0.0",
   "authors": [
-    "André Martinsen",
     "Asgeir Bjørgen Huskebakk",
-    "Petter Sandbukt",
-    "Rudi Holm Abrahamsen"
+    "Rudi Holm Abrahamsen",
+    "André Martinsen",
+    "Petter Sandbukt"  
   ],
   "description": "Rapportsystem Frontend for Hovedprosjekt 23-24",
   "licence": "MIT",
