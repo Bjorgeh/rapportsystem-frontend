@@ -1,6 +1,11 @@
 import Head from 'next/head';
 import { subDays, subHours } from 'date-fns';
-import { Typography, FormControlLabel,TextField,Button, Stack, Box, Checkbox, Container, Unstable_Grid2 as Grid } from '@mui/material';
+import { Typography, FormControlLabel,TextField,Button, Stack, Box, Checkbox, Container, Unstable_Grid2 as Grid,   Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+} from '@mui/material';
+import { useRouter } from 'next/router';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { OverviewBudget } from 'src/sections/overview/overview-budget';
 import { OverviewLatestOrders } from 'src/sections/overview/overview-latest-orders';
@@ -20,8 +25,6 @@ import { set } from 'nprogress';
 import { randomFill, randomInt } from 'crypto';
 import { ArraySchema } from 'yup';
 import { array } from 'prop-types';
-
-
 const now = new Date();
 
 const Page = () => {
@@ -32,6 +35,8 @@ const Page = () => {
   const [selectableFields, setSelectableFields] = useState([]);
   const [reportFields, setReportFields] = useState({}); 
   const [dynamicChartData, setDynamicChartData] = useState([]);
+
+  const router = useRouter();
 
   const [showInputs, setShowInputs] = useState(true); // Tilstand for å vise eller skjule input-feltene
 
@@ -146,7 +151,16 @@ const Page = () => {
     };
 
     fetchData();
-    }, [formik.values.selectedTable]);
+        }, [formik.values.selectedTable]);
+  
+
+  const handleCreateReport = (reportName) => {
+    router.push(`/reports/`); //TODO
+  };
+
+  const handleReadReport = (reportName) => {
+    router.push(`/read/` + reportName);
+  };
 
   return (
   <>
@@ -167,50 +181,46 @@ const Page = () => {
             container
             spacing={2}
         >
-            <Grid
+<Grid
               xs={12}
-              sm={6}
-              lg={3}
+              lg={8}
           >
-            <OverviewBudget
-              difference={12}
-              positive
-              sx={{ height: '100%' }}
-              value=""
-            />
+
+      <Card>
+        <CardContent>
+          <Grid container 
+          spacing={2}>
+            {tableNames.length > 0 ? (
+              tableNames.map((tableName, index) => (
+                <><Grid item
+                  key={index}
+                  xs={6}>
+                  <Button variant="contained"
+                    fullWidth
+                    onClick={() => handleCreateReport(tableName)}>
+                    {"Ny " + tableName}
+                  </Button>
+                </Grid><Grid item
+                  key={index}
+                  xs={6}>
+                    <Button variant="contained"
+                      fullWidth
+                      onClick={() => handleReadReport(tableName)}>
+                      {"Se " + tableName}
+                    </Button>
+                  </Grid></>
+              ))
+            ) : (
+              <Grid item 
+              xs={12}>
+                <p>No tables available.</p>
+              </Grid>
+            )}
           </Grid>
-            <Grid
-              xs={12}
-              sm={6}
-              lg={3}
-          >
-            <OverviewTotalCustomers
-              difference={16}
-              positive={false}
-              sx={{ height: '100%' }}
-              value=""
-            />
-          </Grid>
-            <Grid
-              xs={12}
-              sm={6}
-              lg={3}
-          >
-            <OverviewTasksProgress
-              sx={{ height: '100%' }}
-              value={75.5}
-            />
-          </Grid>
-            <Grid
-              xs={12}
-              sm={6}
-              lg={3}
-          >
-            <OverviewTotalProfit
-              sx={{ height: '100%' }}
-              value="$15k"
-            />
-          </Grid>
+        </CardContent>
+      </Card>
+
+              </Grid>
             <Grid
               xs={12}
               lg={8}
