@@ -88,6 +88,15 @@ export const adminItems = [
     )
   },
   {
+    title: 'Endre rapporter',
+    path: '/leader/leaderpanel',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserPlusIcon />
+      </SvgIcon>
+    )
+  },
+  {
   title: 'Rapporter',
     path: '/reports',
     icon: (

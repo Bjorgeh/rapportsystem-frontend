@@ -32,7 +32,7 @@ const Page = () => {
   }, []);
 
   useEffect(() => {
-    if (user && user.accountType !== 'leader') {
+    if (user && user.accountType !== 'leader' && user.accountType !== 'admin') {
       router.push('/');
     }
   }, [user, router]);
