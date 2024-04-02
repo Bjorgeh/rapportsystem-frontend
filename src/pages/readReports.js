@@ -43,7 +43,7 @@ const YourComponent = () => {
   return (
     <div>
       <h1>API Data</h1>
-      <label htmlFor="rapportCount">Select Rapport Count: </label>
+      <label htmlFor="rapportCount">Velg antall rapporter: </label>
       <select id="rapportCount" value={rapportCount} onChange={handleRapportCountChange}>
         <option value="5">5</option>
         <option value="10">10</option>
@@ -58,14 +58,14 @@ const YourComponent = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Part Type</th>
-              <th>Stove</th>
-              <th>Catalog Number</th>
-              <th>Test Amount</th>
-              <th>Order Number</th>
-              <th>Approved</th>
-              <th>Date</th>
-              <th>Time</th>
+              <th>Type del</th>
+              <th>Modell</th>
+              <th>katalognummer</th>
+              <th>antall testet</th>
+              <th>Ordrenummer</th>
+              <th>Godkjent</th>
+              <th>Dato</th>
+              <th>Tid</th>
               <th>Sign</th>
             </tr>
           </thead>
@@ -78,7 +78,7 @@ const YourComponent = () => {
                 <td>{item.catalog_number}</td>
                 <td>{item.test_amount}</td>
                 <td>{item.ordrer_number}</td>
-                <td>{item.approved ? 'Yes' : 'No'}</td>
+                <td>{item.approved ? 'Ja' : 'Nei '}</td>
                 <td>{item.date}</td>
                 <td>{item.time}</td>
                 <td>{item.sign}</td>
@@ -87,7 +87,7 @@ const YourComponent = () => {
           </tbody>
         </table>
       ) : (
-        <p>Loading...</p>
+        <p>Laster...</p>
       )}
     </div>
   );
