@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
-import { items, adminItems } from './config';
+import { items, adminItems, leaderItems } from './config';
 import { SideNavItem } from './side-nav-item';
 import { useEffect, useState } from 'react'; // Import react related hooks separately
 
@@ -116,17 +116,36 @@ export const SideNav = (props) => {
               m: 0
             }}
           >
-            {(user && user.accountType === 'admin' ? adminItems : items).map((item, index) => (
-              <SideNavItem
-                key={index}
-                active={pathname === item.path}
-                disabled={item.disabled}
-                external={item.external}
-                icon={item.icon}
-                path={item.path}
-                title={item.title}
-              />
-            ))}
+            {user && (
+              (user.accountType === 'admin' && adminItems) ||
+              (user.accountType === 'leader' && leaderItems) ||
+              (user.accountType === 'operator')
+            ) ? (
+              (user.accountType === 'admin' ? adminItems : (user.accountType === 'leader' ? leaderItems : items)).map((item, index) => (
+                <SideNavItem
+                  key={index}
+                  active={pathname === item.path}
+                  disabled={item.disabled}
+                  external={item.external}
+                  icon={item.icon}
+                  path={item.path}
+                  title={item.title}
+                />
+              ))
+            ) : (
+              items.map((item, index) => (
+                <SideNavItem
+                  key={index}
+                  active={pathname === item.path}
+                  disabled={item.disabled}
+                  external={item.external}
+                  icon={item.icon}
+                  path={item.path}
+                  title={item.title}
+                />
+              ))
+            )}
+
           </Stack>
         </Box>
         <Divider sx={{ borderColor: 'neutral.700' }} />

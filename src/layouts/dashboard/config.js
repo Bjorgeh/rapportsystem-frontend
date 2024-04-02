@@ -11,7 +11,7 @@ import { SvgIcon } from '@mui/material';
 //Dette er alle lenkene en vanlig bruker kan se i side-nav
 export const items = [
   {
-    title: 'Overview',
+    title: 'Oversikt',
     path: '/',
     icon: (
       <SvgIcon fontSize="small">
@@ -20,25 +20,7 @@ export const items = [
     )
   },
   {
-    title: 'Customers',
-    path: '/customers',
-    icon: (
-      <SvgIcon fontSize="small">
-        <UsersIcon />
-      </SvgIcon>
-    )
-  },
-  {
-    title: 'Companies',
-    path: '/companies',
-    icon: (
-      <SvgIcon fontSize="small">
-        <ShoppingBagIcon />
-      </SvgIcon>
-    )
-  },
-  {
-    title: 'Account',
+    title: 'Brukerkonto',
     path: '/account',
     icon: (
       <SvgIcon fontSize="small">
@@ -47,7 +29,7 @@ export const items = [
     )
   },
   {
-    title: 'Settings',
+    title: 'Innstillinger',
     path: '/settings',
     icon: (
       <SvgIcon fontSize="small">
@@ -56,33 +38,16 @@ export const items = [
     )
   },
   {
-    title: 'Login',
-    path: '/auth/login',
+  title: 'Rapporter',
+    path: '/reports',
     icon: (
       <SvgIcon fontSize="small">
-        <LockClosedIcon />
+        <UserPlusIcon />
       </SvgIcon>
     )
   },
-  {
-    title: 'Error',
-    path: '/404',
-    icon: (
-      <SvgIcon fontSize="small">
-        <XCircleIcon />
-      </SvgIcon>
-    )
-  },
-  {
-    title: 'Rapporter',
-      path: '/reports',
-      icon: (
-        <SvgIcon fontSize="small">
-          <UserPlusIcon />
-        </SvgIcon>
-      )
-    },
 ];
+
 
 // Dette er alle lenkene en admin kan se i side-nav
 export const adminItems = [
@@ -116,6 +81,56 @@ export const adminItems = [
   {
     title: 'Admin Panel',
     path: '/admin/adminpanel',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserPlusIcon />
+      </SvgIcon>
+    )
+  },
+  {
+  title: 'Rapporter',
+    path: '/reports',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserPlusIcon />
+      </SvgIcon>
+    )
+  },
+];
+
+
+// Dette er alle lenkene en admin kan se i side-nav
+export const leaderItems = [
+  {
+    title: 'Oversikt',
+    path: '/',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Brukerkonto',
+    path: '/account',
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Innstillinger',
+    path: '/settings',
+    icon: (
+      <SvgIcon fontSize="small">
+        <CogIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Leader Panel',
+    path: '/leader/leaderpanel',
     icon: (
       <SvgIcon fontSize="small">
         <UserPlusIcon />
