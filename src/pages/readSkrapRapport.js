@@ -13,7 +13,7 @@ const YourComponent = () => {
     try {
       const accessToken = window.sessionStorage.getItem('accessToken');
       const requestData = {
-        table_name: 'DisaRapport',
+        table_name: 'SkrapRapport',
         rapport_count: rapportCount
       };
       console.log('Request data:', requestData);
@@ -29,7 +29,7 @@ const YourComponent = () => {
         throw new Error('Failed to fetch table data');
       }
       const responseData = await response.json();
-      setData(responseData.requested_data.DisaRapport.Data);
+      setData(responseData.requested_data.SkrapRapport.Data);
       console.log(responseData);
     } catch (error) {
       console.error('Error fetching table data:', error);
@@ -58,28 +58,26 @@ const YourComponent = () => {
           <thead>
             <tr>
               <th style={{ textAlign: 'center' }}>ID</th>
-              <th style={{ textAlign: 'center' }}>Skift</th>
               <th style={{ textAlign: 'center' }}>Dato</th>
               <th style={{ textAlign: 'center' }}>Tid</th>
-              <th style={{ textAlign: 'center' }}>Antall formet</th>
-              <th style={{ textAlign: 'center' }}>Antall støpt</th>
-              <th style={{ textAlign: 'center' }}>Modellnummer</th>
-              <th style={{ textAlign: 'center' }}>Kommentar</th>
-              <th style={{ textAlign: 'center' }}>Sign</th>
+              <th style={{ textAlign: 'center' }}>katalognummer</th>
+              <th style={{ textAlign: 'center' }}>Antall bestilt</th>
+              <th style={{ textAlign: 'center' }}>Antall manko</th>
+              <th style={{ textAlign: 'center' }}>Stk. pris</th>
+              <th style={{ textAlign: 'center' }}>Sum pris</th>
             </tr>
           </thead>
           <tbody>
             {data.map(item => (
               <tr key={item.id}>
                 <td style={{ textAlign: 'center' }}>{item.id}</td>
-                <td style={{ textAlign: 'center' }}>{item.shift}</td>
                 <td style={{ textAlign: 'center' }}>{item.date}</td>
                 <td style={{ textAlign: 'center' }}>{item.time}</td>
-                <td style={{ textAlign: 'center' }}>{item.amt_formed}</td>
-                <td style={{ textAlign: 'center' }}>{item.amt_cast}</td>
-                <td style={{ textAlign: 'center' }}>{item.model_number}</td>
-                <td style={{ textAlign: 'center' }}>{item.comment}</td>
-                <td style={{ textAlign: 'center' }}>{item.sign}</td>
+                <td style={{ textAlign: 'center' }}>{item.catalog_number}</td>
+                <td style={{ textAlign: 'center' }}>{item.amount_ordered}</td>
+                <td style={{ textAlign: 'center' }}>{item.amount_lacking}</td>
+                <td style={{ textAlign: 'center' }}>{item.price_pr_piece}</td>
+                <td style={{ textAlign: 'center' }}>{item.sum_price}</td>
               </tr>
             ))}
           </tbody>

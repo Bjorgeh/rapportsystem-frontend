@@ -57,31 +57,31 @@ const YourComponent = () => {
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Type del</th>
-              <th>Modell</th>
-              <th>katalognummer</th>
-              <th>antall testet</th>
-              <th>Ordrenummer</th>
-              <th>Godkjent</th>
-              <th>Dato</th>
-              <th>Tid</th>
-              <th>Sign</th>
+              <th style={{ textAlign: 'center' , width: 200}}>ID</th>
+              <th style={{ textAlign: 'center' }}>Type del</th>
+              <th style={{ textAlign: 'center' }}>Modell</th>
+              <th style={{ textAlign: 'center' }}>katalognummer</th>
+              <th style={{ textAlign: 'center' }}>antall testet</th>
+              <th style={{ textAlign: 'center' }}>Ordrenummer</th>
+              <th style={{ textAlign: 'center' }}>Godkjent</th>
+              <th style={{ textAlign: 'center' }}>Dato</th>
+              <th style={{ textAlign: 'center' }}>Tid</th>
+              <th style={{ textAlign: 'center' }}>Sign</th>
             </tr>
           </thead>
           <tbody>
             {data.map(item => (
               <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.part_type}</td>
-                <td>{item.stove}</td>
-                <td>{item.catalog_number}</td>
-                <td>{item.test_amount}</td>
-                <td>{item.ordrer_number}</td>
-                <td>{item.approved ? 'Ja' : 'Nei '}</td>
-                <td>{item.date}</td>
-                <td>{item.time}</td>
-                <td>{item.sign}</td>
+                <td style={{ textAlign: 'center' }}>{item.id}</td>
+                <td style={{ textAlign: 'center' }}>{item.part_type}</td>
+                <td style={{ textAlign: 'center' }}>{item.stove}</td>
+                <td style={{ textAlign: 'center' }}>{item.catalog_number}</td>
+                <td style={{ textAlign: 'center' }}>{item.test_amount}</td>
+                <td style={{ textAlign: 'center' }}>{item.ordrer_number}</td>
+                <td style={{ textAlign: 'center' }}>{item.approved ? 'Ja' : 'Nei '}</td>
+                <td style={{ textAlign: 'center' }}>{item.date}</td>
+                <td style={{ textAlign: 'center' }}>{item.time}</td>
+                <td style={{ textAlign: 'center' }}>{item.sign}</td>
               </tr>
             ))}
           </tbody>
