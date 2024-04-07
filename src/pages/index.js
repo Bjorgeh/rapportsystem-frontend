@@ -159,7 +159,7 @@ const Page = () => {
   };
 
   const handleReadReport = (reportName) => {
-    router.push(`/read/` + reportName);
+    router.push(`/read` + reportName);
   };
 
   return (
