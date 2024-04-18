@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import ArrowPathIcon from '@heroicons/react/24/solid/ArrowPathIcon';
 import ArrowRightIcon from '@heroicons/react/24/solid/ArrowRightIcon';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import {
   Button,
   Card,
@@ -12,10 +14,10 @@ import {
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
 import { Chart } from 'src/components/chart';
+import { set } from 'nprogress';
 
 const useChartOptions = () => {
   const theme = useTheme();
-
   return {
     chart: {
       background: 'transparent',
@@ -90,14 +92,30 @@ const useChartOptions = () => {
 };
 
 export const OverviewSales = (props) => {
-  const { chartSeries, title, categories, sx, chartType } = props;
+  const { chartSeries, title, categories, sx, refreshChartData } = props;
   const chartOptions = useChartOptions();
+  const allChartTypes = ['line', 'bar', 'area'];
+  const [chartType, setChartType] = useState(0);
+  const router = useRouter();
+
+  const handleRefreshButton = () => {
+    const targetType = chartType + 1;
+    if (chartSeries && chartSeries.length > 0) {
+      setChartType(targetType < allChartTypes.length ? targetType : 0);
+    }
+    refreshChartData();
+  }
+
+  const handleReportButton = () => {
+    router.push(`/read` + title);
+  }
 
   return (
     <Card sx={sx}>
       <CardHeader
         action={(
           <Button
+            onClick={handleRefreshButton}
             color="inherit"
             size="small"
             startIcon={(
@@ -106,7 +124,7 @@ export const OverviewSales = (props) => {
               </SvgIcon>
             )}
           >
-            Synkroniser
+            {chartSeries && chartSeries.length === 0 ? 'Synkroniser' : 'Vis som ' + `${allChartTypes[(chartType + 1) % allChartTypes.length] + ' (' + allChartTypes[chartType] + ")"}`}
           </Button>
         )}
         title={title && title.length > 0 ? title + " graf" : "Ingen data valgt"}
@@ -116,13 +134,14 @@ export const OverviewSales = (props) => {
           height={350}
           options={{...chartOptions, xaxis: {...chartOptions.xaxis, categories: categories}}}
           series={chartSeries}
-          type={chartType}
+          type={allChartTypes[chartType]}
           width="100%"
         />
       </CardContent>
       <Divider />
       <CardActions sx={{ justifyContent: 'flex-end' }}>
         <Button
+          onClick={handleReportButton}
           color="inherit"
           endIcon={(
             <SvgIcon fontSize="small">

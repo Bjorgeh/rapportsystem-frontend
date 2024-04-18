@@ -29,14 +29,12 @@ const now = new Date();
 
 const Page = () => {
   const unselectableFields = ['id', 'date', 'time', 'sum_', 'model_number', 'catalog_number', 'comment', 'approved', 'sign', 'part_type', 'ordrer_number', 'signature'];
-  const allChartTypes = ['line', 'bar', 'area', 'column', 'mixed', 'pie', 'donut', 'radialBar', 'scatter', 'bubble', 'heatmap', 'candlestick', 'radar', 'polarArea', 'treemap', 'sunburst', 'gantt', 'timeline', 'boxPlot', 'histogram'];
   const [tableNames, setTableNames] = useState([]); 
   const [tableInfo, setTableInfo] = useState([]); 
   const [tableData, setTableData] = useState(null);
   const [selectableFields, setSelectableFields] = useState([]);
   const [reportFields, setReportFields] = useState({}); 
   const [dynamicChartData, setDynamicChartData] = useState([]);
-  const [chartType, setChartType] = useState(allChartTypes[0]);
 
   const router = useRouter();
 
@@ -230,22 +228,9 @@ const Page = () => {
             <OverviewSales
                 chartSeries={dynamicChartData && dynamicChartData.length > 0 ? dynamicChartData : []}
                 title={dynamicChartData && dynamicChartData.length > 0 ? formik.values.selectedTable : null}
-                categories={dynamicChartData && dynamicChartData.length > 0 ? dynamicChartData[0].data.map((e, i) => "Målepunkt " + i) : [
-                  'Jan',
-                  'Feb',
-                  'Mar',
-                  'Apr',
-                  'May',
-                  'Jun',
-                  'Jul',
-                  'Aug',
-                  'Sep',
-                  'Oct',
-                  'Nov',
-                  'Dec'
-                ]}
+                categories={dynamicChartData && dynamicChartData.length > 0 ? dynamicChartData[0].data.map((e, i) => "Målepunkt " + i) : []}
                 sx={{ height: '100%' }}
-                type={chartType}
+                refreshChartData={formik.handleSubmit}
             />
 
           </Grid>
