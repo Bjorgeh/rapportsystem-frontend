@@ -65,17 +65,21 @@ const Page = () => {
     },
     validationSchema: Yup.object({
       selectedTable: Yup.string().required('Velg en rapporttype'),
-      // Add validation schema for other fields as needed
+      // Legg til validasjonsskjema for andre felt om nødvendig
     }),
     onSubmit: async (values, helpers) => {
       try {
-        const selectedReportFields = reportFields[values.selectedTable]; // Get fields for selected report
+        //sjekk om feltene er fylt ut
+        const selectedReportFields = reportFields[values.selectedTable]; // Henter feltene for valgt rapport
+        if (selectedReportFields === undefined || selectedReportFields === null) {
+          throw new Error('mangler feltinformasjon for valgt rapporttype');
+        }
         const requestData = {
           table_name: values.selectedTable,
           data: {},
         };
     
-        // Populate requestData with values from form based on selected report fields
+        // fyller requestData med feltene fra skjemaet
         Object.keys(selectedReportFields).forEach(fieldName => {
           // Exclude unwanted fields
           if (!fieldName.includes('id') && !fieldName.includes('date') && !fieldName.includes('time') && !fieldName.includes('sum_')) {
@@ -100,7 +104,7 @@ const Page = () => {
         });
     
         if (!response.ok) {
-          throw new Error('Failed to insert data');
+          throw new Error('rapportering feilet, prøv igjen senere');
         }
     
         const responseData = await response.json();
@@ -111,7 +115,7 @@ const Page = () => {
           setSuccessMessage(responseData.Message.Success);
           formik.resetForm(); // Tøm skjemaet
         } else {
-          throw new Error('Failed to insert data');
+          throw new Error('rapportering feilet, prøv igjen senere');
         }
       } catch (error) {
         helpers.setStatus({ success: false });
@@ -134,9 +138,11 @@ const Page = () => {
     
       return Object.entries(fields).map(([fieldName, fieldType], index) => {
         let inputType = 'text'; // Default input type
+        required: true;
         // Determine input type based on field data type
         if (fieldType.includes('int')) {
           inputType = 'number';
+          required: true;
         } else if (fieldType.includes('float') || fieldType.includes('decimal') || fieldType.includes('double')) {
           inputType = 'number';
           // You may add step, min, max attributes for more precision control
@@ -202,7 +208,7 @@ const Page = () => {
               
             </Stack>
             <form
-              noValidate
+              Validate
               onSubmit={formik.handleSubmit}
             >
               <Stack spacing={3}>
