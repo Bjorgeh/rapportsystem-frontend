@@ -166,7 +166,7 @@ const Page = () => {
   <>
     <Head>
       <title>
-        Overview | Rapportsystem
+        Forside | Rapportsystem
       </title>
     </Head>
     <Box
@@ -227,22 +227,10 @@ const Page = () => {
           >
             <OverviewSales
                 chartSeries={dynamicChartData && dynamicChartData.length > 0 ? dynamicChartData : []}
-                title={dynamicChartData && dynamicChartData.length > 0 ? formik.values.selectedTable + " graf" : "Ingen data valgt"}
-                categories={dynamicChartData && dynamicChartData.length > 0 ? dynamicChartData[0].data.map((e, i) => "Målepunkt " + i) : [
-                  'Jan',
-                  'Feb',
-                  'Mar',
-                  'Apr',
-                  'May',
-                  'Jun',
-                  'Jul',
-                  'Aug',
-                  'Sep',
-                  'Oct',
-                  'Nov',
-                  'Dec'
-                ]}
+                title={dynamicChartData && dynamicChartData.length > 0 ? formik.values.selectedTable : null}
+                categories={dynamicChartData && dynamicChartData.length > 0 ? dynamicChartData[0].data.map((e, i) => "Målepunkt " + i) : []}
                 sx={{ height: '100%' }}
+                refreshChartData={formik.handleSubmit}
             />
 
           </Grid>
