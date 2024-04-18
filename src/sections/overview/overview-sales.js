@@ -90,7 +90,7 @@ const useChartOptions = () => {
 };
 
 export const OverviewSales = (props) => {
-  const { chartSeries, title, categories, sx } = props;
+  const { chartSeries, title, categories, sx, chartType } = props;
   const chartOptions = useChartOptions();
 
   return (
@@ -116,7 +116,7 @@ export const OverviewSales = (props) => {
           height={350}
           options={{...chartOptions, xaxis: {...chartOptions.xaxis, categories: categories}}}
           series={chartSeries}
-          type="line"
+          type={chartType}
           width="100%"
         />
       </CardContent>
