@@ -106,10 +106,10 @@ export const OverviewSales = (props) => {
               </SvgIcon>
             )}
           >
-            Sync
+            Synkroniser
           </Button>
         )}
-        title={title}
+        title={title && title.length > 0 ? title + " graf" : "Ingen data valgt"}
       />
       <CardContent>
         <Chart
@@ -131,7 +131,7 @@ export const OverviewSales = (props) => {
           )}
           size="small"
         >
-          Overview
+          {title && title.length > 0 ? 'Se ' + title.toLowerCase() : 'Se rapport'}
         </Button>
       </CardActions>
     </Card>
