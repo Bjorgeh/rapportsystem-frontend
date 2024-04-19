@@ -10,7 +10,7 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  SvgIcon
+  SvgIcon,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Chart } from 'src/components/chart';
@@ -22,74 +22,75 @@ const useChartOptions = () => {
       background: 'transparent',
       stacked: false,
       toolbar: {
-        show: false
-      }
+        show: false,
+      },
     },
     dataLabels: {
-      enabled: false
+      enabled: false,
     },
     fill: {
       opacity: 1,
-      type: 'solid'
+      type: 'solid',
     },
     grid: {
       borderColor: theme.palette.divider,
       strokeDashArray: 2,
       xaxis: {
         lines: {
-          show: false
-        }
+          show: false,
+        },
       },
       yaxis: {
         lines: {
-          show: true
-        }
-      }
+          show: true,
+        },
+      },
     },
     legend: {
-      show: false
+      show: false,
     },
     plotOptions: {
       bar: {
-        columnWidth: '40px'
-      }
+        columnWidth: '40px',
+      },
     },
     stroke: {
       show: true,
-      width: 2
+      width: 2,
     },
     theme: {
-      mode: theme.palette.mode
+      mode: theme.palette.mode,
     },
     xaxis: {
       axisBorder: {
         color: theme.palette.divider,
-        show: true
+        show: true,
       },
       axisTicks: {
         color: theme.palette.divider,
-        show: true
+        show: true,
       },
       labels: {
         offsetY: 5,
         style: {
-          colors: theme.palette.text.secondary
+          colors: theme.palette.text.secondary,
         },
-        show: false
-      }
+        show: false,
+      },
     },
     yaxis: {
       labels: {
-        formatter: (value) => value.toLocaleString('no-NO', {
-          maximumFractionDigits: 2,
-          minimumFractionDigits: 0
-        }),
+        formatter: (value) =>
+          value.toLocaleString('no-NO', {
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 0,
+          }),
         offsetX: -10,
         style: {
-          colors: theme.palette.text.secondary
+          colors: theme.palette.text.secondary,
         },
-      }
-    }
+      },
+    },
   };
 };
 
@@ -106,30 +107,33 @@ export const OverviewSales = (props) => {
       setChartType(targetType < allChartTypes.length ? targetType : 0);
     }
     refreshChartData();
-  }
+  };
 
   const handleReportButton = () => {
     router.push(`/read` + title);
-  }
+  };
 
   return (
     <Card sx={sx}>
       <CardHeader
-        action={(
+        action={
           <Button
             onClick={handleRefreshButton}
             color="inherit"
             size="small"
-            startIcon={(
+            startIcon={
               <SvgIcon fontSize="small">
                 <ArrowPathIcon />
               </SvgIcon>
-            )}
+            }
           >
-            {chartSeries && chartSeries.length === 0 ? 'Synkroniser' : 'Vis som ' + `${allChartTypes[(chartType + 1) % allChartTypes.length] + ' (' + allChartTypes[chartType] + ")"}`}
+            {chartSeries && chartSeries.length === 0
+              ? 'Synkroniser'
+              : 'Vis som ' +
+                `${allChartTypes[(chartType + 1) % allChartTypes.length] + ' (' + allChartTypes[chartType] + ')'}`}
           </Button>
-        )}
-        title={title && title.length > 0 ? title + " graf" : "Ingen data valgt"}
+        }
+        title={title && title.length > 0 ? title + ' graf' : 'Ingen data valgt'}
       />
       <CardContent>
         <Chart
@@ -145,11 +149,11 @@ export const OverviewSales = (props) => {
         <Button
           onClick={handleReportButton}
           color="inherit"
-          endIcon={(
+          endIcon={
             <SvgIcon fontSize="small">
               <ArrowRightIcon />
             </SvgIcon>
-          )}
+          }
           size="small"
         >
           {title && title.length > 0 ? 'Se ' + title.toLowerCase() : 'Se rapport'}
@@ -161,5 +165,5 @@ export const OverviewSales = (props) => {
 
 OverviewSales.protoTypes = {
   chartSeries: PropTypes.array.isRequired,
-  sx: PropTypes.object
+  sx: PropTypes.object,
 };

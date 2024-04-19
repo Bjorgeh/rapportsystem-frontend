@@ -1,5 +1,15 @@
 import Head from 'next/head';
-import { Container, Box, Grid, TextField, Typography, Button, List, ListItem, ListItemText } from '@mui/material';
+import {
+  Container,
+  Box,
+  Grid,
+  TextField,
+  Typography,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+} from '@mui/material';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
@@ -7,7 +17,13 @@ import { API_BASE_URL } from 'src/config/apiConnection';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from '@mui/material';
 
 const Page = () => {
   const router = useRouter();
@@ -44,8 +60,8 @@ const Page = () => {
 
         const response = await fetch(API_BASE_URL + 'api/user/get/rapportInfo', {
           headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
+            Authorization: `Bearer ${accessToken}`,
+          },
         });
 
         if (!response.ok) {
@@ -70,15 +86,16 @@ const Page = () => {
     try {
       const accessToken = window.sessionStorage.getItem('accessToken');
 
-      const response = await fetch(API_BASE_URL + 'api/leader/post/extract_last', { // Endre URL-en her
+      const response = await fetch(API_BASE_URL + 'api/leader/post/extract_last', {
+        // Endre URL-en her
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
-          table_name: tableName
-        })
+          table_name: tableName,
+        }),
       });
 
       if (!response.ok) {
@@ -93,17 +110,15 @@ const Page = () => {
   };
 
   const handleReportDataChange = (fieldName, value) => {
-    setSelectedReportData(prevData => ({
+    setSelectedReportData((prevData) => ({
       ...prevData,
-      [fieldName]: value
+      [fieldName]: value,
     }));
   };
-
 
   const handleConfirmDialogClose = () => {
     setConfirmDialogOpen(false);
   };
-
 
   const changeDataInReport = async () => {
     setActionType('changeData');
@@ -131,12 +146,18 @@ const Page = () => {
 
       const requestData = {
         table_name: formik.values.selectedTable,
-        data: {}
+        data: {},
       };
 
       // Legg til feltene som ikke skal inkluderes i forespørselen
       Object.entries(selectedReportData).forEach(([fieldName, value]) => {
-        if (!fieldName.includes('id') && !fieldName.includes('date') && !fieldName.includes('time') && !fieldName.includes('sum_') && !fieldName.includes('total_')) {
+        if (
+          !fieldName.includes('id') &&
+          !fieldName.includes('date') &&
+          !fieldName.includes('time') &&
+          !fieldName.includes('sum_') &&
+          !fieldName.includes('total_')
+        ) {
           requestData.data[fieldName] = value;
         }
       });
@@ -145,9 +166,9 @@ const Page = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify(requestData)
+        body: JSON.stringify(requestData),
       });
 
       if (!response.ok) {
@@ -169,16 +190,16 @@ const Page = () => {
       const apiUrl = `${API_BASE_URL}api/leader/post/deleteLastRapport`;
 
       const requestData = {
-        table_name: formik.values.selectedTable
+        table_name: formik.values.selectedTable,
       };
 
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify(requestData)
+        body: JSON.stringify(requestData),
       });
 
       if (!response.ok) {
@@ -221,7 +242,11 @@ const Page = () => {
       // Determine input type based on field data type
       if (fieldType.includes('int')) {
         inputType = 'number';
-      } else if (fieldType.includes('float') || fieldType.includes('decimal') || fieldType.includes('double')) {
+      } else if (
+        fieldType.includes('float') ||
+        fieldType.includes('decimal') ||
+        fieldType.includes('double')
+      ) {
         inputType = 'number';
         // You may add step, min, max attributes for more precision control
       } else if (fieldType.includes('date')) {
@@ -230,7 +255,13 @@ const Page = () => {
         inputType = 'time';
       }
       //Fjerner felt som fylles automatisk av backend
-      if (fieldName.includes('id') || fieldName.includes('date') || fieldName.includes('time') || fieldName.includes('sum_') || fieldName.includes('total_')) {
+      if (
+        fieldName.includes('id') ||
+        fieldName.includes('date') ||
+        fieldName.includes('time') ||
+        fieldName.includes('sum_') ||
+        fieldName.includes('total_')
+      ) {
         return null;
       }
 
@@ -241,7 +272,11 @@ const Page = () => {
             id={fieldName}
             label={fieldName}
             type={inputType}
-            value={formik.values[fieldName] || (selectedReportData && selectedReportData[fieldName]) || ''} // Bind value to formik values or selectedReportData
+            value={
+              formik.values[fieldName] ||
+              (selectedReportData && selectedReportData[fieldName]) ||
+              ''
+            } // Bind value to formik values or selectedReportData
             onChange={(event) => {
               formik.handleChange(event);
               handleReportDataChange(fieldName, event.target.value); // Update selectedReportData
@@ -290,18 +325,27 @@ const Page = () => {
           </Typography>
         )}
         {renderReportFields()} {/* Render dynamic fields */}
-
         <Grid container spacing={3}>
           {/* Buttons row */}
           <Grid item xs={12}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={4}>
-                <Button variant="contained" color="primary" size="large" onClick={changeDataInReport}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  onClick={changeDataInReport}
+                >
                   Change report data
                 </Button>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Button variant="contained" color="secondary" size="large" onClick={deleteLastReport}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size="large"
+                  onClick={deleteLastReport}
+                >
                   Delete last report
                 </Button>
               </Grid>
@@ -317,8 +361,7 @@ const Page = () => {
               ))}
             </List>
           </Grid>
-          <Grid item xs={12} sm={6} lg={3}>
-          </Grid>
+          <Grid item xs={12} sm={6} lg={3}></Grid>
         </Grid>
       </Container>
       <Dialog
@@ -327,7 +370,9 @@ const Page = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Er du sikker på at du vil endre rapporten?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+          {'Er du sikker på at du vil endre rapporten?'}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Denne handlingen kan ikke angres.

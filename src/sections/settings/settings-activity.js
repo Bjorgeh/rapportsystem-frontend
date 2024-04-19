@@ -5,7 +5,7 @@ import {
   CardHeader,
   Divider,
   Typography,
-  Unstable_Grid2 as Grid
+  Unstable_Grid2 as Grid,
 } from '@mui/material';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
@@ -19,8 +19,8 @@ export const RecentActivity = () => {
       const accessToken = window.sessionStorage.getItem('accessToken');
       const response = await fetch(`${API_BASE_URL}api/user/get/activity`, {
         headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
       const data = await response.json();
       setActivityData(data.Activity);
@@ -35,20 +35,14 @@ export const RecentActivity = () => {
     fetchData();
   }, [fetchData]);
 
-  const handleSubmit = useCallback(
-    (event) => {
-      event.preventDefault();
-    },
-    []
-  );
+  const handleSubmit = useCallback((event) => {
+    event.preventDefault();
+  }, []);
 
   return (
     <form onSubmit={handleSubmit}>
       <Card>
-        <CardHeader
-          subheader="Din nylige aktivitet på plattformen"
-          title="Kontoaktivitet"
-        />
+        <CardHeader subheader="Din nylige aktivitet på plattformen" title="Kontoaktivitet" />
         <Divider />
         <CardContent>
           <Grid container spacing={3}>
@@ -58,7 +52,8 @@ export const RecentActivity = () => {
               activityData.map((activity) => (
                 <Grid item key={activity.id}>
                   <Typography>
-                    ID: {activity.id}, IP: {activity.ip_address}, Nettleser: {activity.user_agent}, OS: {activity.operating_system}, Tid: {activity.activity_timestamp}
+                    ID: {activity.id}, IP: {activity.ip_address}, Nettleser: {activity.user_agent},
+                    OS: {activity.operating_system}, Tid: {activity.activity_timestamp}
                   </Typography>
                 </Grid>
               ))

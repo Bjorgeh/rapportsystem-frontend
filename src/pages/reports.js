@@ -26,8 +26,8 @@ const Page = () => {
 
         const response = await fetch(API_BASE_URL + 'api/user/get/rapportInfo', {
           headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
+            Authorization: `Bearer ${accessToken}`,
+          },
         });
 
         if (!response.ok) {
@@ -72,9 +72,14 @@ const Page = () => {
         };
 
         // fyller requestData med feltene fra skjemaet
-        Object.keys(selectedReportFields).forEach(fieldName => {
+        Object.keys(selectedReportFields).forEach((fieldName) => {
           // Exclude unwanted fields
-          if (!fieldName.includes('id') && !fieldName.includes('date') && !fieldName.includes('time') && !fieldName.includes('sum_')) {
+          if (
+            !fieldName.includes('id') &&
+            !fieldName.includes('date') &&
+            !fieldName.includes('time') &&
+            !fieldName.includes('sum_')
+          ) {
             const fieldValue = formik.values[fieldName];
             requestData.data[fieldName] = fieldValue;
             console.log(`Field name: ${fieldName}, Field value: ${fieldValue}`); //Skriver ut data som sendes til backend
@@ -133,7 +138,11 @@ const Page = () => {
       if (fieldType.includes('int')) {
         inputType = 'number';
         required: true;
-      } else if (fieldType.includes('float') || fieldType.includes('decimal') || fieldType.includes('double')) {
+      } else if (
+        fieldType.includes('float') ||
+        fieldType.includes('decimal') ||
+        fieldType.includes('double')
+      ) {
         inputType = 'number';
         // You may add step, min, max attributes for more precision control
       } else if (fieldType.includes('date')) {
@@ -142,7 +151,12 @@ const Page = () => {
         inputType = 'time';
       }
       //Fjerner felt som fylles automatisk av backend
-      if (fieldName.includes('id') || fieldName.includes('date') || fieldName.includes('time') || fieldName.includes('sum_')) {
+      if (
+        fieldName.includes('id') ||
+        fieldName.includes('date') ||
+        fieldName.includes('time') ||
+        fieldName.includes('sum_')
+      ) {
         return null;
       }
 
@@ -163,20 +177,17 @@ const Page = () => {
     });
   };
 
-
   return (
     <>
       <Head>
-        <title>
-          Register report| Rapportsystem
-        </title>
+        <title>Register report| Rapportsystem</title>
       </Head>
       <Box
         sx={{
           flex: '1 1 auto',
           alignItems: 'center',
           display: 'flex',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       >
         <Box
@@ -184,25 +195,15 @@ const Page = () => {
             maxWidth: 550,
             px: 3,
             py: '100px',
-            width: '100%'
+            width: '100%',
           }}
         >
           <div>
-            <Stack
-              spacing={1}
-              sx={{ mb: 3 }}
-            >
-              <Typography variant="h4">
-                Ny rapport
-              </Typography>
-
+            <Stack spacing={1} sx={{ mb: 3 }}>
+              <Typography variant="h4">Ny rapport</Typography>
             </Stack>
-            <form
-              Validate
-              onSubmit={formik.handleSubmit}
-            >
+            <form Validate onSubmit={formik.handleSubmit}>
               <Stack spacing={3}>
-
                 <FormControl fullWidth>
                   <InputLabel id="table-select-label">Type rapport</InputLabel>
                   <Select
@@ -235,9 +236,9 @@ const Page = () => {
                 variant="contained"
                 disabled={formik.isSubmitting} // Disable button while submitting
               >
-                {formik.isSubmitting ? 'Sender...' : 'Lagre'} {/* Show loading text while submitting */}
+                {formik.isSubmitting ? 'Sender...' : 'Lagre'}{' '}
+                {/* Show loading text while submitting */}
               </Button>
-
             </form>
           </div>
         </Box>
@@ -246,10 +247,6 @@ const Page = () => {
   );
 };
 
-Page.getLayout = (page) => (
-  <AuthLayout>
-    {page}
-  </AuthLayout>
-);
+Page.getLayout = (page) => <AuthLayout>{page}</AuthLayout>;
 
 export default Page;

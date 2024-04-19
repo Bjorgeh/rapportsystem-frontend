@@ -33,8 +33,8 @@ const Page = () => {
 
         const response = await fetch(API_BASE_URL + 'api/user/get/rapportInfo', {
           headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
+            Authorization: `Bearer ${accessToken}`,
+          },
         });
 
         if (!response.ok) {
@@ -62,18 +62,11 @@ const Page = () => {
       name: '',
       password: '',
       selectedTable: '',
-      accountTypeSelectLabel: ''
+      accountTypeSelectLabel: '',
     },
     validationSchema: Yup.object({
-      email: Yup
-        .string()
-        .email('Must be a valid email')
-        .max(255)
-        .required('Email is required'),
-      password: Yup
-        .string()
-        .max(255)
-        .required('Password is required')
+      email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+      password: Yup.string().max(255).required('Password is required'),
     }),
     onSubmit: async (values, helpers) => {
       try {
@@ -86,14 +79,14 @@ const Page = () => {
           apiUrl = API_BASE_URL + 'api/admin/post/createSubLeader';
           requestData = {
             email: values.email,
-            password: values.password
+            password: values.password,
           };
         } else if (values.accountTypeSelectLabel === 'operator') {
           apiUrl = API_BASE_URL + 'api/admin/post/createSubOperator';
           requestData = {
             email: values.email,
             password: values.password,
-            rapportName: values.selectedTable
+            rapportName: values.selectedTable,
           };
         }
 
@@ -101,9 +94,9 @@ const Page = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
+            Authorization: `Bearer ${accessToken}`,
           },
-          body: JSON.stringify(requestData)
+          body: JSON.stringify(requestData),
         });
 
         if (!response.ok) {
@@ -117,7 +110,7 @@ const Page = () => {
         helpers.setErrors({ submit: error.message });
         helpers.setSubmitting(false);
       }
-    }
+    },
   });
 
   if (!user || user.accountType !== 'admin') {
@@ -127,16 +120,14 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>
-          Register sub user | Rapportsystem
-        </title>
+        <title>Register sub user | Rapportsystem</title>
       </Head>
       <Box
         sx={{
           flex: '1 1 auto',
           alignItems: 'center',
           display: 'flex',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       >
         <Box
@@ -144,25 +135,15 @@ const Page = () => {
             maxWidth: 550,
             px: 3,
             py: '100px',
-            width: '100%'
+            width: '100%',
           }}
         >
           <div>
-            <Stack
-              spacing={1}
-              sx={{ mb: 3 }}
-            >
-              <Typography variant="h4">
-                Register sub user
-              </Typography>
-
+            <Stack spacing={1} sx={{ mb: 3 }}>
+              <Typography variant="h4">Register sub user</Typography>
             </Stack>
-            <form
-              noValidate
-              onSubmit={formik.handleSubmit}
-            >
+            <form noValidate onSubmit={formik.handleSubmit}>
               <Stack spacing={3}>
-
                 <FormControl fullWidth>
                   <InputLabel id="account-type-select-label">Account type</InputLabel>
                   <Select
@@ -225,30 +206,16 @@ const Page = () => {
                 />
               </Stack>
               {formik.errors.submit && (
-                <Typography
-                  color="error"
-                  sx={{ mt: 3 }}
-                  variant="body2"
-                >
+                <Typography color="error" sx={{ mt: 3 }} variant="body2">
                   {formik.errors.submit}
                 </Typography>
               )}
               {successMessage && (
-                <Typography
-                  color="success"
-                  sx={{ mt: 3 }}
-                  variant="body2"
-                >
+                <Typography color="success" sx={{ mt: 3 }} variant="body2">
                   {successMessage}
                 </Typography>
               )}
-              <Button
-                fullWidth
-                size="large"
-                sx={{ mt: 3 }}
-                type="submit"
-                variant="contained"
-              >
+              <Button fullWidth size="large" sx={{ mt: 3 }} type="submit" variant="contained">
                 Continue
               </Button>
             </form>
@@ -259,10 +226,6 @@ const Page = () => {
   );
 };
 
-Page.getLayout = (page) => (
-  <AuthLayout>
-    {page}
-  </AuthLayout>
-);
+Page.getLayout = (page) => <AuthLayout>{page}</AuthLayout>;
 
 export default Page;

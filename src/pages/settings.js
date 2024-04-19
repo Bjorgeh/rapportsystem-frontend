@@ -7,22 +7,18 @@ import { RecentActivity } from 'src/sections/settings/settings-activity';
 const Page = () => (
   <>
     <Head>
-      <title>
-        Innstillinger | Rapportsystem
-      </title>
+      <title>Innstillinger | Rapportsystem</title>
     </Head>
     <Box
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 8,
       }}
     >
       <Container maxWidth="lg">
         <Stack spacing={3}>
-          <Typography variant="h4">
-            Innstillinger
-          </Typography>
+          <Typography variant="h4">Innstillinger</Typography>
           <RecentActivity />
           <SettingsPassword />
         </Stack>
@@ -31,10 +27,6 @@ const Page = () => (
   </>
 );
 
-Page.getLayout = (page) => (
-  <DashboardLayout>
-    {page}
-  </DashboardLayout>
-);
+Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Page;

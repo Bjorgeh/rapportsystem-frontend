@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  TextField,
-  Grid,
-} from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Divider, TextField, Grid } from '@mui/material';
 import axios from 'axios';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
@@ -22,10 +14,10 @@ const AccountProfileDetails = () => {
     const fetchData = async () => {
       try {
         const accessToken = window.sessionStorage.getItem('accessToken');
-        const response = await axios.get(API_BASE_URL + "api/user/get/user/info", {
+        const response = await axios.get(API_BASE_URL + 'api/user/get/user/info', {
           headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
+            Authorization: `Bearer ${accessToken}`,
+          },
         });
         const { user_Id, email, accountType } = response.data;
         setValues({ user_id: user_Id, email, accountType });
@@ -43,7 +35,6 @@ const AccountProfileDetails = () => {
         <CardHeader subheader="Informasjon" title="Profil" />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
-
             <Grid xs={12} md={6}>
               <TextField
                 fullWidth

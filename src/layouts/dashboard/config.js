@@ -13,7 +13,7 @@ export const items = [
       <SvgIcon fontSize="small">
         <ChartBarIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Brukerkonto',
@@ -22,7 +22,7 @@ export const items = [
       <SvgIcon fontSize="small">
         <UserIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Innstillinger',
@@ -31,7 +31,7 @@ export const items = [
       <SvgIcon fontSize="small">
         <CogIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Rapporter',
@@ -40,10 +40,9 @@ export const items = [
       <SvgIcon fontSize="small">
         <UserPlusIcon />
       </SvgIcon>
-    )
+    ),
   },
 ];
-
 
 // Dette er alle lenkene en admin kan se i side-nav
 export const adminItems = [
@@ -54,7 +53,7 @@ export const adminItems = [
       <SvgIcon fontSize="small">
         <ChartBarIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Brukerkonto',
@@ -63,7 +62,7 @@ export const adminItems = [
       <SvgIcon fontSize="small">
         <UserIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Innstillinger',
@@ -72,7 +71,7 @@ export const adminItems = [
       <SvgIcon fontSize="small">
         <CogIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Admin Panel',
@@ -81,7 +80,7 @@ export const adminItems = [
       <SvgIcon fontSize="small">
         <UserPlusIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Endre rapporter',
@@ -90,7 +89,7 @@ export const adminItems = [
       <SvgIcon fontSize="small">
         <UserPlusIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Rapporter',
@@ -99,10 +98,9 @@ export const adminItems = [
       <SvgIcon fontSize="small">
         <UserPlusIcon />
       </SvgIcon>
-    )
+    ),
   },
 ];
-
 
 // Dette er alle lenkene en admin kan se i side-nav
 export const leaderItems = [
@@ -113,7 +111,7 @@ export const leaderItems = [
       <SvgIcon fontSize="small">
         <ChartBarIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Brukerkonto',
@@ -122,7 +120,7 @@ export const leaderItems = [
       <SvgIcon fontSize="small">
         <UserIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Innstillinger',
@@ -131,7 +129,7 @@ export const leaderItems = [
       <SvgIcon fontSize="small">
         <CogIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Leader Panel',
@@ -140,7 +138,7 @@ export const leaderItems = [
       <SvgIcon fontSize="small">
         <UserPlusIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Rapporter',
@@ -149,6 +147,6 @@ export const leaderItems = [
       <SvgIcon fontSize="small">
         <UserPlusIcon />
       </SvgIcon>
-    )
+    ),
   },
 ];

@@ -14,16 +14,16 @@ const YourComponent = () => {
       const accessToken = window.sessionStorage.getItem('accessToken');
       const requestData = {
         table_name: 'SmelteRapport',
-        rapport_count: rapportCount
+        rapport_count: rapportCount,
       };
       console.log('Request data:', requestData);
       const response = await fetch(API_BASE_URL + 'api/user/post/extractPreciseData', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify(requestData)
+        body: JSON.stringify(requestData),
       });
       if (!response.ok) {
         throw new Error('Failed to fetch table data');
@@ -75,7 +75,7 @@ const YourComponent = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map(item => (
+              {data.map((item) => (
                 <tr key={item.id}>
                   <td style={{ textAlign: 'center' }}>{item.id}</td>
                   <td style={{ textAlign: 'center' }}>{item.furnace_number}</td>
