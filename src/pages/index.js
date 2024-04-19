@@ -1,32 +1,17 @@
 import Head from 'next/head';
-import { subDays, subHours } from 'date-fns';
 import {
-  Typography, FormControlLabel, TextField, Button, Stack, Box, Checkbox, Container, Unstable_Grid2 as Grid, Card,
-  CardActions,
+  Typography, FormControlLabel, TextField, Button, Stack, Box, Container, Unstable_Grid2 as Grid, Card,
   CardContent,
-  CardHeader,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { OverviewBudget } from 'src/sections/overview/overview-budget';
-import { OverviewLatestOrders } from 'src/sections/overview/overview-latest-orders';
-import { OverviewLatestProducts } from 'src/sections/overview/overview-latest-products';
 import { OverviewSales } from 'src/sections/overview/overview-sales';
-import { OverviewTasksProgress } from 'src/sections/overview/overview-tasks-progress';
-import { OverviewTotalCustomers } from 'src/sections/overview/overview-total-customers';
-import { OverviewTotalProfit } from 'src/sections/overview/overview-total-profit';
-import { OverviewTraffic } from 'src/sections/overview/overview-traffic';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-//import { table } from 'console';
 import { API_BASE_URL } from 'src/config/apiConnection';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { set } from 'nprogress';
-import { randomFill, randomInt } from 'crypto';
-import { ArraySchema } from 'yup';
-import { array } from 'prop-types';
-const now = new Date();
+import { randomInt } from 'crypto';
 
 const Page = () => {
   const unselectableFields = ['id', 'date', 'time', 'sum_', 'model_number', 'catalog_number', 'comment', 'approved', 'sign', 'part_type', 'ordrer_number', 'signature'];
