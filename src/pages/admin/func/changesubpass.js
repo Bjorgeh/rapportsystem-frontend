@@ -2,16 +2,23 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Stack, TextField, Typography } from '@mui/material';
-import { useAuth } from 'src/hooks/use-auth';
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
 const Page = () => {
   const router = useRouter();
-  const auth = useAuth();
   const [user, setUser] = useState(null);
   const [subUsers, setSubUsers] = useState([]);
   const [successMessage, setSuccessMessage] = useState(null);

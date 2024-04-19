@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import { useFormik } from 'formik';
@@ -10,7 +9,7 @@ import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 const Page = () => {
   const router = useRouter();
   const auth = useAuth();
-  const [method, setMethod] = useState('email');
+  const method = 'email';
   const formik = useFormik({
     initialValues: {
       email: 'ola.nordmann@viken.no',

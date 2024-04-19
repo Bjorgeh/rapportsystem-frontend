@@ -5,7 +5,7 @@ import ArrowTopRightOnSquareIcon from '@heroicons/react/24/solid/ArrowTopRightOn
 import { Box, Button, Divider, Drawer, Stack, SvgIcon, useMediaQuery } from '@mui/material';
 import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
-import { items, adminItems, leaderItems } from './config';
+import { adminItems, items, leaderItems } from './config';
 import { SideNavItem } from './side-nav-item';
 import { useEffect, useState } from 'react'; // Import react related hooks separately
 

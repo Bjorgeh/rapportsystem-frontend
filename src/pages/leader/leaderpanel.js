@@ -1,35 +1,35 @@
 import Head from 'next/head';
 import {
-  Container,
   Box,
-  Grid,
-  TextField,
-  Typography,
   Button,
-  List,
-  ListItem,
-  ListItemText,
-} from '@mui/material';
-import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import { API_BASE_URL } from 'src/config/apiConnection';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import {
+  Container,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControl,
+  Grid,
+  InputLabel,
+  List,
+  ListItem,
+  ListItemText,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
 } from '@mui/material';
+import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { API_BASE_URL } from 'src/config/apiConnection';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 const Page = () => {
   const router = useRouter();
   const [user, setUser] = useState(null);
-  const [subUsers, setSubUsers] = useState([]);
-  const [tables, setTables] = useState([]);
+  const subUsers = [];
   const [reportFields, setReportFields] = useState({});
   const [selectedReportData, setSelectedReportData] = useState(null);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
@@ -223,7 +223,7 @@ const Page = () => {
       selectedTable: Yup.string().required('Velg en rapporttype'),
       // Add validation schema for other fields as needed
     }),
-    onSubmit: async (values, helpers) => {
+    onSubmit: async (/*values, helpers*/) => {
       // Handle form submission if needed
     },
   });

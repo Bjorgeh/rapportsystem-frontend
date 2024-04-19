@@ -130,7 +130,12 @@ export const OverviewSales = (props) => {
             {chartSeries && chartSeries.length === 0
               ? 'Synkroniser'
               : 'Vis som ' +
-                `${allChartTypes[(chartType + 1) % allChartTypes.length] + ' (' + allChartTypes[chartType] + ')'}`}
+                `${
+                  allChartTypes[(chartType + 1) % allChartTypes.length] +
+                  ' (' +
+                  allChartTypes[chartType] +
+                  ')'
+                }`}
           </Button>
         }
         title={title && title.length > 0 ? title + ' graf' : 'Ingen data valgt'}

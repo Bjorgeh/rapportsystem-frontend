@@ -1,21 +1,23 @@
 import Head from 'next/head';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Stack, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
 const Page = () => {
-  const [user, setUser] = useState(null);
   const [reportFields, setReportFields] = useState({}); // Object to store report fields and titles
-
-  useEffect(() => {
-    const userString = window.sessionStorage.getItem('user');
-    const parsedUser = userString ? JSON.parse(userString) : null;
-    setUser(parsedUser);
-  }, []);
 
   const [tableNames, setTableNames] = useState([]);
 
@@ -47,8 +49,6 @@ const Page = () => {
 
     fetchData();
   }, []);
-
-  const [successMessage, setSuccessMessage] = useState(null);
 
   const formik = useFormik({
     initialValues: {
@@ -109,7 +109,6 @@ const Page = () => {
 
         // Assuming response has a message with success status
         if (responseData.Message && responseData.Message.Success) {
-          setSuccessMessage(responseData.Message.Success);
           formik.resetForm(); // Tøm skjemaet
         } else {
           throw new Error('rapportering feilet, prøv igjen senere');
