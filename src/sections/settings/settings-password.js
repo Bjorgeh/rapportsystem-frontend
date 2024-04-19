@@ -9,28 +9,25 @@ import {
   CardHeader,
   Divider,
   Stack,
-  TextField
+  TextField,
 } from '@mui/material';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
 export const SettingsPassword = () => {
   const [values, setValues] = useState({
     password: '',
-    confirm: ''
+    confirm: '',
   });
 
   const router = useRouter(); // Initialize useRouter
   const { signOut } = useAuthContext(); // Access the signOut function from AuthContext
 
-  const handleChange = useCallback(
-    (event) => {
-      setValues((prevState) => ({
-        ...prevState,
-        [event.target.name]: event.target.value
-      }));
-    },
-    []
-  );
+  const handleChange = useCallback((event) => {
+    setValues((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
+  }, []);
 
   const handleSubmit = useCallback(
     async (event) => {
@@ -41,12 +38,12 @@ export const SettingsPassword = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
             password1: values.password,
-            password2: values.confirm
-          })
+            password2: values.confirm,
+          }),
         });
         if (response.ok) {
           const data = await response.json();
@@ -68,19 +65,13 @@ export const SettingsPassword = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Card>
-        <CardHeader
-          subheader="Update password"
-          title="Password"
-        />
+        <CardHeader subheader="Endre passord" title="Passord" />
         <Divider />
         <CardContent>
-          <Stack
-            spacing={3}
-            sx={{ maxWidth: 400 }}
-          >
+          <Stack spacing={3} sx={{ maxWidth: 400 }}>
             <TextField
               fullWidth
-              label="Password"
+              label="Nytt passord"
               name="password"
               onChange={handleChange}
               type="password"
@@ -88,7 +79,7 @@ export const SettingsPassword = () => {
             />
             <TextField
               fullWidth
-              label="Password (Confirm)"
+              label="Bekreft passord"
               name="confirm"
               onChange={handleChange}
               type="password"
@@ -99,7 +90,7 @@ export const SettingsPassword = () => {
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
           <Button type="submit" variant="contained">
-            Update
+            Oppdater
           </Button>
         </CardActions>
       </Card>

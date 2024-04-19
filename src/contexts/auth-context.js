@@ -1,19 +1,18 @@
 import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-//import { access } from 'fs';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
   SIGN_IN: 'SIGN_IN',
-  SIGN_OUT: 'SIGN_OUT'
+  SIGN_OUT: 'SIGN_OUT',
 };
 
 const initialState = {
   isAuthenticated: false,
   isLoading: true,
-  user: null
+  user: null,
 };
 
 const handlers = {
@@ -22,18 +21,16 @@ const handlers = {
 
     return {
       ...state,
-      ...(
-        // if payload (user) is provided, then is authenticated
-        user
-          ? ({
+      ...// if payload (user) is provided, then is authenticated
+      (user
+        ? {
             isAuthenticated: true,
             isLoading: false,
-            user
-          })
-          : ({
-            isLoading: false
-          })
-      )
+            user,
+          }
+        : {
+            isLoading: false,
+          }),
     };
   },
   [HANDLERS.SIGN_IN]: (state, action) => {
@@ -42,21 +39,20 @@ const handlers = {
     return {
       ...state,
       isAuthenticated: true,
-      user
+      user,
     };
   },
   [HANDLERS.SIGN_OUT]: (state) => {
     return {
       ...state,
       isAuthenticated: false,
-      user: null
+      user: null,
     };
-  }
+  },
 };
 
-const reducer = (state, action) => (
-  handlers[action.type] ? handlers[action.type](state, action) : state
-);
+const reducer = (state, action) =>
+  handlers[action.type] ? handlers[action.type](state, action) : state;
 
 // The role of this context is to propagate authentication state through the App tree.
 
@@ -88,16 +84,16 @@ export const AuthProvider = (props) => {
         id: '5e86809283e28b96d2d38537',
         avatar: '/assets/avatars/avatar-anika-visser.png',
         name: 'Anika Visser',
-        email: 'anika.visser@devias.io'
+        email: 'anika.visser@devias.io',
       };
 
       dispatch({
         type: HANDLERS.INITIALIZE,
-        payload: user
+        payload: user,
       });
     } else {
       dispatch({
-        type: HANDLERS.INITIALIZE
+        type: HANDLERS.INITIALIZE,
       });
     }
   };
@@ -121,44 +117,42 @@ export const AuthProvider = (props) => {
       id: '5e86809283e28b96d2d38537',
       avatar: '/assets/avatars/avatar-anika-visser.png',
       name: 'Anika Visser',
-      email: 'anika.visser@devias.io'
+      email: 'anika.visser@devias.io',
     };
 
     dispatch({
       type: HANDLERS.SIGN_IN,
-      payload: user
+      payload: user,
     });
   };
 
   const signIn = async (email, password) => {
     const credentials = { username: email, password: password };
-  
+
     try {
       const response = await axios.post(API_BASE_URL + 'api/user/post/login', credentials);
       const data = response.data;
-  
-      //console.log('Login response data: ', data);
-  
+
       // Lagre brukerobjektet og tilgangstokenet i sessionStorage
       window.sessionStorage.setItem('user', JSON.stringify(data.user));
       window.sessionStorage.setItem('accessToken', data.access_token);
       window.sessionStorage.setItem('email', JSON.stringify(email));
       window.sessionStorage.setItem('user_id', JSON.stringify(data.user_id));
       window.sessionStorage.setItem('accountType', JSON.stringify(data.accountType));
-  
+
       // Sett authenticated til true i sessionStorage etter vellykket innlogging
       window.sessionStorage.setItem('authenticated', 'true');
-  
+
       // Bruk dispatch for å oppdatere tilstanden med brukerdataene
       dispatch({
         type: HANDLERS.SIGN_IN,
-        payload: data.user
+        payload: data.user,
       });
     } catch (error) {
       console.error('Error during login:', error);
     }
   };
-  
+
   const signUp = async (email, password) => {
     try {
       // Implementer logikken for å registrere brukeren her
@@ -182,19 +176,17 @@ export const AuthProvider = (props) => {
       console.error('Error during sign out:', error);
     }
   };
-  
+
   AuthProvider.propTypes = {
     children: PropTypes.node,
     signUp: PropTypes.func,
-    signOut: PropTypes.func // Legg til signOut i prop types
+    signOut: PropTypes.func, // Legg til signOut i prop types
   };
-  
-  
+
   AuthProvider.propTypes = {
     children: PropTypes.node,
-    signUp: PropTypes.func // Oppdater prop types for å inkludere signUp-funksjonen
+    signUp: PropTypes.func, // Oppdater prop types for å inkludere signUp-funksjonen
   };
-  
 
   return (
     <AuthContext.Provider
@@ -203,7 +195,7 @@ export const AuthProvider = (props) => {
         skip,
         signIn,
         signUp,
-        signOut
+        signOut,
       }}
     >
       {children}
@@ -212,7 +204,7 @@ export const AuthProvider = (props) => {
 };
 
 AuthProvider.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export const AuthConsumer = AuthContext.Consumer;

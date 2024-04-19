@@ -6,13 +6,10 @@ import {
   CardActions,
   CardContent,
   Divider,
-  Typography
+  Typography,
 } from '@mui/material';
 
-
-const user = {
-
-};
+const user = {};
 
 export const AccountProfile = () => (
   <Card>
@@ -21,43 +18,19 @@ export const AccountProfile = () => (
         sx={{
           alignItems: 'center',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
         }}
       >
-
-        <Typography
-          gutterBottom
-          variant="h5"
-        >
+        <Typography gutterBottom variant="h5">
           {user.name}
         </Typography>
-        <Typography
-          color="text.secondary"
-          variant="body2"
-        >
+        <Typography color="text.secondary" variant="body2">
           {user.city} {user.country}
         </Typography>
-        <Typography
-          color="text.secondary"
-          variant="body2"
-        >
+        <Typography color="text.secondary" variant="body2">
           {user.timezone}
         </Typography>
       </Box>
     </CardContent>
-    <Divider />
-    
-    {/*Kommentert ut for å fjerne muligheten for å laste opp bilde da dette ikke er ment å gå..*/}
-
-    {/*
-    <CardActions>
-      <Button
-        fullWidth
-        variant="text"
-      >
-        Upload picture
-      </Button>
-    </CardActions>
-        */}
   </Card>
 );

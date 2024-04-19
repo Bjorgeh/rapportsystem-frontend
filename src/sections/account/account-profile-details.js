@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  TextField,
-  Grid,
-} from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Divider, TextField, Grid } from '@mui/material';
 import axios from 'axios';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
@@ -22,11 +14,10 @@ const AccountProfileDetails = () => {
     const fetchData = async () => {
       try {
         const accessToken = window.sessionStorage.getItem('accessToken');
-        //console.log('Access token:', accessToken); // commented out to hide access token from console
-        const response = await axios.get(API_BASE_URL + "api/user/get/user/info", {
+        const response = await axios.get(API_BASE_URL + 'api/user/get/user/info', {
           headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
+            Authorization: `Bearer ${accessToken}`,
+          },
         });
         const { user_Id, email, accountType } = response.data;
         setValues({ user_id: user_Id, email, accountType });
@@ -41,43 +32,41 @@ const AccountProfileDetails = () => {
   return (
     <Grid xs={12} md={6}>
       <Card>
-        <CardHeader subheader="Info" title="Profile" />
+        <CardHeader subheader="Informasjon" title="Profil" />
         <CardContent sx={{ pt: 0 }}>
           <Box sx={{ m: -1.5 }}>
-            
-              <Grid xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Id"
-                  name="user_id"
-                  value={values.user_id}
-                  disabled // Disable editing of user_id field
-                />
-              </Grid>
-              <Grid xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Email"
-                  name="email"
-                  value={values.email}
-                  disabled // Disable editing of email field
-                />
-              </Grid>
-              <Grid xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Access Level"
-                  name="accountType"
-                  value={values.accountType}
-                  disabled // Disable editing of accountType field
-                />
-              </Grid>
-            
+            <Grid xs={12} md={6}>
+              <TextField
+                fullWidth
+                label="Bruker ID"
+                name="user_id"
+                value={values.user_id}
+                disabled // Disable editing of user_id field
+              />
+            </Grid>
+            <Grid xs={12} md={6}>
+              <TextField
+                fullWidth
+                label="E-postadresse"
+                name="email"
+                value={values.email}
+                disabled // Disable editing of email field
+              />
+            </Grid>
+            <Grid xs={12} md={6}>
+              <TextField
+                fullWidth
+                label="Tilgangsnivå"
+                name="accountType"
+                value={values.accountType}
+                disabled // Disable editing of accountType field
+              />
+            </Grid>
           </Box>
         </CardContent>
         <Divider />
       </Card>
-      </Grid>
+    </Grid>
   );
 };
 

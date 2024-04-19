@@ -1,6 +1,13 @@
 {
-  "extends": "next/core-web-vitals",
+  "extends": [
+    "next/core-web-vitals", // or other base ESLint configurations your project uses
+    "plugin:prettier/recommended" // Adds Prettier as an ESLint rule and configures eslint-config-prettier automatically
+  ],
+  "plugins": [
+    "prettier" // Enables eslint-plugin-prettier
+  ],
   "rules": {
+    "prettier/prettier": "error", // Makes Prettier issues report as errors in ESLint
     "@next/next/no-img-element": "off",
     "@next/next/no-page-custom-font": "off",
     "react-hooks/exhaustive-deps": "off",

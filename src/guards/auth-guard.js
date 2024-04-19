@@ -14,33 +14,30 @@ export const AuthGuard = (props) => {
   // This flow allows you to manually redirect the user after sign-out, otherwise this will be
   // triggered and will automatically redirect to sign-in page.
 
-  useEffect(
-    () => {
-      if (!router.isReady) {
-        return;
-      }
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
 
-      // Prevent from calling twice in development mode with React.StrictMode enabled
-      if (ignore.current) {
-        return;
-      }
+    // Prevent from calling twice in development mode with React.StrictMode enabled
+    if (ignore.current) {
+      return;
+    }
 
-      ignore.current = true;
+    ignore.current = true;
 
-      if (!isAuthenticated) {
-        console.log('Not authenticated, redirecting');
-        router
-          .replace({
-            pathname: '/auth/login',
-            query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
-          })
-          .catch(console.error);
-      } else {
-        setChecked(true);
-      }
-    },
-    [isAuthenticated, router, router.isReady]
-  );
+    if (!isAuthenticated) {
+      console.log('Not authenticated, redirecting');
+      router
+        .replace({
+          pathname: '/auth/login',
+          query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined,
+        })
+        .catch(console.error);
+    } else {
+      setChecked(true);
+    }
+  }, [isAuthenticated, router, router.isReady]);
 
   if (!checked) {
     return null;
@@ -53,5 +50,5 @@ export const AuthGuard = (props) => {
 };
 
 AuthGuard.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };

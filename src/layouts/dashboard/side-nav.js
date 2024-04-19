@@ -2,7 +2,6 @@ import NextLink from 'next/link';
 import { usePathname } from 'next/navigation'; // Keep only one import for usePathname
 import PropTypes from 'prop-types';
 import ArrowTopRightOnSquareIcon from '@heroicons/react/24/solid/ArrowTopRightOnSquareIcon';
-import ChevronUpDownIcon from '@heroicons/react/24/solid/ChevronUpDownIcon';
 import {
   Box,
   Button,
@@ -11,7 +10,7 @@ import {
   Stack,
   SvgIcon,
   Typography,
-  useMediaQuery
+  useMediaQuery,
 } from '@mui/material';
 import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
@@ -36,11 +35,11 @@ export const SideNav = (props) => {
       sx={{
         height: '100%',
         '& .simplebar-content': {
-          height: '100%'
+          height: '100%',
         },
         '& .simplebar-scrollbar:before': {
-          background: 'neutral.400'
-        }
+          background: 'neutral.400',
+        },
       }}
     >
       <Box
@@ -48,7 +47,7 @@ export const SideNav = (props) => {
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
-          width: '100%'
+          width: '100%',
         }}
       >
         <Box sx={{ p: 3 }}>
@@ -58,45 +57,11 @@ export const SideNav = (props) => {
             sx={{
               display: 'inline-flex',
               height: 32,
-              width: 32
+              width: 32,
             }}
           >
             <Logo />
           </Box>
-          {/*Enable for extra menu in sidenav*/}
-          {/* <Box
-            sx={{
-              alignItems: 'center',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              borderRadius: 1,
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'space-between',
-              mt: 2,
-              p: '12px'
-            }}
-          >
-            <div>
-              <Typography
-                color="inherit"
-                variant="subtitle1"
-              >
-                Devias
-              </Typography>
-              <Typography
-                color="neutral.400"
-                variant="body2"
-              >
-                Production
-              </Typography>
-            </div>
-            <SvgIcon
-              fontSize="small"
-              sx={{ color: 'neutral.500' }}
-            >
-              <ChevronUpDownIcon />
-            </SvgIcon>
-          </Box> */}
         </Box>
         <Divider sx={{ borderColor: 'neutral.700' }} />
         <Box
@@ -104,7 +69,7 @@ export const SideNav = (props) => {
           sx={{
             flexGrow: 1,
             px: 2,
-            py: 3
+            py: 3,
           }}
         >
           <Stack
@@ -113,59 +78,58 @@ export const SideNav = (props) => {
             sx={{
               listStyle: 'none',
               p: 0,
-              m: 0
+              m: 0,
             }}
           >
-            {user && (
-              (user.accountType === 'admin' && adminItems) ||
+            {user &&
+            ((user.accountType === 'admin' && adminItems) ||
               (user.accountType === 'leader' && leaderItems) ||
-              (user.accountType === 'operator')
-            ) ? (
-              (user.accountType === 'admin' ? adminItems : (user.accountType === 'leader' ? leaderItems : items)).map((item, index) => (
-                <SideNavItem
-                  key={index}
-                  active={pathname === item.path}
-                  disabled={item.disabled}
-                  external={item.external}
-                  icon={item.icon}
-                  path={item.path}
-                  title={item.title}
-                />
-              ))
-            ) : (
-              items.map((item, index) => (
-                <SideNavItem
-                  key={index}
-                  active={pathname === item.path}
-                  disabled={item.disabled}
-                  external={item.external}
-                  icon={item.icon}
-                  path={item.path}
-                  title={item.title}
-                />
-              ))
-            )}
-
+              user.accountType === 'operator')
+              ? (user.accountType === 'admin'
+                  ? adminItems
+                  : user.accountType === 'leader'
+                    ? leaderItems
+                    : items
+                ).map((item, index) => (
+                  <SideNavItem
+                    key={index}
+                    active={pathname === item.path}
+                    disabled={item.disabled}
+                    external={item.external}
+                    icon={item.icon}
+                    path={item.path}
+                    title={item.title}
+                  />
+                ))
+              : items.map((item, index) => (
+                  <SideNavItem
+                    key={index}
+                    active={pathname === item.path}
+                    disabled={item.disabled}
+                    external={item.external}
+                    icon={item.icon}
+                    path={item.path}
+                    title={item.title}
+                  />
+                ))}
           </Stack>
         </Box>
         <Divider sx={{ borderColor: 'neutral.700' }} />
         <Box
           sx={{
             px: 2,
-            py: 3
+            py: 3,
           }}
-        >Created by D03N | 2020-2024 | Programmering nettstudie | Fagskolen i Viken @ Kongsberg
+        >
+          Created by D03N | 2020-2024 | Programmering nettstudie | Fagskolen i Viken @ Kongsberg
           <Button
             color="primary"
             component="a"
-            endIcon={(
-              <SvgIcon
-                fontSize="small"
-                sx={{ color: 'neutral.300' }}
-              >
+            endIcon={
+              <SvgIcon fontSize="small" sx={{ color: 'neutral.300' }}>
                 <ArrowTopRightOnSquareIcon />
               </SvgIcon>
-            )}
+            }
             href="https://github.com/Bjorgeh/rapportsystem-frontend"
             size="small"
             target="_blank"
@@ -187,8 +151,8 @@ export const SideNav = (props) => {
           sx: {
             backgroundColor: 'neutral.800',
             color: 'common.white',
-            width: 280
-          }
+            width: 280,
+          },
         }}
         variant="permanent"
       >
@@ -206,8 +170,8 @@ export const SideNav = (props) => {
         sx: {
           backgroundColor: 'neutral.800',
           color: 'common.white',
-          width: 280
-        }
+          width: 280,
+        },
       }}
       sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
       variant="temporary"
@@ -219,5 +183,5 @@ export const SideNav = (props) => {
 
 SideNav.propTypes = {
   onClose: PropTypes.func,
-  open: PropTypes.bool
+  open: PropTypes.bool,
 };

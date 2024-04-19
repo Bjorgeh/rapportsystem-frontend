@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
 const ReactVirtualizedTable = () => {
@@ -21,16 +21,16 @@ const ReactVirtualizedTable = () => {
           table_name: 'BorreproveRapport',
           date_start: '1992-01-01',
           date_stop: '2025-01-31',
-          rapport_count: '5'
+          rapport_count: '5',
         };
         console.log('Request data:', requestData);
         const response = await fetch(API_BASE_URL + 'api/user/post/extractPreciseData', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`
+            Authorization: `Bearer ${accessToken}`,
           },
-          body: JSON.stringify(requestData)
+          body: JSON.stringify(requestData),
         });
         if (!response.ok) {
           throw new Error('Failed to fetch table data');
@@ -46,7 +46,6 @@ const ReactVirtualizedTable = () => {
     };
     console.log('Fetching data');
     fetchData();
-    
   }, []); // Fetch data on component mount, remove the dependency array
 
   return (

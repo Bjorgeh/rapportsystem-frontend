@@ -1,11 +1,7 @@
 import ChartBarIcon from '@heroicons/react/24/solid/ChartBarIcon';
 import CogIcon from '@heroicons/react/24/solid/CogIcon';
-import LockClosedIcon from '@heroicons/react/24/solid/LockClosedIcon';
-import ShoppingBagIcon from '@heroicons/react/24/solid/ShoppingBagIcon';
 import UserIcon from '@heroicons/react/24/solid/UserIcon';
 import UserPlusIcon from '@heroicons/react/24/solid/UserPlusIcon';
-import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
-import XCircleIcon from '@heroicons/react/24/solid/XCircleIcon';
 import { SvgIcon } from '@mui/material';
 
 //Dette er alle lenkene en vanlig bruker kan se i side-nav
@@ -17,7 +13,7 @@ export const items = [
       <SvgIcon fontSize="small">
         <ChartBarIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Brukerkonto',
@@ -26,7 +22,7 @@ export const items = [
       <SvgIcon fontSize="small">
         <UserIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Innstillinger',
@@ -35,19 +31,18 @@ export const items = [
       <SvgIcon fontSize="small">
         <CogIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
-  title: 'Rapporter',
+    title: 'Rapporter',
     path: '/reports',
     icon: (
       <SvgIcon fontSize="small">
         <UserPlusIcon />
       </SvgIcon>
-    )
+    ),
   },
 ];
-
 
 // Dette er alle lenkene en admin kan se i side-nav
 export const adminItems = [
@@ -58,7 +53,7 @@ export const adminItems = [
       <SvgIcon fontSize="small">
         <ChartBarIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Brukerkonto',
@@ -67,7 +62,7 @@ export const adminItems = [
       <SvgIcon fontSize="small">
         <UserIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Innstillinger',
@@ -76,7 +71,7 @@ export const adminItems = [
       <SvgIcon fontSize="small">
         <CogIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Admin Panel',
@@ -85,7 +80,7 @@ export const adminItems = [
       <SvgIcon fontSize="small">
         <UserPlusIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Endre rapporter',
@@ -94,19 +89,18 @@ export const adminItems = [
       <SvgIcon fontSize="small">
         <UserPlusIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
-  title: 'Rapporter',
+    title: 'Rapporter',
     path: '/reports',
     icon: (
       <SvgIcon fontSize="small">
         <UserPlusIcon />
       </SvgIcon>
-    )
+    ),
   },
 ];
-
 
 // Dette er alle lenkene en admin kan se i side-nav
 export const leaderItems = [
@@ -117,7 +111,7 @@ export const leaderItems = [
       <SvgIcon fontSize="small">
         <ChartBarIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Brukerkonto',
@@ -126,7 +120,7 @@ export const leaderItems = [
       <SvgIcon fontSize="small">
         <UserIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Innstillinger',
@@ -135,7 +129,7 @@ export const leaderItems = [
       <SvgIcon fontSize="small">
         <CogIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
     title: 'Leader Panel',
@@ -144,15 +138,15 @@ export const leaderItems = [
       <SvgIcon fontSize="small">
         <UserPlusIcon />
       </SvgIcon>
-    )
+    ),
   },
   {
-  title: 'Rapporter',
+    title: 'Rapporter',
     path: '/reports',
     icon: (
       <SvgIcon fontSize="small">
         <UserPlusIcon />
       </SvgIcon>
-    )
+    ),
   },
 ];
