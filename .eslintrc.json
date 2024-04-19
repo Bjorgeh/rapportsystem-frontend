@@ -4,7 +4,8 @@
     "plugin:prettier/recommended" // Adds Prettier as an ESLint rule and configures eslint-config-prettier automatically
   ],
   "plugins": [
-    "prettier" // Enables eslint-plugin-prettier
+    "prettier", // Enables eslint-plugin-prettier
+    "unused-imports"
   ],
   "rules": {
     "prettier/prettier": "error", // Makes Prettier issues report as errors in ESLint
@@ -12,6 +13,27 @@
     "@next/next/no-page-custom-font": "off",
     "react-hooks/exhaustive-deps": "off",
     "jsx-a11y/alt-text": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "no-unused-vars": "warn",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ]
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
