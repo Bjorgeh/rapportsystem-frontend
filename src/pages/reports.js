@@ -1,20 +1,13 @@
 import Head from 'next/head';
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Checkbox, Grid, Link, Stack, TextField, Typography } from '@mui/material';
-import { useAuth } from 'src/hooks/use-auth';
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { API_BASE_URL } from 'src/config/apiConnection';
-import { useIsDayDisabled } from '@mui/x-date-pickers/internals/hooks/validation/useDateValidation';
-
 
 const Page = () => {
-  const router = useRouter();
-  const auth = useAuth();
   const [user, setUser] = useState(null);
   const [reportFields, setReportFields] = useState({}); // Object to store report fields and titles
 
@@ -23,7 +16,6 @@ const Page = () => {
     const parsedUser = userString ? JSON.parse(userString) : null;
     setUser(parsedUser);
   }, []);
-
 
   const [tableNames, setTableNames] = useState([]);
 
@@ -124,8 +116,6 @@ const Page = () => {
       }
     },
   });
-
-
 
   // Function to render fields based on selected report
   const renderReportFields = () => {

@@ -3,12 +3,10 @@ import { Container, Grid, Typography, Button, List, ListItem, ListItemText } fro
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import { useAuth } from 'src/hooks/use-auth';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
 const Page = () => {
   const router = useRouter();
-  const auth = useAuth();
   const [user, setUser] = useState(null);
   const [subUsers, setSubUsers] = useState([]);
   const [tables, setTables] = useState([]);

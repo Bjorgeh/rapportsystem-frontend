@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import ArrowPathIcon from '@heroicons/react/24/solid/ArrowPathIcon';
 import ArrowRightIcon from '@heroicons/react/24/solid/ArrowRightIcon';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import {
   Button,
@@ -12,9 +12,8 @@ import {
   Divider,
   SvgIcon
 } from '@mui/material';
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { Chart } from 'src/components/chart';
-import { set } from 'nprogress';
 
 const useChartOptions = () => {
   const theme = useTheme();

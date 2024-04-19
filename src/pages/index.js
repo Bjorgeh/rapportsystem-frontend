@@ -30,10 +30,6 @@ const Page = () => {
     setShowInputs(!showInputs); // Bytt tilstand når knappen klikkes
   };
 
-  const handleSelectedOptionsChange = (event, newSelectedOptions) => {
-    setSelectedOptions(newSelectedOptions); // Oppdater valgte verdier i rapport når knappene blir endret
-  };
-
   const formik = useFormik({
     initialValues: {
       selectedTable: 'SmelteRapport',

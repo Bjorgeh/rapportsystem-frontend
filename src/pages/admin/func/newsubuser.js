@@ -1,10 +1,8 @@
 import Head from 'next/head';
-import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Link, Stack, TextField, Typography } from '@mui/material';
-import { useAuth } from 'src/hooks/use-auth';
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useEffect, useState } from 'react';
@@ -12,7 +10,6 @@ import { API_BASE_URL } from 'src/config/apiConnection';
 
 const Page = () => {
   const router = useRouter();
-  const auth = useAuth();
   const [user, setUser] = useState(null);
 
   useEffect(() => {

@@ -1,19 +1,18 @@
 import Head from 'next/head';
-import NextLink from 'next/link';
-import { useRouter } from 'next/router'; 
+import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Link, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { useAuth } from 'src/hooks/use-auth';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
 const Page = () => {
   const router = useRouter();
   const auth = useAuth();
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
   const [subUsers, setSubUsers] = useState([]);
   const [successMessage, setSuccessMessage] = useState(null);
 
@@ -33,7 +32,7 @@ const Page = () => {
     const fetchSubUsers = async () => {
       try {
         const accessToken = window.sessionStorage.getItem('accessToken');
-        const response = await fetch(API_BASE_URL+'/api/admin/get/extractSubUsers', {
+        const response = await fetch(API_BASE_URL + '/api/admin/get/extractSubUsers', {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
@@ -59,7 +58,7 @@ const Page = () => {
     initialValues: {
       email: '',
       password: '',
-      confirmPassword: '', 
+      confirmPassword: '',
     },
     validationSchema: Yup.object({
       email: Yup
@@ -79,7 +78,7 @@ const Page = () => {
     onSubmit: async (values, helpers) => {
       try {
         const accessToken = window.sessionStorage.getItem('accessToken');
-        const response = await fetch(API_BASE_URL+'/api/admin/post/updateUsersPassword', {
+        const response = await fetch(API_BASE_URL + '/api/admin/post/updateUsersPassword', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -107,7 +106,7 @@ const Page = () => {
   });
 
   if (!user || user.accountType !== 'admin') {
-    return null; 
+    return null;
   }
 
   return (
@@ -199,7 +198,7 @@ const Page = () => {
                   {formik.errors.submit}
                 </Typography>
               )}
-              {successMessage && ( 
+              {successMessage && (
                 <Typography
                   color="success"
                   sx={{ mt: 3 }}
