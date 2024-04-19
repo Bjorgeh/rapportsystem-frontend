@@ -15,9 +15,13 @@ React webapplication for hovedprosjekt rapportsystem.
 ### Prepare
 
 Step 1: Run `npm install next eslint prettier --global`.
+
 Step 2: Run `git config --global core.autocrlf true`.
+
 Step 3: Run `npm audit` and optionally `npm audit fix`.
+
 Step 4: Run `npm run lint` and optionally `npm run lint-fix`.
+
 Step 5: If you want, you can optionally run `npm run format`.
 
 ### Install
