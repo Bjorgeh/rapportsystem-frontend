@@ -4,7 +4,7 @@ React webapplication for hovedprosjekt rapportsystem.
 
 ## Prerequisite
 
-- [Node.js (with NPM](https://nodejs.org/en/download/current)
+- [Node.js (with NPM)](https://nodejs.org/en/download/current)
 - [Visual Studio Code](https://code.visualstudio.com/download)
 - [Prettier extension](https://marketplace.visualstudio.com)
 - [ESLint extension](https://marketplace.visualstudio.com)
