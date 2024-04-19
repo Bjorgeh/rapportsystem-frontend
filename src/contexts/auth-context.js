@@ -132,23 +132,23 @@ export const AuthProvider = (props) => {
 
   const signIn = async (email, password) => {
     const credentials = { username: email, password: password };
-  
+
     try {
       const response = await axios.post(API_BASE_URL + 'api/user/post/login', credentials);
       const data = response.data;
-  
+
       //console.log('Login response data: ', data);
-  
+
       // Lagre brukerobjektet og tilgangstokenet i sessionStorage
       window.sessionStorage.setItem('user', JSON.stringify(data.user));
       window.sessionStorage.setItem('accessToken', data.access_token);
       window.sessionStorage.setItem('email', JSON.stringify(email));
       window.sessionStorage.setItem('user_id', JSON.stringify(data.user_id));
       window.sessionStorage.setItem('accountType', JSON.stringify(data.accountType));
-  
+
       // Sett authenticated til true i sessionStorage etter vellykket innlogging
       window.sessionStorage.setItem('authenticated', 'true');
-  
+
       // Bruk dispatch for å oppdatere tilstanden med brukerdataene
       dispatch({
         type: HANDLERS.SIGN_IN,
@@ -158,7 +158,7 @@ export const AuthProvider = (props) => {
       console.error('Error during login:', error);
     }
   };
-  
+
   const signUp = async (email, password) => {
     try {
       // Implementer logikken for å registrere brukeren her
@@ -182,19 +182,19 @@ export const AuthProvider = (props) => {
       console.error('Error during sign out:', error);
     }
   };
-  
+
   AuthProvider.propTypes = {
     children: PropTypes.node,
     signUp: PropTypes.func,
     signOut: PropTypes.func // Legg til signOut i prop types
   };
-  
-  
+
+
   AuthProvider.propTypes = {
     children: PropTypes.node,
     signUp: PropTypes.func // Oppdater prop types for å inkludere signUp-funksjonen
   };
-  
+
 
   return (
     <AuthContext.Provider

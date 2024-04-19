@@ -8,7 +8,7 @@ export const AccountPopover = (props) => {
   const { anchorEl, onClose, open } = props;
   const router = useRouter();
   const auth = useAuth();
-  
+
   // Declare state for currentEmail
   const [currentEmail, setCurrentEmail] = useState('Unknown');
 
@@ -54,7 +54,7 @@ export const AccountPopover = (props) => {
           color="text.secondary"
           variant="body2"
         >
-          {currentEmail} 
+          {currentEmail}
         </Typography>
       </Box>
       <Divider />

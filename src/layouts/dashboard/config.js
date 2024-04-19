@@ -38,7 +38,7 @@ export const items = [
     )
   },
   {
-  title: 'Rapporter',
+    title: 'Rapporter',
     path: '/reports',
     icon: (
       <SvgIcon fontSize="small">
@@ -97,7 +97,7 @@ export const adminItems = [
     )
   },
   {
-  title: 'Rapporter',
+    title: 'Rapporter',
     path: '/reports',
     icon: (
       <SvgIcon fontSize="small">
@@ -147,7 +147,7 @@ export const leaderItems = [
     )
   },
   {
-  title: 'Rapporter',
+    title: 'Rapporter',
     path: '/reports',
     icon: (
       <SvgIcon fontSize="small">
