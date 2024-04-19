@@ -180,7 +180,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Register report| Rapportsystem</title>
+        <title>Register report | Rapportsystem</title>
       </Head>
       <Box
         sx={{
