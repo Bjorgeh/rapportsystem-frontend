@@ -29,7 +29,7 @@ const Page = () => {
     const fetchSubUsers = async () => {
       try {
         const accessToken = window.sessionStorage.getItem('accessToken');
-        const response = await fetch(API_BASE_URL+'/api/admin/get/extractSubUsers', {
+        const response = await fetch(API_BASE_URL + '/api/admin/get/extractSubUsers', {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
@@ -51,7 +51,7 @@ const Page = () => {
     const fetchTables = async () => {
       try {
         const accessToken = window.sessionStorage.getItem('accessToken');
-        const response = await fetch(API_BASE_URL+'/api/admin/get/extract_tables', {
+        const response = await fetch(API_BASE_URL + '/api/admin/get/extract_tables', {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }

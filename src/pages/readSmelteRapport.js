@@ -1,5 +1,5 @@
 import { API_BASE_URL } from 'src/config/apiConnection';
-import { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react';
 
 const YourComponent = () => {
   const [data, setData] = useState(null);
@@ -55,28 +55,28 @@ const YourComponent = () => {
       </select>
       {data ? (
         <div style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%' }}>
-          <thead>
-            <tr>
-              <th style={{ textAlign: 'center' }}>ID</th>
-              <th style={{ textAlign: 'center' }}>Ovnsnummer</th>
-              <th style={{ textAlign: 'center' }}>Dato</th>
-              <th style={{ textAlign: 'center' }}>Tid</th>
-              <th style={{ textAlign: 'center' }}>Kg Returgods</th>
-              <th style={{ textAlign: 'center' }}>Kg Skrapmetall</th>
-              <th style={{ textAlign: 'center' }}>Total smeltevekt</th>
-              <th style={{ textAlign: 'center' }}>Kg Karbon</th>
-              <th style={{ textAlign: 'center' }}>Kg Jernmalm</th>
-              <th style={{ textAlign: 'center' }}>Kg FeSi</th>
-              <th style={{ textAlign: 'center' }}>Kg FeP</th>
-              <th style={{ textAlign: 'center' }}>Kwh før smelting</th>
-              <th style={{ textAlign: 'center' }}>Kwh etter smelting</th>
-              <th style={{ textAlign: 'center' }}>Sum Kwh brukt på smelte</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map(item => (
-              <tr key={item.id}>
+          <table style={{ width: '100%' }}>
+            <thead>
+              <tr>
+                <th style={{ textAlign: 'center' }}>ID</th>
+                <th style={{ textAlign: 'center' }}>Ovnsnummer</th>
+                <th style={{ textAlign: 'center' }}>Dato</th>
+                <th style={{ textAlign: 'center' }}>Tid</th>
+                <th style={{ textAlign: 'center' }}>Kg Returgods</th>
+                <th style={{ textAlign: 'center' }}>Kg Skrapmetall</th>
+                <th style={{ textAlign: 'center' }}>Total smeltevekt</th>
+                <th style={{ textAlign: 'center' }}>Kg Karbon</th>
+                <th style={{ textAlign: 'center' }}>Kg Jernmalm</th>
+                <th style={{ textAlign: 'center' }}>Kg FeSi</th>
+                <th style={{ textAlign: 'center' }}>Kg FeP</th>
+                <th style={{ textAlign: 'center' }}>Kwh før smelting</th>
+                <th style={{ textAlign: 'center' }}>Kwh etter smelting</th>
+                <th style={{ textAlign: 'center' }}>Sum Kwh brukt på smelte</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map(item => (
+                <tr key={item.id}>
                   <td style={{ textAlign: 'center' }}>{item.id}</td>
                   <td style={{ textAlign: 'center' }}>{item.furnace_number}</td>
                   <td style={{ textAlign: 'center' }}>{item.date}</td>
@@ -91,10 +91,10 @@ const YourComponent = () => {
                   <td style={{ textAlign: 'center' }}>{item.kwh_pre_melt}</td>
                   <td style={{ textAlign: 'center' }}>{item.kwh_post_melt}</td>
                   <td style={{ textAlign: 'center' }}>{item.sum_kwh_used}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : (
         <p>Laster...</p>

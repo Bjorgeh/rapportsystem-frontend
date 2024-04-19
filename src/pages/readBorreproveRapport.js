@@ -1,5 +1,5 @@
 import { API_BASE_URL } from 'src/config/apiConnection';
-import { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react';
 
 const YourComponent = () => {
   const [data, setData] = useState(null);
@@ -57,7 +57,7 @@ const YourComponent = () => {
         <table>
           <thead>
             <tr>
-              <th style={{ textAlign: 'center' , width: 200}}>ID</th>
+              <th style={{ textAlign: 'center', width: 200 }}>ID</th>
               <th style={{ textAlign: 'center' }}>Type del</th>
               <th style={{ textAlign: 'center' }}>Modell</th>
               <th style={{ textAlign: 'center' }}>katalognummer</th>

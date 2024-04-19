@@ -1,5 +1,5 @@
 import { API_BASE_URL } from 'src/config/apiConnection';
-import { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react';
 
 const YourComponent = () => {
   const [data, setData] = useState(null);
@@ -55,28 +55,28 @@ const YourComponent = () => {
       </select>
       {data ? (
         <div style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%' }}>
-          <thead>
-            <tr>
-              <th style={{ textAlign: 'center' }}>ID</th>
-              <th style={{ textAlign: 'center' }}>Dato</th>
-              <th style={{ textAlign: 'center' }}>Tid</th>
-              <th style={{ textAlign: 'center' }}>Fuktighet</th>
-              <th style={{ textAlign: 'center' }}>Trykkstyrke</th>
-              <th style={{ textAlign: 'center' }}>Pakningsgrad</th>
-              <th style={{ textAlign: 'center' }}>Glødetap</th>
-              <th style={{ textAlign: 'center' }}>Spaltestyrke</th>
-              <th style={{ textAlign: 'center' }}>Aktiv bentonitt</th>
-              <th style={{ textAlign: 'center' }}>Slaminnhold</th>
-              <th style={{ textAlign: 'center' }}>Sikteanalyse</th>
-              <th style={{ textAlign: 'center' }}>Kompressibilitet</th>
-              <th style={{ textAlign: 'center' }}>Sandtemperatur</th>
-              <th style={{ textAlign: 'center' }}>Sign</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map(item => (
-              <tr key={item.id}>
+          <table style={{ width: '100%' }}>
+            <thead>
+              <tr>
+                <th style={{ textAlign: 'center' }}>ID</th>
+                <th style={{ textAlign: 'center' }}>Dato</th>
+                <th style={{ textAlign: 'center' }}>Tid</th>
+                <th style={{ textAlign: 'center' }}>Fuktighet</th>
+                <th style={{ textAlign: 'center' }}>Trykkstyrke</th>
+                <th style={{ textAlign: 'center' }}>Pakningsgrad</th>
+                <th style={{ textAlign: 'center' }}>Glødetap</th>
+                <th style={{ textAlign: 'center' }}>Spaltestyrke</th>
+                <th style={{ textAlign: 'center' }}>Aktiv bentonitt</th>
+                <th style={{ textAlign: 'center' }}>Slaminnhold</th>
+                <th style={{ textAlign: 'center' }}>Sikteanalyse</th>
+                <th style={{ textAlign: 'center' }}>Kompressibilitet</th>
+                <th style={{ textAlign: 'center' }}>Sandtemperatur</th>
+                <th style={{ textAlign: 'center' }}>Sign</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map(item => (
+                <tr key={item.id}>
                   <td style={{ textAlign: 'center' }}>{item.id}</td>
                   <td style={{ textAlign: 'center' }}>{item.date}</td>
                   <td style={{ textAlign: 'center' }}>{item.time}</td>
@@ -91,10 +91,10 @@ const YourComponent = () => {
                   <td style={{ textAlign: 'center' }}>{item.compressibility}</td>
                   <td style={{ textAlign: 'center' }}>{item.sand_temp}</td>
                   <td style={{ textAlign: 'center' }}>{item.signature}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : (
         <p>Laster...</p>

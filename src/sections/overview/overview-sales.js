@@ -135,7 +135,7 @@ export const OverviewSales = (props) => {
       <CardContent>
         <Chart
           height={350}
-          options={{...chartOptions, xaxis: {...chartOptions.xaxis, categories: categories}}}
+          options={{ ...chartOptions, xaxis: { ...chartOptions.xaxis, categories: categories } }}
           series={chartSeries}
           type={allChartTypes[chartType]}
           width="100%"

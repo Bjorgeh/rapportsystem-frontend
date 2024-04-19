@@ -51,29 +51,25 @@ export const RecentActivity = () => {
     <form onSubmit={handleSubmit}>
       <Card>
         <CardHeader
-          subheader="Your recent activity on the platform"
-          title="Recent Activity"
+          subheader="Din nylige aktivitet på plattformen"
+          title="Kontoaktivitet"
         />
         <Divider />
         <CardContent>
           <Grid container spacing={3}>
             {loading ? (
-              <Typography>Loading...</Typography>
+              <Typography>Laster...</Typography>
             ) : (
               activityData.map((activity) => (
                 <Grid item key={activity.id}>
                   <Typography>
-                    ID: {activity.id}, IP Address: {activity.ip_address}, User Agent: {activity.user_agent}, Operating System: {activity.operating_system}, Timestamp: {activity.activity_timestamp}
+                    ID: {activity.id}, IP: {activity.ip_address}, Nettleser: {activity.user_agent}, OS: {activity.operating_system}, Tid: {activity.activity_timestamp}
                   </Typography>
                 </Grid>
               ))
             )}
           </Grid>
         </CardContent>
-        <Divider />
-        <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained">Save</Button>
-        </CardActions>
       </Card>
     </form>
   );

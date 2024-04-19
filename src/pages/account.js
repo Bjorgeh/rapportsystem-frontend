@@ -21,7 +21,7 @@ const Page = () => (
         <Stack spacing={3}>
           <div>
             <Typography variant="h4">
-              Account Overview
+              Konto oversikt
             </Typography>
           </div>
           <div>

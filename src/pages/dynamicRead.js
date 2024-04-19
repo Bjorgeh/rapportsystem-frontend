@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
 const ReactVirtualizedTable = () => {
@@ -46,7 +46,7 @@ const ReactVirtualizedTable = () => {
     };
     console.log('Fetching data');
     fetchData();
-    
+
   }, []); // Fetch data on component mount, remove the dependency array
 
   return (

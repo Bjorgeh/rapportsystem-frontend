@@ -1,5 +1,5 @@
 import { API_BASE_URL } from 'src/config/apiConnection';
-import { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react';
 
 const YourComponent = () => {
   const [data, setData] = useState(null);

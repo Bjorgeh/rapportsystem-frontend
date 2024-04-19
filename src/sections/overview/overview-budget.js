@@ -21,7 +21,7 @@ export const OverviewBudget = (props) => {
               color="text.secondary"
               variant="overline"
             >
-              
+
             </Typography>
             <Typography variant="h4">
               {value}
@@ -46,7 +46,7 @@ export const OverviewBudget = (props) => {
                 color={positive ? 'success.main' : 'error.main'}
                 variant="body2"
               >
-                
+
               </Typography>
             </Stack>
             <Typography
