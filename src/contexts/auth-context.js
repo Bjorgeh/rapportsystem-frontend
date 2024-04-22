@@ -153,7 +153,7 @@ export const AuthProvider = (props) => {
     }
   };
 
-  const signUp = async (email, password) => {
+  const signUp = async (/*email, password*/) => {
     try {
       // Implementer logikken for å registrere brukeren her
       // For eksempel, send en forespørsel til serveren for å opprette en ny brukerkonto

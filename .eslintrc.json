@@ -1,17 +1,39 @@
 {
   "extends": [
-    "next/core-web-vitals", // or other base ESLint configurations your project uses
-    "plugin:prettier/recommended" // Adds Prettier as an ESLint rule and configures eslint-config-prettier automatically
+    "next/core-web-vitals",
+    "plugin:prettier/recommended"
   ],
   "plugins": [
-    "prettier" // Enables eslint-plugin-prettier
+    "prettier",
+    "unused-imports"
   ],
   "rules": {
-    "prettier/prettier": "error", // Makes Prettier issues report as errors in ESLint
+    "prettier/prettier": "error",
     "@next/next/no-img-element": "off",
     "@next/next/no-page-custom-font": "off",
     "react-hooks/exhaustive-deps": "off",
     "jsx-a11y/alt-text": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "no-unused-vars": "warn",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ]
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

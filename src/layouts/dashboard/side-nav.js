@@ -2,19 +2,10 @@ import NextLink from 'next/link';
 import { usePathname } from 'next/navigation'; // Keep only one import for usePathname
 import PropTypes from 'prop-types';
 import ArrowTopRightOnSquareIcon from '@heroicons/react/24/solid/ArrowTopRightOnSquareIcon';
-import {
-  Box,
-  Button,
-  Divider,
-  Drawer,
-  Stack,
-  SvgIcon,
-  Typography,
-  useMediaQuery,
-} from '@mui/material';
+import { Box, Button, Divider, Drawer, Stack, SvgIcon, useMediaQuery } from '@mui/material';
 import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
-import { items, adminItems, leaderItems } from './config';
+import { adminItems, items, leaderItems } from './config';
 import { SideNavItem } from './side-nav-item';
 import { useEffect, useState } from 'react'; // Import react related hooks separately
 

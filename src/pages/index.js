@@ -1,24 +1,28 @@
 import Head from 'next/head';
 import {
-  Typography,
-  FormControlLabel,
-  TextField,
-  Button,
-  Stack,
   Box,
-  Container,
-  Unstable_Grid2 as Grid,
+  Button,
   Card,
   CardContent,
+  Container,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+  Unstable_Grid2 as Grid,
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { OverviewSales } from 'src/sections/overview/overview-sales';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { API_BASE_URL } from 'src/config/apiConnection';
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { randomInt } from 'crypto';
 
 const Page = () => {
@@ -37,10 +41,7 @@ const Page = () => {
     'signature',
   ];
   const [tableNames, setTableNames] = useState([]);
-  const [tableInfo, setTableInfo] = useState([]);
-  const [tableData, setTableData] = useState(null);
   const [selectableFields, setSelectableFields] = useState([]);
-  const [reportFields, setReportFields] = useState({});
   const [dynamicChartData, setDynamicChartData] = useState([]);
 
   const router = useRouter();
@@ -140,10 +141,7 @@ const Page = () => {
         const data = await response.json();
         const reportTables = data.Table_descriptions.Tables;
         const tableNames = Object.keys(reportTables);
-        setTableInfo(reportTables);
         setTableNames(tableNames);
-
-        setReportFields(reportTables);
 
         const selectedTable = formik.values.selectedTable;
         if (selectedTable === '' || (tableNames && !tableNames.includes(selectedTable))) {
@@ -154,7 +152,9 @@ const Page = () => {
         const selectableFields = fieldNames.filter(
           (fieldName) => !unselectableFields.includes(fieldName)
         );
-        if (fieldNames && fieldNames.length > 0) setSelectableFields(selectableFields);
+        if (fieldNames && fieldNames.length > 0) {
+          setSelectableFields(selectableFields);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -163,7 +163,7 @@ const Page = () => {
     fetchData();
   }, [formik.values.selectedTable]);
 
-  const handleCreateReport = (reportName) => {
+  const handleCreateReport = (/*reportName*/) => {
     router.push(`/reports/`); //TODO
   };
 
