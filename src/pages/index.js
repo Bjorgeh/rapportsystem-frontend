@@ -62,7 +62,7 @@ const Page = () => {
     },
     onSubmit: async (values) => {
       try {
-        // Din eksisterende kode for å hente data
+        // kode for å hente data
         const requestBody = {
           table_name: values.selectedTable,
         };
@@ -163,8 +163,8 @@ const Page = () => {
     fetchData();
   }, [formik.values.selectedTable]);
 
-  const handleCreateReport = (/*reportName*/) => {
-    router.push(`/reports/`); //TODO
+  const handleCreateReport = (/*Rapportnavn*/) => {
+    router.push(`/reports/`); 
   };
 
   const handleReadReport = (reportName) => {
