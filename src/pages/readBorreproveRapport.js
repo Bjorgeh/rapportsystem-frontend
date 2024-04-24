@@ -1,6 +1,14 @@
 import { API_BASE_URL } from 'src/config/apiConnection';
 import { useEffect, useState } from 'react';
 
+
+//Dennne siden inneholder en funksjon som henter data fra databasen og viser det i en tabell.
+//Funksjonen bruker useState og useEffect for å hente data fra databasen og vise det i en tabell.
+//Funksjonen bruker også en select tag for å velge antall rapporter som skal vises i tabellen.
+//Funksjonen bruker også en handleRapportCountChange funksjon for å endre antall rapporter som skal vises i tabellen.
+
+//Siden er hardkodet til spesifikk rapport. Dette er gjort grunnet tidpress. Ideelt sett bygger mann en dynamisk hentefunskjon som henter data basert på input fra bruker.
+//på samme måte som i grafen i oversikten.
 const YourComponent = () => {
   const [data, setData] = useState(null);
   const [rapportCount, setRapportCount] = useState('5');
@@ -39,7 +47,7 @@ const YourComponent = () => {
   const handleRapportCountChange = (event) => {
     setRapportCount(event.target.value);
   };
-
+//Her velger mann anntall rader. Ferdig innlagte valg er 5, 10, 15, 20, 50, 100 og 200.
   return (
     <div>
       <h1>API Data</h1>
@@ -70,7 +78,7 @@ const YourComponent = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
+            {data.map((item) => (//Over legger grensesnittet opp med headers, her putter vi inn verdiene fra api kallet. slik at vi får en tabell med data.
               <tr key={item.id}>
                 <td style={{ textAlign: 'center' }}>{item.id}</td>
                 <td style={{ textAlign: 'center' }}>{item.part_type}</td>

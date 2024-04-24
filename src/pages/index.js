@@ -214,7 +214,7 @@ const Page = () => {
                       ))
                     ) : (
                       <Grid item xs={12}>
-                        <p>No tables available.</p>
+                        <p>Ingen rapport tilgjengelig</p>
                       </Grid>
                     )}
                   </Grid>

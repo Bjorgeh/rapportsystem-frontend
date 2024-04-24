@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
 const Page = () => {
-  const [reportFields, setReportFields] = useState({}); // Object to store report fields and titles
+  const [reportFields, setReportFields] = useState({}); // Objekt for å lagre rapportfelt og titler
 
   const [tableNames, setTableNames] = useState([]);
 
@@ -41,7 +41,7 @@ const Page = () => {
         const names = Object.keys(data.Table_descriptions.Tables);
 
         setTableNames(names);
-        setReportFields(data.Table_descriptions.Tables); // Set report fields and titles
+        setReportFields(data.Table_descriptions.Tables); // Setter rapportfelte og titler
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -53,7 +53,7 @@ const Page = () => {
   const formik = useFormik({
     initialValues: {
       selectedTable: '',
-      // Add initial values for other fields as needed
+      // Legg til ytteliger felt om nødvendig
     },
     validationSchema: Yup.object({
       selectedTable: Yup.string().required('Velg en rapporttype'),
@@ -107,7 +107,7 @@ const Page = () => {
         const responseData = await response.json();
         console.log(responseData);
 
-        // Assuming response has a message with success status
+        // Antar backend sender en suksessmelding
         if (responseData.Message && responseData.Message.Success) {
           formik.resetForm(); // Tøm skjemaet
         } else {
@@ -121,7 +121,7 @@ const Page = () => {
     },
   });
 
-  // Function to render fields based on selected report
+  // Funksjon som lager felt basert på rapporten
   const renderReportFields = () => {
     const selectedReport = formik.values.selectedTable;
     const fields = reportFields[selectedReport];
@@ -131,9 +131,9 @@ const Page = () => {
     }
 
     return Object.entries(fields).map(([fieldName, fieldType], index) => {
-      let inputType = 'text'; // Default input type
+      let inputType = 'text'; // Standard innput-type
       required: true;
-      // Determine input type based on field data type
+      // Avgjør inputtype basert på felttype fra api. Dette bidrar til datavalidering
       if (fieldType.includes('int')) {
         inputType = 'number';
         required: true;
@@ -143,7 +143,7 @@ const Page = () => {
         fieldType.includes('double')
       ) {
         inputType = 'number';
-        // You may add step, min, max attributes for more precision control
+        // Det kan legges inn mer granulær kontroll her, f.eks. min, max, step
       } else if (fieldType.includes('date')) {
         inputType = 'date';
       } else if (fieldType.includes('time')) {
@@ -166,10 +166,10 @@ const Page = () => {
             id={fieldName}
             label={fieldName}
             type={inputType}
-            value={formik.values[fieldName]} // Bind value to formik values
-            onChange={formik.handleChange} // Bind onChange to formik handleChange
+            value={formik.values[fieldName]} // Binder verdier til formik
+            onChange={formik.handleChange} // Binder onchange til formik
             onBlur={formik.handleBlur}
-            name={fieldName} // Set the name attribute to fieldName
+            name={fieldName} // Setter navn på feltet
           />
         </Box>
       );
@@ -224,7 +224,7 @@ const Page = () => {
                     )}
                   </Select>
                 </FormControl>
-                {renderReportFields()} {/* Render dynamic fields */}
+                {renderReportFields()} {/* Lager felter dynamisk */}
               </Stack>
 
               <Button
@@ -233,10 +233,10 @@ const Page = () => {
                 sx={{ mt: 3 }}
                 type="submit"
                 variant="contained"
-                disabled={formik.isSubmitting} // Disable button while submitting
+                disabled={formik.isSubmitting} // Slår av knapp når rapport sendes
               >
                 {formik.isSubmitting ? 'Sender...' : 'Lagre'}{' '}
-                {/* Show loading text while submitting */}
+                {/* vis "laster" text mens rapporten sendes */}
               </Button>
             </form>
           </div>

@@ -27,7 +27,7 @@ const AccountProfileDetails = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array means this effect runs only once after the component mounts
+  }, []); // Tomt avhengighetsarray for å kun kjøre en gang
 
   return (
     <Grid xs={12} md={6}>
@@ -41,7 +41,7 @@ const AccountProfileDetails = () => {
                 label="Bruker ID"
                 name="user_id"
                 value={values.user_id}
-                disabled // Disable editing of user_id field
+                disabled // fjerner muligheten for å endre bruker ID i grensesnitt.
               />
             </Grid>
             <Grid xs={12} md={6}>
@@ -50,7 +50,7 @@ const AccountProfileDetails = () => {
                 label="E-postadresse"
                 name="email"
                 value={values.email}
-                disabled // Disable editing of email field
+                disabled // fjerner mulighet for å redigere i grensesnittet
               />
             </Grid>
             <Grid xs={12} md={6}>
@@ -59,7 +59,7 @@ const AccountProfileDetails = () => {
                 label="Tilgangsnivå"
                 name="accountType"
                 value={values.accountType}
-                disabled // Disable editing of accountType field
+                disabled // Fjerner mulighet for a redigere i grensesnittet
               />
             </Grid>
           </Box>
