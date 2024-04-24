@@ -21,7 +21,7 @@ const handlers = {
 
     return {
       ...state,
-      ...// if payload (user) is provided, then is authenticated
+      ...// Hvis brukerdata kommer, blir den autetisert
       (user
         ? {
             isAuthenticated: true,
@@ -54,7 +54,7 @@ const handlers = {
 const reducer = (state, action) =>
   handlers[action.type] ? handlers[action.type](state, action) : state;
 
-// The role of this context is to propagate authentication state through the App tree.
+ //Denne contexten er ansvarlig for å spre autentiseringsstatus gjennom app-treet.
 
 export const AuthContext = createContext({ undefined });
 
@@ -64,7 +64,7 @@ export const AuthProvider = (props) => {
   const initialized = useRef(false);
 
   const initialize = async () => {
-    // Prevent from calling twice in development mode with React.StrictMode enabled
+    // hindrer at denne funksjonen kjører mer enn en gang
     if (initialized.current) {
       return;
     }

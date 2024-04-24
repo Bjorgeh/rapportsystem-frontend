@@ -116,7 +116,7 @@ const Page = () => {
           .filter((graph) => graph && graph.data && graph.data.length > 0);
         setDynamicChartData(newData);
 
-        // Din eksisterende kode for å lagre data for visning
+        // Eksisterende kode for å lagre data for visning
         setTableData(data);
       } catch (error) {
         console.error('Error fetching data:', error);

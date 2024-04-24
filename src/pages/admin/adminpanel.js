@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
+//Adminpanelen er en side som kun er tilgjengelig for adminbrukere
 const Page = () => {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -16,7 +17,8 @@ const Page = () => {
     const parsedUser = userString ? JSON.parse(userString) : null;
     setUser(parsedUser);
   }, []);
-
+  //Her valideres brukertypen. Hvis brukeren ikke er admin, blir de sendt tilbake til hovedsiden
+  //De skal heller ikke kunne finne siden uten å være logget inn som admin
   useEffect(() => {
     if (user && user.accountType !== 'admin') {
       router.push('/');

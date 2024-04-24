@@ -5,6 +5,7 @@ import UserPlusIcon from '@heroicons/react/24/solid/UserPlusIcon';
 import { SvgIcon } from '@mui/material';
 
 //Dette er alle lenkene en vanlig bruker kan se i side-nav
+//Det er tittel som man ser i front end, og filstien i appen
 export const items = [
   {
     title: 'Oversikt',

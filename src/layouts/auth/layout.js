@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 import { Box, Unstable_Grid2 as Grid } from '@mui/material';
 import { Logo } from 'src/components/logo';
 
-// TODO: Change subtitle text
+// Denne layouten er ansvarlig for å vise innholdet i appen og logoen.
 
 export const Layout = (props) => {
   const { children } = props;
