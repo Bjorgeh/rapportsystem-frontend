@@ -15,6 +15,10 @@ import {
 import { useTheme } from '@mui/material/styles';
 import { Chart } from 'src/components/chart';
 
+//I denne fila defineres selve grafen som vises i oversikten.
+//Grafen viser data fra databasen i en grafisk form.
+//Hvordan grafen ser ut og forskjellige funksjoner som kan brukes på grafen er definert her.
+
 const useChartOptions = () => {
   const theme = useTheme();
   return {

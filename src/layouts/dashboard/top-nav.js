@@ -59,7 +59,7 @@ export const TopNav = (props) => {
                 height: 40,
                 width: 40,
               }}
-              src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" //Setter et brukericon
+              src="https://cdn-icons-png.flaticon.com/512/9187/9187604.png" //Setter et brukericon  -> Pr nå er det et dummy bilde
             />
           </Stack>
         </Stack>

@@ -17,6 +17,8 @@ import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { useEffect, useState } from 'react';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
+
+//Her kan admin opprette under-brukere. Admin kan opprette to typer under-brukere: operatør og leder
 const Page = () => {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -129,7 +131,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Register sub user | Rapportsystem</title>
+        <title>Registrer under-bruker | Rapportsystem</title>
       </Head>
       <Box
         sx={{
@@ -154,7 +156,7 @@ const Page = () => {
             <form noValidate onSubmit={formik.handleSubmit}>
               <Stack spacing={3}>
                 <FormControl fullWidth>
-                  <InputLabel id="account-type-select-label">Account type</InputLabel>
+                  <InputLabel id="account-type-select-label">Brukertype</InputLabel>
                   <Select
                     labelId="account-type-select-label"
                     id="account-type-select"
@@ -163,8 +165,8 @@ const Page = () => {
                     onBlur={formik.handleBlur}
                     name="accountTypeSelectLabel"
                   >
-                    <MenuItem value="operator">Operator</MenuItem>
-                    <MenuItem value="leader">Leader</MenuItem>
+                    <MenuItem value="operator">Operatør</MenuItem>
+                    <MenuItem value="leader">Leder</MenuItem>
                   </Select>
                 </FormControl>
 
@@ -225,7 +227,7 @@ const Page = () => {
                 </Typography>
               )}
               <Button fullWidth size="large" sx={{ mt: 3 }} type="submit" variant="contained">
-                Continue
+                Fortsett
               </Button>
             </form>
           </div>

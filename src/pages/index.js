@@ -62,7 +62,7 @@ const Page = () => {
     },
     onSubmit: async (values) => {
       try {
-        // Din eksisterende kode for å hente data
+        // kode for å hente data
         const requestBody = {
           table_name: values.selectedTable,
         };
@@ -116,7 +116,7 @@ const Page = () => {
           .filter((graph) => graph && graph.data && graph.data.length > 0);
         setDynamicChartData(newData);
 
-        // Din eksisterende kode for å lagre data for visning
+        // Eksisterende kode for å lagre data for visning
         setTableData(data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -163,8 +163,8 @@ const Page = () => {
     fetchData();
   }, [formik.values.selectedTable]);
 
-  const handleCreateReport = (/*reportName*/) => {
-    router.push(`/reports/`); //TODO
+  const handleCreateReport = (/*Rapportnavn*/) => {
+    router.push(`/reports/`); 
   };
 
   const handleReadReport = (reportName) => {
@@ -214,7 +214,7 @@ const Page = () => {
                       ))
                     ) : (
                       <Grid item xs={12}>
-                        <p>No tables available.</p>
+                        <p>Ingen rapport tilgjengelig</p>
                       </Grid>
                     )}
                   </Grid>

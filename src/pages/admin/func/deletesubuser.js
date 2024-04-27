@@ -16,6 +16,8 @@ import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { useEffect, useState } from 'react';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
+//Denne siden er for slette en subbruker - Kan kun brukes av en administrator
+
 const Page = () => {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -33,7 +35,7 @@ const Page = () => {
       router.push('/');
     }
   }, [user, router]);
-
+  //Her velges sub-user av administratoren. Henviser til API for å slette subbruker
   useEffect(() => {
     const fetchSubUsers = async () => {
       try {
@@ -87,7 +89,7 @@ const Page = () => {
 
         if (response.ok) {
           setSuccessMessage('Subuser deleted successfully');
-          // You may want to update the subusers list here if necessary
+          // Her kan de hende du vil oppdatere lista om nødvedig
         } else {
           throw new Error('Failed to delete subuser');
         }
@@ -106,7 +108,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Register sub user | Rapportsystem</title>
+        <title>Registrer under-bruker | Rapportsystem</title>
       </Head>
       <Box
         sx={{
@@ -126,12 +128,12 @@ const Page = () => {
         >
           <div>
             <Stack spacing={1} sx={{ mb: 3 }}>
-              <Typography variant="h4">Delete Subuser</Typography>
+              <Typography variant="h4">Slett under-bruker</Typography>
             </Stack>
             <form noValidate onSubmit={formik.handleSubmit}>
               <Stack spacing={3}>
                 <FormControl fullWidth>
-                  <InputLabel>Select Subuser</InputLabel>
+                  <InputLabel>Velg under-bruker</InputLabel>
                   <Select
                     value={formik.values.email}
                     onChange={formik.handleChange}
@@ -148,7 +150,7 @@ const Page = () => {
                 </FormControl>
               </Stack>
 
-              {/* Error and success messages */}
+              {/* feil og suksessmeldinger */}
               {formik.errors.submit && (
                 <Typography color="error" sx={{ mt: 3 }} variant="body2">
                   {formik.errors.submit}
@@ -162,7 +164,7 @@ const Page = () => {
 
               {/* Submit button */}
               <Button fullWidth size="large" sx={{ mt: 3 }} type="submit" variant="contained">
-                Confirm deletion
+                Bekreft sletting
               </Button>
             </form>
           </div>

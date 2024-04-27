@@ -6,6 +6,8 @@ import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { useAuth } from 'src/hooks/use-auth';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 
+
+//Logginn siden -> dette er siden du lander på - For demo er den satt opp med ferdig utfylte brukerinfo.
 const Page = () => {
   const router = useRouter();
   const auth = useAuth();
@@ -23,7 +25,7 @@ const Page = () => {
     onSubmit: async (values, helpers) => {
       try {
         await auth.signIn(values.email, values.password);
-        router.push('/'); // Redirect after successful login
+        router.push('/'); // omdirrigerer etter login ok
       } catch (err) {
         if (err.response && err.response.data && err.response.data.Error) {
           helpers.setErrors({ submit: err.response.data.Error });
@@ -41,7 +43,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Login | Rapportsystem</title>
+        <title>Logg inn | Rapportsystem</title>
       </Head>
       <Box
         sx={{
@@ -62,7 +64,7 @@ const Page = () => {
         >
           <div>
             <Stack spacing={1} sx={{ mb: 3 }}>
-              <Typography variant="h4">Login</Typography>
+              <Typography variant="h4">Logg inn</Typography>
             </Stack>
             {method === 'email' && (
               <form noValidate onSubmit={formik.handleSubmit}>
@@ -71,7 +73,7 @@ const Page = () => {
                     error={!!(formik.touched.email && formik.errors.email)}
                     fullWidth
                     helperText={formik.touched.email && formik.errors.email}
-                    label="Email Address"
+                    label="Epostadresse"
                     name="email"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
@@ -82,7 +84,7 @@ const Page = () => {
                     error={!!(formik.touched.password && formik.errors.password)}
                     fullWidth
                     helperText={formik.touched.password && formik.errors.password}
-                    label="Password"
+                    label="Passord"
                     name="password"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
@@ -96,7 +98,7 @@ const Page = () => {
                   </Typography>
                 )}
                 <Button fullWidth size="large" sx={{ mt: 3 }} type="submit" variant="contained">
-                  Log in
+                  Logg inn
                 </Button>
               </form>
             )}

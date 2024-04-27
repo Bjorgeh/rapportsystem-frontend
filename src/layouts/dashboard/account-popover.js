@@ -9,14 +9,14 @@ export const AccountPopover = (props) => {
   const router = useRouter();
   const auth = useAuth();
 
-  // Declare state for currentEmail
+  // Dejklarer stilstand for gjeldende e-post
   const [currentEmail, setCurrentEmail] = useState('Unknown');
 
   useEffect(() => {
     // Retrieve current email from sessionStorage
     const storedEmail = window.sessionStorage.getItem('email');
     const email = storedEmail ? JSON.parse(storedEmail) : 'Unknown';
-    // Update currentEmail state
+    //Oppdaterer gjeldende e-post - tilstand
     setCurrentEmail(email);
   }, []);
 
@@ -44,7 +44,7 @@ export const AccountPopover = (props) => {
         }}
       >
         <Typography variant="overline">Account</Typography>
-        {/* Display currentEmail in Typography */}
+        {/* Vise gjeldende epost i Typography */}
         <Typography color="text.secondary" variant="body2">
           {currentEmail}
         </Typography>

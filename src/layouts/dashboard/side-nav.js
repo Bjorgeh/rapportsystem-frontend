@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { usePathname } from 'next/navigation'; // Keep only one import for usePathname
+import { usePathname } from 'next/navigation'; 
 import PropTypes from 'prop-types';
 import ArrowTopRightOnSquareIcon from '@heroicons/react/24/solid/ArrowTopRightOnSquareIcon';
 import { Box, Button, Divider, Drawer, Stack, SvgIcon, useMediaQuery } from '@mui/material';
@@ -7,7 +7,10 @@ import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
 import { adminItems, items, leaderItems } from './config';
 import { SideNavItem } from './side-nav-item';
-import { useEffect, useState } from 'react'; // Import react related hooks separately
+import { useEffect, useState } from 'react'; 
+
+//Dette er sidemenyen som vises på venstre side av dashboardet
+//Her justerer vi også hva som er synelig basert på brukerens rolle
 
 export const SideNav = (props) => {
   const { open, onClose } = props;
@@ -71,6 +74,7 @@ export const SideNav = (props) => {
               p: 0,
               m: 0,
             }}
+            //Her sjekker vi om brukeren er admin, leder eller operator og viser de sidene som er tilgjengelig for de ulike rollene
           >
             {user &&
             ((user.accountType === 'admin' && adminItems) ||

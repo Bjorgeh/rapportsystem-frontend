@@ -10,16 +10,17 @@ export const AuthGuard = (props) => {
   const ignore = useRef(false);
   const [checked, setChecked] = useState(false);
 
-  // Only do authentication check on component mount.
-  // This flow allows you to manually redirect the user after sign-out, otherwise this will be
-  // triggered and will automatically redirect to sign-in page.
+  // Kun gjør autentisering når komponenten er klar
+  // Denne flyten tillater at du manuelt omdisrigeres til brukeren etter at du har logget ut, ellers vil dette bli
+  // utløst og vil automatisk omdirigere til påloggingssiden.
+
 
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
 
-    // Prevent from calling twice in development mode with React.StrictMode enabled
+    ///Hindrer dobbelkall i utviklingsmodus med React.StrictMode aktivert
     if (ignore.current) {
       return;
     }
@@ -43,8 +44,8 @@ export const AuthGuard = (props) => {
     return null;
   }
 
-  // If got here, it means that the redirect did not occur, and that tells us that the user is
-  // authenticated / authorized.
+  //Hvis du har kommet hit betyr det at omdirigeringen ikke skjedde, og det forteller oss at brukeren er
+  //autentisert/autorisert.
 
   return children;
 };

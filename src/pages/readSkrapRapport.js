@@ -36,6 +36,13 @@ const YourComponent = () => {
     }
   };
 
+  //Dennne siden inneholder en funksjon som henter data fra databasen og viser det i en tabell.
+//Funksjonen bruker useState og useEffect for å hente data fra databasen og vise det i en tabell.
+//Funksjonen bruker også en select tag for å velge antall rapporter som skal vises i tabellen.
+//Funksjonen bruker også en handleRapportCountChange funksjon for å endre antall rapporter som skal vises i tabellen.
+
+//Siden er hardkodet til spesifikk rapport. Dette er gjort grunnet tidpress. Ideelt sett bygger mann en dynamisk hentefunskjon som henter data basert på input fra bruker.
+//på samme måte som i grafen i oversikten.
   const handleRapportCountChange = (event) => {
     setRapportCount(event.target.value);
   };

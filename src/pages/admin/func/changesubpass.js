@@ -17,6 +17,11 @@ import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { useEffect, useState } from 'react';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
+
+// Denne siden er ansvarlig for å endre passordet til en subbruker
+// Denne siden er kun tilgjengelig for adminbrukere
+// Denne siden er beskyttet av autentisering
+// YUP brukes for validering av skjemaet
 const Page = () => {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -64,7 +69,7 @@ const Page = () => {
 
     fetchSubUsers();
   }, []);
-
+//Her tar vi inn kredentier fra skjemaet og sender de til serveren for å endre passordet til subbrukeren
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -75,7 +80,7 @@ const Page = () => {
       email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
       password: Yup.string().max(255).required('Password is required'),
       confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), null], 'Passwords must match') // Password confirmation should match the password
+        .oneOf([Yup.ref('password'), null], 'Passwords must match') // Passord bekreftele skal matche passord
         .required('Please confirm your password'),
     }),
     onSubmit: async (values, helpers) => {
@@ -156,7 +161,7 @@ const Page = () => {
                   </Select>
                 </FormControl>
 
-                {/* Password field */}
+                {/* Passord felt */}
                 <TextField
                   error={!!(formik.touched.password && formik.errors.password)}
                   fullWidth
@@ -169,7 +174,7 @@ const Page = () => {
                   value={formik.values.password}
                 />
 
-                {/* Confirm Password field */}
+                {/* bekreft Passord felt */}
                 <TextField
                   error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
                   fullWidth
@@ -183,7 +188,7 @@ const Page = () => {
                 />
               </Stack>
 
-              {/* Error and success messages */}
+              {/* feil og suksess-melding */}
               {formik.errors.submit && (
                 <Typography color="error" sx={{ mt: 3 }} variant="body2">
                   {formik.errors.submit}
@@ -197,7 +202,7 @@ const Page = () => {
 
               {/* Submit button */}
               <Button fullWidth size="large" sx={{ mt: 3 }} type="submit" variant="contained">
-                Continue
+                Fortsett
               </Button>
             </form>
           </div>
