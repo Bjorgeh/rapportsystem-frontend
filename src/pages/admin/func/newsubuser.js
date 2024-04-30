@@ -17,7 +17,6 @@ import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { useEffect, useState } from 'react';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
-
 //Her kan admin opprette under-brukere. Admin kan opprette to typer under-brukere: operatør og leder
 const Page = () => {
   const router = useRouter();
