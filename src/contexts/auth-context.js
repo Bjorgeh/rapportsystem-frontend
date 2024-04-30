@@ -54,7 +54,7 @@ const handlers = {
 const reducer = (state, action) =>
   handlers[action.type] ? handlers[action.type](state, action) : state;
 
- //Denne contexten er ansvarlig for å spre autentiseringsstatus gjennom app-treet.
+//Denne contexten er ansvarlig for å spre autentiseringsstatus gjennom app-treet.
 
 export const AuthContext = createContext({ undefined });
 

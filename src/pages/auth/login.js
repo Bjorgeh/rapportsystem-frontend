@@ -6,7 +6,6 @@ import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { useAuth } from 'src/hooks/use-auth';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 
-
 //Logginn siden -> dette er siden du lander på - For demo er den satt opp med ferdig utfylte brukerinfo.
 const Page = () => {
   const router = useRouter();

@@ -164,7 +164,7 @@ const Page = () => {
   }, [formik.values.selectedTable]);
 
   const handleCreateReport = (/*Rapportnavn*/) => {
-    router.push(`/reports/`); 
+    router.push(`/reports/`);
   };
 
   const handleReadReport = (reportName) => {

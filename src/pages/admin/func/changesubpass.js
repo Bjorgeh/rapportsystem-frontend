@@ -17,7 +17,6 @@ import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 import { useEffect, useState } from 'react';
 import { API_BASE_URL } from 'src/config/apiConnection';
 
-
 // Denne siden er ansvarlig for å endre passordet til en subbruker
 // Denne siden er kun tilgjengelig for adminbrukere
 // Denne siden er beskyttet av autentisering
@@ -69,7 +68,7 @@ const Page = () => {
 
     fetchSubUsers();
   }, []);
-//Her tar vi inn kredentier fra skjemaet og sender de til serveren for å endre passordet til subbrukeren
+  //Her tar vi inn kredentier fra skjemaet og sender de til serveren for å endre passordet til subbrukeren
   const formik = useFormik({
     initialValues: {
       email: '',

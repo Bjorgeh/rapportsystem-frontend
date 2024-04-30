@@ -14,7 +14,6 @@ export const AuthGuard = (props) => {
   // Denne flyten tillater at du manuelt omdisrigeres til brukeren etter at du har logget ut, ellers vil dette bli
   // utløst og vil automatisk omdirigere til påloggingssiden.
 
-
   useEffect(() => {
     if (!router.isReady) {
       return;
