@@ -57,7 +57,7 @@ const Page = () => {
       selectedTable: 'SmelteRapport',
       startDate: '2023-04-01',
       endDate: '2024-04-01',
-      reportCount: '100',
+      rapportCount: '100',
       selectedOptions: ['kg_returns', 'kg_carbon'],
     },
     onSubmit: async (values) => {
@@ -67,10 +67,10 @@ const Page = () => {
           table_name: values.selectedTable,
         };
         if (showInputs) {
-          requestBody.start_date = values.startDate;
-          requestBody.end_date = values.endDate;
+          requestBody.date_start = values.startDate;
+          requestBody.date_stop = values.endDate;
         } else {
-          requestBody.report_count = values.reportCount;
+          requestBody.rapport_count = values.rapportCount.toString();
         }
         const accessToken = window.sessionStorage.getItem('accessToken');
         const response = await fetch(`${API_BASE_URL}api/user/post/extractPreciseData`, {
@@ -307,11 +307,11 @@ const Page = () => {
                         {' '}
                         {/* Grid item for å plassere antall rapporter */}
                         <TextField
-                          id="reportCount"
-                          name="reportCount"
+                          id="rapportCount"
+                          name="rapportCount"
                           label="Antall rapporter"
                           type="number"
-                          value={formik.values.reportCount}
+                          value={formik.values.rapportCount}
                           onChange={formik.handleChange}
                         />
                       </Grid>
